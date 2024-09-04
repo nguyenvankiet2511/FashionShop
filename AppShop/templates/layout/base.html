@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cosmic Store</title>
+     <link rel="icon" type="image/png" href="static/images/icons/favicon.png"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Colo Shop Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/categories_styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/animate.css') }}">
+     <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main_styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/responsive.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+{% include 'layout/header.html' %}
+{% block content %}
+{% endblock %}
+{% include 'layout/footer.html' %}
+</body>
+<script>
+    function addToCart(productId) {
+        fetch(`http://127.0.0.1:5000/cart/add-default?product_id=${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to add to cart');
+            }
+        })
+        .then(data => {
+            // Thông báo khi thêm vào giỏ hàng thành công
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Hiển thị hộp thoại lỗi với tùy chọn đăng nhập
+            showErrorDialog('Bạn chưa đăng nhập! Đăng nhập ngay?');
+        });
+    }
+
+    function showErrorDialog(message) {
+        // Tạo phần tử div cho hộp thoại nếu chưa tồn tại
+        let dialog = document.getElementById('errorDialog');
+        if (!dialog) {
+            dialog = document.createElement('div');
+            dialog.id = 'errorDialog';
+            dialog.style.position = 'fixed';
+            dialog.style.top = '80px'; // Đặt vị trí trung tâm theo chiều dọc
+            dialog.style.left = '50%'; // Đặt vị trí trung tâm theo chiều ngang
+            dialog.style.transform = 'translate(-50%, -50%)'; // Điều chỉnh để trung tâm chính xác
+            dialog.style.width = '400px'; // Đặt chiều rộng của hộp thoại
+            dialog.style.padding = '20px';
+            dialog.style.borderRadius = '8px'; // Bo tròn các góc
+            dialog.style.border = '1px solid #ccc';
+            dialog.style.background = '#fff';
+            dialog.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+            dialog.style.zIndex = '1000';
+            dialog.style.display = 'none';
+            dialog.style.textAlign = 'center'; // Căn giữa văn bản
+            document.body.appendChild(dialog);
+        }
+
+        // Cập nhật nội dung hộp thoại
+        dialog.innerHTML = `
+            <p id="errorMessage" style="margin-bottom: 20px;">${message}</p>
+            <button onclick="redirectToLogin()" style="margin-right: 10px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Đăng nhập ngay</button>
+            <button onclick="closeDialog()" style="padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">Hủy</button>
+        `;
+
+        // Hiển thị hộp thoại
+        dialog.style.display = 'block';
+    }
+
+    function redirectToLogin() {
+        // Thay đổi URL đến trang đăng nhập
+        window.location.href = 'http://127.0.0.1:5000/login';
+    }
+
+    function closeDialog() {
+        const dialog = document.getElementById('errorDialog');
+        if (dialog) {
+            dialog.style.display = 'none';
+        }
+    }
+</script>
+
+
+
+<script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='css/bootstrap4/popper.js') }}"></script>
+<script src="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/Isotope/isotope.pkgd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/easing/easing.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/products.js') }}"></script>
+<script src="{{ url_for('static', filename='js/categories_custom.js') }}"></script>
+
+</html>

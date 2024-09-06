@@ -10,14 +10,16 @@ def show_login():
     return render_template('index.html')
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 @app.route("/categories")
 def view_categories():
     return render_template('categories.html')
 @app.route("/products")
 def view_detail_product():
     return render_template('detail-product.html')
-
+@app.route("/carts")
+def view_cart():
+    return render_template('carts.html')
 if __name__ == "__main__":
     from AppShop import admin
 

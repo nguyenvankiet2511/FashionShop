@@ -1,0 +1,466 @@
+.container-ppt {
+    position: relative;
+    /* Chiều cao của header */
+    background-color: #343a40;
+   
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.container-nabar {
+    position: relative; /* Đặt vị trí tương đối cho phần tử chứa */
+    height: 500px; /* Chiều cao của thanh điều hướng */
+   
+    z-index: 1; /* Đảm bảo phần tử này nằm dưới các phần tử khác */
+}
+
+.navbar-translate {
+    height: 100%; /* Đảm bảo chiều cao của navbar-translate bằng chiều cao của container-nabar */
+}
+
+
+.align-items-center {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px; /* Hoặc bất kỳ chiều cao bạn muốn */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.align-items-center::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Màu đen với độ trong suốt 50% */
+    z-index: 1; /* Đảm bảo lớp mờ nằm trên hình nền */
+}
+
+.align-items-center > * {
+    position: relative;
+    z-index: 2; /* Đảm bảo nội dung nằm trên lớp overlay */
+}
+
+.namenav {
+    text-align: center; /* Căn giữa văn bản */
+}
+
+.display-2 {
+    font-size: 3rem; /* Kích thước chữ tiêu đề có thể thay đổi tùy ý */
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+    border-radius: 0.25rem; /* Thêm bo góc cho nút */
+    padding: 0.5rem 1rem; /* Thêm padding cho nút */
+    text-decoration: none; /* Xóa gạch dưới nút */
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.mb-5 {
+    margin-bottom: 3rem; /* Bạn có thể thay đổi khoảng cách theo nhu cầu */
+}
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar-brand {
+    color: #ffffff; /* Màu chữ của thương hiệu */
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.navbar-toggler {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-toggler-icon {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: #ffffff; /* Màu của biểu tượng menu */
+    margin: 5px 0;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link i {
+    margin-right: 5px;
+}
+
+.dropdown-menu {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+    color: #333333;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* CSS cho phần Profile */
+.profile-row {
+    display: flex;
+    justify-content: space-between; /* Đảm bảo khoảng cách đều nhau giữa các phần tử con */
+    margin: 20px; /* Khoảng cách ngoài của phần tử */
+  
+    position: absolute; /* Đặt vị trí tuyệt đối để có thể nằm trên phần tử chứa */
+    top: 0; /* Đặt phần tử này ở đầu phần tử chứa */
+    left: 0; /* Đặt phần tử này bắt đầu từ bên trái phần tử chứa */
+    right: 0; /* Chiếm toàn bộ chiều rộng của phần tử chứa */
+    margin-top: 400px; /* Đặt phần tử xuống cách đầu phần tử chứa 400px */
+  
+    padding: 15px; /* Khoảng cách bên trong phần tử */
+    
+      
+    
+     /* Đổ bóng mềm mại với độ mờ nhẹ */
+    transition: box-shadow 0.3s ease-in-out; /* Hiệu ứng chuyển tiếp khi bóng đổ thay đổi */
+    z-index: 2; /* Đảm bảo phần tử nằm trên các phần tử khác khi cần */
+    /* Đặt màu nền cho phần tử để bóng đổ dễ nhìn thấy hơn */
+    border-radius: 8px; /* Thêm bo góc cho phần tử */
+}
+
+.profile-container {
+    flex: 2;
+}
+
+.personal-info {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.personal-info h2 {
+    margin-bottom: 20px;
+}
+
+.personal-info form {
+    display: flex;
+    flex-direction: column;
+}
+
+.personal-info label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.personal-info input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.personal-info button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.personal-info button:hover {
+    background-color: #0056b3;
+}
+
+/* CSS cho phần Profile Details */
+.profile-container .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile .avatar {
+    margin-bottom: 20px;
+}
+
+.profile .avatar img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.profile .name {
+    text-align: center;
+}
+
+.profile .name .title {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.profile .name h6 {
+    color: #6c757d;
+}
+
+.btn-just-icon {
+    margin: 0 5px;
+}
+
+.description {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar-translate {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-toggler {
+        margin-top: 10px;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-item {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile-row {
+        flex-direction: column;
+    }
+}
+
+.name{
+    padding-left: 60px;
+}
+
+
+
+
+
+/* Đặt kiểu cho hàng chứa profile và thông tin cá nhân */
+
+/* Đặt kiểu cho container thông tin cá nhân */
+.profile-container {
+    flex: 3; /* Chiếm 60% chiều rộng */
+    padding: 20px;
+    border-radius: 8px;
+   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    margin-right: 20px; /* Khoảng cách giữa hai phần tử */
+    background-color: #f8f9fa;
+}
+
+/* Đặt kiểu cho thông tin cá nhân */
+.personal-info {
+    text-align: left; /* Căn trái các phần tử */
+}
+
+.personal-info h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Kéo dài các phần tử để chiếm toàn bộ chiều rộng của form */
+}
+
+#profile-form label {
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+#profile-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#profile-form input[readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+#profile-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#profile-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Đặt kiểu cho phần hồ sơ */
+.container {
+    flex: 2; /* Chiếm 40% chiều rộng */
+    padding: 20px;
+    height: 400px;
+ 
+    border-radius: 8px;
+    
+    
+    /* Đổ bóng mềm mại với độ mờ nhẹ */
+   transition: box-shadow 0.3s ease-in-out;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    background-color: #f8f9fa;
+}
+
+/* Đặt kiểu cho hồ sơ */
+.profile {
+    text-align: center;
+}
+
+.avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #007bff;
+}
+
+.name h3 {
+    margin: 10px 0;
+    font-size: 24px;
+}
+
+.name h6 {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #666;
+}
+
+
+
+.description {
+    margin-top: 20px;
+}
+
+.description p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* Đặt kiểu cho các nút chứa biểu tượng */
+.btn-just-icon {
+    display: inline-flex; /* Sử dụng flexbox cho căn chỉnh biểu tượng */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    width: 40px; /* Chiều rộng cố định */
+    height: 40px; /* Chiều cao cố định */
+    border-radius: 50%; /* Làm cho nút có hình tròn */
+    background-color: #ffffff; /* Màu nền trắng cho nút */
+    color: #fff;
+    transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển đổi cho màu nền và hiệu ứng biến hình */
+    text-decoration: none; /* Loại bỏ gạch chân */
+   /* Màu chữ mặc định */
+}
+
+/* Thay đổi màu nền và hiệu ứng khi hover */
+.btn-just-icon:hover {
+    background-color: #007bff; /* Màu nền khi hover */
+    color: #ffffff; /* Màu chữ khi hover */
+    transform: scale(1.1); /* Phóng to nút khi hover */
+}
+
+/* Thay đổi màu nền cho từng biểu tượng cụ thể */
+.btn-facebook {
+    background-color: #3b5998; /* Màu nền cho Facebook */
+}
+
+.btn-google {
+    background-color: #db4437; /* Màu nền cho Google */
+}
+
+.btn-twitter {
+    background-color: #1da1f2; /* Màu nền cho Twitter */
+}
+
+/* Đặt kiểu cho biểu tượng */
+.btn-just-icon i {
+    font-size: 20px; /* Kích thước biểu tượng */
+    transition: color 0.3s; /* Hiệu ứng chuyển đổi cho màu chữ */
+}
+
+/* Thay đổi màu của biểu tượng khi hover */
+.btn-just-icon:hover i {
+    color: #ffffff; /* Màu của biểu tượng khi hover */
+}

@@ -8,7 +8,7 @@ from AppShop.admin import *
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    return render_template('employee-home.html')
 @app.route("/login")
 def show_login():
     return render_template("login.html")

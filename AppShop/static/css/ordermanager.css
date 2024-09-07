@@ -1,0 +1,441 @@
+/* Container styles */
+.container, .container-order1 {
+    padding: 20px;
+    background-color: #fff; /* Xanh dương nhạt, tạo cảm giác dễ chịu và thư thái */
+    
+
+    
+   
+    overflow-x: hidden; /* Ngăn thanh cuộn ngang */
+    width: 100%;
+    box-sizing: border-box; /* Bao gồm padding và border vào tổng chiều rộng */
+}
+
+
+.customer-with{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+/* Header styles */
+.customer-with h2 {
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: #333;
+    text-align: left; /* Căn trái cho tiêu đề */
+}
+
+
+.search-container-order {
+    margin-bottom: 15px;
+    font-size: 20;
+    font-weight: 500;
+    float: right; /* Đặt container tìm kiếm bên phải */
+}
+
+.search-container-order input[type="text"] {
+    width: 300px; /* Đặt chiều rộng ô tìm kiếm */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Table styles */
+.table-responsive {
+    margin-top: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+.table tbody td {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    border: 1px solid #dee2e6;
+}
+
+/* Button styles */
+.btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-right: 5px;
+    border-radius: 4px;
+    border: none;
+  
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.btn-xs {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* Checkbox styles */
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Button container styles */
+/* Căn chỉnh container chứa các nút */
+.button-container {
+    margin-right: 50px;
+    display: flex ; /* Hiển thị các phần tử con theo chiều ngang */
+    justify-content: flex-end; /* Căn phải các nút */
+    align-items: center; /* Căn giữa các nút theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa các nút */
+    margin-bottom: 15px; /* Khoảng cách dưới cùng */
+}
+
+/* Định kiểu cho nút "Delete Selected" và "Proceed" */
+.button-container button {
+    padding: 10px 20px; /* Padding nút */
+    border-radius: 4px; /* Bo góc nút */
+    font-size: 1rem; /* Kích thước font chữ */
+    cursor: pointer; /* Con trỏ khi di chuột qua nút */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Hiệu ứng khi di chuột */
+}
+
+/* Định kiểu riêng cho nút "Delete Selected" */
+.btn-1 {
+    background-color: #e3342f; /* Màu nền nút Delete */
+    border: 1px solid #e3342f; /* Viền nút Delete */
+}
+
+/* Định kiểu riêng cho nút "Proceed" */
+.btn-2 {
+    background-color: #f6993f; /* Màu nền nút Proceed */
+    border: 1px solid #f6993f; /* Viền nút Proceed */
+}
+
+/* Màu sắc cho nút khi di chuột */
+.btn-1:hover {
+    background-color: #dc3545; /* Màu nền khi di chuột qua nút Delete */
+    border-color: #dc3545; /* Màu viền khi di chuột qua nút Delete */
+}
+
+.btn-2:hover {
+    background-color: #ffc107; /* Màu nền khi di chuột qua nút Proceed */
+    border-color: #ffc107; /* Màu viền khi di chuột qua nút Proceed */
+}
+
+
+
+
+
+
+
+
+
+
+/* Modal Container */
+.modal {
+    display: none; /* Ẩn modal theo mặc định */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    position: fixed;
+    top: 20px; /* Khoảng cách từ trên cùng của màn hình */
+    left: 50%;
+    background-color: #fff;
+    transform: translateX(-50%) translateY(-100%); /* Bắt đầu ngoài màn hình ở trên */
+   /* Đảm bảo modal nằm trên các phần tử khác */
+}
+
+/* Hiển thị modal khi có class 'show' */
+.modal.show {
+    display: block;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* Trượt xuống từ trên */
+}
+
+/* Modal content styling */
+.modal-content {
+    width: 400px; /* Chiều rộng của modal */
+    
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling cho header của modal */
+.modal-header {
+    background-color: #007bff; /* Màu nền tiêu đề */
+    color: #fff;
+    padding: 5px 10px;
+    height: 90px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Styling cho body của modal */
+.modal-body {
+    padding: 15px;
+}
+
+/* Styling cho footer của modal */
+.modal-footer {
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+/* Styling cho các nút của modal */
+.modal-footer .btn {
+    margin-left: 5px;
+}
+
+
+/* Định kiểu cho form trong modal */
+#editForm {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Định kiểu cho nhóm trường */
+.form-group {
+    margin-bottom: 20px; /* Khoảng cách dưới nhóm trường */
+}
+
+/* Định kiểu cho nhãn trường */
+.form-group label {
+    font-weight: 600; /* Làm đậm nhãn trường */
+    margin-bottom: 8px; /* Khoảng cách dưới nhãn */
+    display: block; /* Đặt nhãn trên cùng */
+}
+
+/* Định kiểu cho trường input */
+.form-control {
+    width: 100%; /* Chiều rộng 100% */
+    padding: 10px; /* Padding trong trường input */
+    border: 1px solid #ccc; /* Đường viền nhạt */
+    border-radius: 4px; /* Bo góc */
+    font-size: 1rem; /* Kích thước font chữ */
+    box-sizing: border-box; /* Bao gồm padding và border trong chiều rộng */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển đổi màu viền và đổ bóng */
+}
+
+/* Hiệu ứng khi trường input được chọn */
+.form-control:focus {
+    border-color: #007bff; /* Màu viền khi chọn */
+    outline: none; /* Xóa outline mặc định */
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Hiệu ứng đổ bóng khi chọn */
+}
+
+/* Định kiểu cho nút trong form */
+.btn-primary {
+    background-color: #007bff; /* Màu nền nút */
+    border-color: #007bff; /* Màu viền nút */
+    color: #fff; /* Màu chữ nút */
+    padding: 10px 20px; /* Padding trong nút */
+    border-radius: 4px; /* Bo góc nút */
+    font-size: 1rem; /* Kích thước font chữ */
+    cursor: pointer; /* Con trỏ khi di chuột qua nút */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền và viền */
+}
+
+.btn-primary:hover {
+    cursor: pointer;
+    background-color: #0056b3; /* Màu nền khi di chuột qua */
+    border-color: #004085; /* Màu viền khi di chuột qua */
+}
+
+/* Định dạng chung cho các nút */
+button.btn-xs {
+    padding: 5px 10px; /* Padding nút nhỏ */
+    border-radius: 4px; /* Bo góc nút */
+    font-size: 17px; /* Kích thước font chữ chung */
+    display: flex; /* Sử dụng flexbox cho bố cục icon */
+    align-items: center; /* Căn giữa icon theo chiều dọc */
+    justify-content: center; /* Căn giữa icon theo chiều ngang */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Hiệu ứng khi di chuột */
+}
+
+/* Định dạng cho các biểu tượng font-awesome trong nút */
+button.btn-xs i {
+    font-size: 1rem; /* Kích thước font chữ của icon */
+    width: 1.25rem; /* Chiều rộng icon để căn giữa trong nút */
+    height: 1.25rem; /* Chiều cao icon để căn giữa trong nút */
+    display: inline-block; /* Đảm bảo icon là phần tử nội dòng khối */
+    line-height: 1.25rem; /* Đặt chiều cao dòng để căn giữa icon theo chiều dọc */
+}
+
+/* Hiệu ứng hover cho các nút */
+button.btn-xs:hover {
+    transform: scale(1.05); /* Phóng to nút nhẹ khi di chuột */
+}
+
+/* Định dạng cho nút chỉnh sửa (edit) */
+button.btn-primary {
+    background-color: #007bff; /* Màu nền cho nút */
+    border: none; /* Loại bỏ viền */
+    color: white; /* Màu chữ */
+}
+
+/* Hiệu ứng hover cho nút chỉnh sửa */
+button.btn-primary:hover {
+    cursor: pointer;
+    background-color: #0056b3; /* Màu nền khi di chuột qua nút */
+}
+
+/* Định dạng cho nút xóa (delete) */
+button.btn-danger {
+    background-color: #dc3545; /* Màu nền cho nút xóa */
+    border: none; /* Loại bỏ viền */
+    color: white; /* Màu chữ */
+}
+
+/* Hiệu ứng hover cho nút xóa */
+button.btn-danger:hover {
+    cursor: pointer;
+    background-color: #bd2130; /* Màu nền khi di chuột qua nút xóa */
+}
+
+/* Định dạng cho nút xác nhận (confirm) */
+button.btn-warning {
+    background-color: #ffc107; /* Màu nền cho nút xác nhận */
+    border: none; /* Loại bỏ viền */
+    color: black; /* Màu chữ */
+}
+
+/* Hiệu ứng hover cho nút xác nhận */
+button.btn-warning:hover {
+    cursor: pointer;
+    background-color: #e0a800; /* Màu nền khi di chuột qua nút xác nhận */
+}
+
+
+.order-overview {
+    text-align: center; /* Căn giữa nội dung */
+    padding: 40px 20px; /* Khoảng cách bên trong phần */
+    background: linear-gradient(135deg, #4caf50 0%, #81d4fa 100%);
+
+
+    border-radius: 8px; /* Bo góc phần tử */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+.container-h1 {
+    font-size: 36px; /* Kích thước chữ lớn */
+    font-weight: 700; /* Chữ đậm */
+    color: #181717; /* Màu chữ xanh đậm */
+    text-transform: uppercase; /* Chữ in hoa */
+    position: relative; /* Để sử dụng cho hiệu ứng pseudo-element */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    padding-bottom: 10px; /* Khoảng cách dưới chữ */
+    overflow: hidden; /* Ẩn các phần tử ngoài phạm vi */
+    transition: color 0.4s ease, transform 0.4s ease; /* Hiệu ứng chuyển màu và co giãn */
+}
+
+.container-h1::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 200%; /* Độ rộng của hiệu ứng trượt */
+    height: 5px; /* Độ cao của hiệu ứng trượt */
+    background-color: #000; /* Màu hiệu ứng trượt */
+    transition: transform 0.4s ease; /* Hiệu ứng chuyển động mượt mà */
+    transform: translateX(-50%) scaleX(0); /* Bắt đầu từ giữa và co lại */
+    z-index: 0; /* Đảm bảo hiệu ứng nằm dưới chữ */
+}
+
+.container-h1:hover {
+    color: #000; /* Màu chữ khi hover */
+    cursor: pointer;
+    transform: translateY(-5px); /* Hiệu ứng đẩy lên khi hover */
+}
+
+.container-h1:hover::before {
+    transform: translateX(-50%) scaleX(1); /* Mở rộng hiệu ứng trượt khi hover */
+}
+
+.description {
+    font-size: 18px; /* Kích thước chữ của mô tả */
+    color: #2f3333; /* Màu chữ mô tả */
+    margin-top: 0; /* Khoảng cách trên mô tả */
+    margin-bottom: 0; /* Khoảng cách dưới mô tả */
+    line-height: 1.6; /* Chiều cao dòng để dễ đọc */
+}
+
+.update-info-container h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+
+
+/* CSS cho Footer */
+.footer {
+    background-color: #000; /* Màu nền đen */
+    height: 100px;
+    width: 100%; /* Trừ đi chiều rộng sidebar */
+    color: #fff; /* Màu văn bản trắng */
+    padding: 50px 20px 0 20px; /* Khoảng cách nội dung bên trong footer */
+    margin-left: auto; /* Căn bên phải khi sidebar ở bên trái */
+    margin-right: 0; /* Căn lề phải của footer */
+    text-align: center; /* Canh giữa nội dung */
+    text-decoration: none;
+    transition: width 0.3s ease; /* Hiệu ứng chuyển đổi khi thay đổi chiều rộng */
+    position: relative; /* Đảm bảo footer nằm dưới sidebar */
+}
+
+/* Khi sidebar mở, footer sẽ chiếm toàn bộ chiều rộng */
+.sidebar.open ~ .footer {
+    width: 100%;
+    margin-left: 250px; /* Đẩy footer ra bên phải bằng chiều rộng của sidebar */
+}
+
+/* Các CSS khác không đổi */
+.footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Căn giữa các phần tử con */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 20px; /* Khoảng cách giữa các phần tử trong hàng */
+}
+
+.footer p {
+    margin: 5px 0; /* Khoảng cách trên dưới của đoạn văn */
+    font-size: 17px; /* Kích thước chữ */
+}
+
+.footer a {
+    color: #007bff; /* Màu liên kết */
+    text-decoration: none; /* Bỏ gạch chân mặc định của liên kết */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+}
+
+.footer a:hover {
+    text-decoration: underline; /* Gạch chân khi hover */
+    color: #0056b3; /* Màu liên kết khi hover */
+}
+
+

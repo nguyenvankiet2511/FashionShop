@@ -1,0 +1,213 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+h1, h2 {
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Updated Header Styles */
+.img-header {
+    position: relative;
+    width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+}
+
+.img-header img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+    height: auto; /* Giữ tỷ lệ ảnh */
+    display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+}
+
+
+
+
+/* Support Categories */
+.support-categories {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
+}
+
+.categories-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.category {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.category:hover {
+    transform: translateY(-10px);
+}
+
+.category img {
+    width: 60px;
+    margin-bottom: 15px;
+}
+
+/* FAQ Section */
+.faq-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.faq {
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.question {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.question:hover {
+    background-color: #f0f0f0;
+}
+
+.answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 15px;
+    background-color: #f9f9f9;
+}
+
+.answer p {
+    margin: 15px 0;
+}
+
+.arrow {
+    font-size: 25px;
+    transition: transform 0.3s ease;
+}
+
+/* Contact Form */
+.contact-form-section {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form input, .contact-form textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.contact-form button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+ /* Thanh cuộn hình ảnh */
+ .customer-carousel-container {
+    position: relative;
+    overflow: hidden; /* Ẩn thanh cuộn */
+    width: 70%; /* Chiều rộng container là 80% */
+    margin: 0 auto; /* Căn giữa container */
+}
+
+.customer-carousel {
+    display: flex;
+    gap: 20px; /* Khoảng cách giữa các thẻ khách hàng */
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    scroll-behavior: smooth; /* Cuộn mượt mà */
+    scroll-snap-type: x mandatory; /* Snap cuộn ngang */
+    -ms-overflow-style: none;  /* Ẩn thanh cuộn trên IE và Edge */
+    scrollbar-width: none;  /* Ẩn thanh cuộn trên Firefox */
+}
+
+.customer-carousel::-webkit-scrollbar {
+    display: none; /* Ẩn thanh cuộn trên Chrome, Safari và Opera */
+}
+
+.customer-item {
+    min-width: 200px; /* Đặt chiều rộng tối thiểu cho mỗi thẻ khách hàng */
+    flex: 0 0 auto; /* Ngăn các thẻ co lại hoặc mở rộng */
+    scroll-snap-align: start; /* Căn chỉnh bắt đầu cuộn với mỗi thẻ */
+    text-align: center; /* Canh giữa nội dung */
+    background-color: #f4f4f4; /* Màu nền cho thẻ khách hàng */
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.customer-item img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng thẻ */
+    border-radius: 50%; /* Tạo hiệu ứng hình tròn cho ảnh */
+    margin-bottom: 10px; /* Khoảng cách dưới ảnh */
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}
+
+
+
+
+
+

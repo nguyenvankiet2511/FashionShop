@@ -29,7 +29,7 @@
                     <div class="tab-content" id="pills-tabContent">
                         <!-- Login Form -->
                         <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
-                            <form id="loginForm" >
+                            <form id="loginForm" action="{{ url_for('user_login')}}" method="post">
                                 <div class="form-group">
                                     <label for="loginUsername">Username</label>
                                     <input type="text" class="form-control" id="loginUsername" name="username" placeholder="Enter username">
@@ -54,7 +54,7 @@
                         </div>
                         <!-- Register Form -->
                         <div class="tab-pane fade" id="pills-register" role="tabpanel">
-                            <form id="registerForm"  >
+                            <form id="registerForm"  method="post" action="{{ url_for('user_register')}}">
                                 <div class="form-group">
                                     <label for="registerUsername">Full name</label>
                                     <input type="text" class="form-control" id="registerName" name="name" placeholder="Enter full name">

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+
+
+    <link rel="stylesheet" href="css/ordertracking.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Order Tracking</h1>
+        </header>
+
+        <section class="order-info">
+            <h2>Order Information</h2>
+            <div class="order-details" id="update-progress">
+                <p>Order ID: <span id="order-id">#12345</span></p>
+                <p>Order Date: <input type="date" id="order-date" value="2024-09-01" /></p>
+                <p>Status: <span id="order-status">Processing</span></p>
+                <p>Shipping Address: <span id="shipping-address">Cầu Khánh Hội, Quận 4, TP.HCM</span></p>
+                <p>Payment Method: <span id="payment-method">Credit Card</span></p>
+                <p>Recipient: <span id="recipient-name">Nguyễn Văn A</span></p>
+                <p>Contact Number: <span id="contact-number">0123-456-789</span></p>
+                <p>Total Amount: <span id="total-amount">1,500,000 VND</span></p>
+
+                    <a href="ordermanager.html" id="update-button" class="button-success">Cập nhật thành công</a>
+
+            </div>
+        </section>
+
+        <section class="order-tracking">
+            <h2>Tracking Details</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-days="0" data-time="10:00 AM">
+                    <div class="timeline-icon"></div>
+                    <div class="timeline-content">
+                        <h3>Order Received</h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-days="1" data-time="02:00 PM">
+                    <div class="timeline-icon"></div>
+                    <div class="timeline-content">
+                        <h3>Preparing Order</h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-days="2" data-time="09:00 AM">
+                    <div class="timeline-icon"></div>
+                    <div class="timeline-content">
+                        <h3>Delivered to Your Address</h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <div class="map-one">
+            <h2>Tracking Map</h2>
+            <section class="map">
+                <div id="map"></div>
+            </section>
+            <button id="update-map">Update Map</button>
+        </div>
+
+        <section class="notifications">
+            <h2>Notifications</h2>
+            <ul id="notifications">
+                <li class="notification-item">
+                    <div class="notification-icon">&#9733;</div>
+                    <div class="notification-content">
+                        <h3>Your order is on its way</h3>
+                        <p>Please check the delivery address and be ready to receive your order.</p>
+                    </div>
+                </li>
+                <li class="notification-item">
+                    <div class="notification-icon">&#128197;</div>
+                    <div class="notification-content">
+                        <h3>Get ready to receive your order</h3>
+                        <p>The delivery personnel will contact you soon.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+
+    </div>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="js/ordertracking.js"></script>
+</body>
+</html>

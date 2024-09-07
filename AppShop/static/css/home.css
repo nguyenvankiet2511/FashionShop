@@ -1,0 +1,298 @@
+.slider_container {
+    width: 100%;
+    overflow: hidden; /* Ẩn phần trượt ra ngoài */
+    position: relative;
+  }
+  
+  .main_slider {
+    height: 650px; /* Chiều cao của slider */
+  }
+  
+  .slide {
+    width: 100%; /* Mỗi ảnh chiếm 100% chiều rộng của container */
+    height: 650px; /* Chiều cao của ảnh */
+    background-size: cover; /* Đặt kích thước nền ảnh để bao phủ toàn bộ */
+    background-position: center; /* Canh giữa ảnh */
+  }
+  
+  /* Đặt vị trí của nội dung slider */
+  .slider_content {
+    position: absolute;
+    top: 50%;
+    left: 0; /* Căn lề bên trái */
+    transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+    text-align: left; /* Căn chỉnh nội dung về bên trái */
+    width: 100%; /* Chiều rộng 100% để đảm bảo nội dung không vượt ra ngoài */
+    padding: 20px; /* Khoảng cách giữa nội dung và mép bên trái */
+    box-sizing: border-box; /* Đảm bảo padding không làm rộng thêm phần tử */
+    z-index: 1; /* Đặt nội dung lên trên các ảnh */
+  }
+  
+  .main_slider_content {
+    border-radius: 8px;
+    max-width: 600px; /* Giới hạn chiều rộng nội dung */
+    margin-left: 0; /* Đặt lề trái bằng 0 để nằm ở góc bên trái */
+    margin-right: auto; /* Căn giữa nội dung nếu có thêm không gian bên phải */
+    margin-top: 20px; /* Thêm khoảng cách phía trên nếu cần */
+    margin-bottom: 20px; /* Thêm khoảng cách phía dưới nếu cần */
+}
+
+.main_slider_content h6 {
+    font-size: 20px;
+    color: #777;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.main_slider_content h1 {
+    font-size: 45px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.red_button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff3333;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.red_button a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.red_button:hover {
+    background-color: #cc0000;
+}
+
+  
+
+
+
+/*********************************
+10. container-1
+*********************************/
+/* General section styling */
+.container-1 {
+    background-color: #fff; /* Light background color for the section */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Centering and aligning the row */
+.row {
+    display: flex; /* Use flexbox for horizontal alignment */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+    justify-content: center; /* Center items horizontally */
+    gap: 1.5rem; /* Space between items */
+   
+}
+
+
+/* Styling for the category items */
+.col-md-4 {
+    text-align: center; /* Center align text and images */
+    flex: 1 1 30%; /* Flex basis for responsive layout, adjust as needed */
+    max-width: 300px; /* Limit maximum width of each item */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+    margin: 1rem 1rem 5rem 1rem; /* Margin around each item */
+}
+.col-lg-12 {
+    text-align: center; /* Căn giữa văn bản */
+    margin: 0 auto;     /* Căn giữa phần tử nội dung */
+}
+
+/* Styling for images */
+.col-md-4 img {
+    max-width: 100%; /* Ensure images scale with container width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Circular images */
+    border: 3px solid #dee2e6; /* Light border around images */
+    transition: transform 0.3s ease, border-color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Add animation effect on hover */
+.col-md-4:hover {
+    transform: scale(1.05); /* Slightly zoom in */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+.col-md-4:hover img {
+    transform: scale(1.1); /* Slightly zoom in the image */
+    border-color: #28a745; /* Change border color on hover */
+}
+
+.col-md-4 h2 {
+    font-family: 'Roboto', sans-serif; /* Font for subheadings */
+    color: #212529; /* Dark text color for subheadings */
+    font-weight: 600; /* Slightly bold text */
+    transition: color 0.3s ease; /* Smooth transition for text color */
+}
+
+.col-md-4:hover h2 {
+    color: #28a745; /* Change text color on hover */
+}
+
+/* Styling for buttons */
+.col-md-4 .btn-success {
+    background-color: #28a745; /* Màu nền nút */
+    border-color: #28a745; /* Màu viền nút */
+    color: #fff; /* Màu chữ */
+    font-size: 1rem; /* Kích thước chữ */
+    padding: 10px 20px; /* Khoảng cách bên trong nút */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển tiếp mượt mà */
+}
+
+/* Change color and add effects on hover */
+.col-md-4 .btn-success:hover {
+    background-color: #dc3545; /* Màu nền đỏ nhẹ khi hover */
+    border-color: #c82333; /* Màu viền đỏ nhẹ khi hover */
+    color: #fff; /* Màu chữ khi hover */
+    cursor: pointer;
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container-1 .h1 {
+        font-size: 2rem; /* Adjust heading size for smaller screens */
+    }
+    .container-1 p {
+        font-size: 1rem; /* Adjust paragraph size for smaller screens */
+    }
+}
+
+
+  
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 0;
+  font-size: 17px;
+  height: 267px;
+}
+
+.footer h5 {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.footer p, .footer a {
+  color: #ccc;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.footer a:hover {
+  color: #fe4c50; /* Màu khi hover */
+  text-decoration: none;
+}
+
+.footer .social-links a {
+  display: inline-block;
+  margin-right: 10px;
+  color: #fff;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.footer .social-links a:hover {
+  color: #fe4c50; /* Màu khi hover */
+}
+
+
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links li a:hover {
+  color: #fe4c50;
+}
+.container-2{
+  width: 80%; /* Chiều rộng của khối */
+  margin: 0 auto; /* Căn giữa theo chiều ngang */
+ 
+  
+  padding: 20px; /* Thêm padding để tạo khoảng trống bên trong khối */
+}
+/* Căn chỉnh khoảng cách ngang giữa các cột */
+
+
+.footer .row {
+  justify-content: space-between; /* Căn đều khoảng cách giữa các cột */
+  gap: 20px; /* Tăng khoảng cách ngang giữa các cột */
+}
+
+.footer .col-lg-4, .footer .col-md-6, .footer .col-md-12 {
+  flex: 1; /* Đảm bảo các cột chiếm khoảng trống đều nhau */
+  padding: 0 15px; /* Thêm khoảng cách ngang giữa các cột */
+}
+.footer-bottom {
+ /* Màu nền của phần footer */
+  padding-top: 15px;
+  border-top: 1px solid #444; /* Đường viền trên cùng */
+  display: flex; /* Sử dụng Flexbox */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  flex-direction: row; /* Sắp xếp theo hàng ngang */
+}
+
+.footer__copyright__text {
+  color: #ccc; /* Màu chữ của nội dung */
+  font-size: 14px; /* Kích thước chữ */
+  display: flex; /* Sử dụng Flexbox cho nội dung bên trong */
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+  gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+.footer__copyright__text p {
+  margin: 0; /* Loại bỏ khoảng cách mặc định */
+  line-height: 1.6; /* Chiều cao dòng để tạo khoảng cách giữa các dòng */
+  display: flex; /* Sử dụng Flexbox để các phần tử trong đoạn chữ nằm ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  gap: 5px; /* Khoảng cách giữa các phần tử trong đoạn chữ */
+}
+
+.footer__copyright__text a {
+  color: #fe4c50; /* Màu của link */
+  text-decoration: none; /* Loại bỏ gạch chân của link */
+  font-weight: bold; /* In đậm chữ cho link */
+}
+
+.footer__copyright__text a:hover {
+  color: #ff6b6b; /* Màu của link khi hover */
+}
+
+.footer__copyright__text i {
+  color: #fe4c50; /* Màu của icon trái tim */
+  transition: color 0.3s; /* Hiệu ứng chuyển màu khi hover */
+}
+
+.footer__copyright__text i:hover {
+  color: #ff6b6b; /* Màu của icon khi hover */
+}

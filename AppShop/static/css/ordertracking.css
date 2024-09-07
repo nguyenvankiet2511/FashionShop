@@ -1,0 +1,295 @@
+/* Reset margin và padding cho mọi phần tử */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cấu hình cơ bản của body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-decoration: none !important;
+}
+
+/* Phần container chính */
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+ 
+   
+}
+
+/* Phần header */
+.header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+}
+
+.order-tracking {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+.timeline {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 20px 0;
+    border-left: 2px solid #ddd;
+}
+
+.timeline-item:nth-child(odd) {
+    border-left-color: #3498db;
+}
+
+.timeline-item:last-child {
+    border-left: none;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -15px;
+    width: 30px;
+    height: 30px;
+    background: #3498db;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    top: 0;
+}
+
+.timeline-content {
+    padding-left: 50px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateX(10px);
+    cursor: pointer;
+}
+
+.timeline-content h3 {
+    margin: 0;
+    color: #3498db;
+}
+
+.timeline-content p {
+    margin: 5px 0 0;
+    color: #555;
+}
+/* Phần thông tin đơn hàng, chi tiết theo dõi */
+.order-info, .order-tracking, .map, .notifications {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+}
+
+.order-info, .order-tracking {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fafafa;
+}
+
+.order-info:hover, .order-tracking:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Phần bản đồ */
+.map {
+    height: 500px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+
+
+/* Style cho bản đồ */
+#map {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.order-info {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    border-radius: 8px;
+}
+
+.order-info h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+.order-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.order-info span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Thêm style cho các trường cụ thể */
+.order-info #shipping-address, 
+.order-info #payment-method, 
+.order-info #recipient-name, 
+.order-info #contact-number, 
+.order-info #total-amount {
+    display: block;
+    margin-top: 5px;
+}
+.order-info input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.order-info button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.order-info button:hover {
+    background-color: #45a049;
+}
+#update-map {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #4CAF50; /* Màu nền xanh lá cây */
+    border: none;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#update-map:hover {
+    background-color: #45a049; /* Màu nền khi hover */
+}
+
+#update-map:active {
+    transform: scale(0.98); /* Hiệu ứng nhấn nút */
+}
+
+#update-map:focus {
+    outline: none; /* Loại bỏ đường viền khi focus */
+}
+.map-one h2{
+    margin-bottom: 20px;
+}
+
+
+.notifications {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.notifications h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+#notifications {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.notification-item:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.notification-icon {
+    font-size: 30px;
+    color: #007BFF;
+    margin-right: 15px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.notification-content h3 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.notification-content p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+
+.button-success {
+    background-color: #28a745; /* Màu nền của nút */
+    color: #fff; /* Màu chữ */
+    border: none; /* Không có đường viền */
+    padding: 10px 20px; /* Khoảng cách xung quanh chữ */
+    font-size: 16px; /* Kích thước chữ */
+    cursor: pointer; /* Con trỏ chuột khi di chuột lên nút */
+    border-radius: 5px; /* Bo tròn góc */
+    text-decoration: none; /* Bỏ dấu gạch chân */
+    display: inline-block; /* Đảm bảo thẻ a hoạt động như một nút */
+    transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+.button-success:hover {
+    background-color: #218838; /* Màu nền khi di chuột lên */
+    transform: scale(1.05); /* Phóng to nút khi di chuột lên */
+}

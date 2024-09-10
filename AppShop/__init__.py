@@ -9,7 +9,7 @@ app=Flask(__name__)
 app.config["SECRET_KEY"]="hsfjrgfjwnfgwejkfnjwegnwj"
 app.secret_key="sacfasfgwgwgwgwgwegehehehehru5hrt"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:%s@localhost/CreateApi?charset=utf8mb4" % quote(
-    "123456")
+    "Admin@123")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app=app)
 admin = Admin(app=app, name='Quản Trị NWA', template_mode='bootstrap4')

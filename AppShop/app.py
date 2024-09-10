@@ -51,6 +51,53 @@ def user_login():
     else:
         return render_template('login.html')
 
+
+
+#Cart------------------------------------------->
+@app.route("/cart", methods=["GET"])
+def view_cart():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        countCart = dao.get_count_cart(user_id)
+        listProducts= dao.get_products_to_cart(user_id)
+        return render_template('carts.html',user=user,countCart=countCart, listProducts=listProducts)
+    else:
+        return redirect(url_for('show_login'))
+
+
+@app.route("/cart/remove", methods=['DELETE'])
+def remove_cart():
+    cart_id = request.args.get('cart_id')
+    success = dao.remove_product_to_cart(cart_id)
+    if success:
+        return jsonify({"message": "Sản phẩm đã được xóa khỏi giỏ hàng"}), 200
+    else:
+        return jsonify({"message": "Có lỗi xảy ra khi xóa sản phẩm"}), 500
+
+@app.route("/cart/add-default", methods=['POST','GET'])
+def add_cart_default():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        product_id = request.args.get('product_id')
+        dao.add_to_cart(user_id, product_id, 1)
+        return jsonify({"message": "Sản phẩm đã được thêm vào giỏ hàng"})
+    else:
+        return redirect(url_for('show_login'))
+@app.route("/cart/add", methods=['POST','GET'])
+def add_cart():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        product_id = request.args.get('product_id')
+        quantity = request.args.get('quantity')
+        dao.add_to_cart(user_id, product_id, quantity)
+        return jsonify({'message': 'Sản phẩm đã được thêm vào giỏ hàng thành công!'})
+    else:
+        return jsonify({'error': 'not_authenticated'}), 401
+
+@app.route("/checkout-order", methods=['GET','POST'])
+def payment_order():
+    pass
 @app.route("/logout")
 def user_logout():
     logout_user()
@@ -106,9 +153,7 @@ def view_product_detail():
     category = dao.get_category(category_id)
     productsNeight= dao.get_products_by_category(category_id,8)
     return render_template('detail-product.html',user=user,countCart=countCart,product=product,category=category, productsNeight=productsNeight)
-@app.route("/carts")
-def view_cart():
-    return render_template('carts.html')
+
 if __name__ == "__main__":
     from AppShop import admin
 

@@ -5,9 +5,23 @@ from flask import render_template, session, flash, jsonify, redirect, request, u
 from flask_login import login_user, current_user, logout_user
 from AppShop.admin import *
 
-
 @app.route("/")
 def home():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        countCart= dao.get_count_cart(user_id)
+    else:
+        user = None
+        countCart=None
+    category_id = request.args.get('category_id')
+    allCategories = dao.get_all_categories()
+    allProducts = dao.get_products_by_category(category_id=category_id, limit=16)
+    productsSeller = dao.get_products_bestSeller(12)
+    return render_template('index.html', user=user,countCart=countCart, products=allProducts, categories=allCategories,
+                           productsSeller=productsSeller)
+@app.route("/employee")
+def employee_home():
     return render_template('employee-home.html')
 @app.route("/login")
 def show_login():
@@ -60,12 +74,38 @@ def user_forgot():
     forgorEmail= request.form.get('forgotEmail')
     return redirect(url_for('show_login'))
 
-@app.route("/categories")
+
+@app.route("/categories", methods=["GET"])
 def view_categories():
-    return render_template('categories.html')
-@app.route("/products")
-def view_detail_product():
-    return render_template('detail-product.html')
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        countCart = dao.get_count_cart(user_id)
+    else:
+        user = None
+        countCart = None
+    category_id = request.args.get('category_id')
+    category= dao.get_category(category_id)
+    allCategories = dao.get_all_categories()
+    allProducts = dao.get_product_by_caterory_all(category_id)
+    return render_template('categories.html', user=user, countCart=countCart,products=allProducts,category=category, categories=allCategories,current_category_id=category_id)
+
+#Product--------------------------------------->
+@app.route("/products", methods=["GET"])
+def view_product_detail():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        countCart = dao.get_count_cart(user_id)
+    else:
+        user=None
+        countCart = None
+    product_id = request.args.get('product_id')
+    product= dao.get_product(product_id)
+    category_id= product.category_id
+    category = dao.get_category(category_id)
+    productsNeight= dao.get_products_by_category(category_id,8)
+    return render_template('detail-product.html',user=user,countCart=countCart,product=product,category=category, productsNeight=productsNeight)
 @app.route("/carts")
 def view_cart():
     return render_template('carts.html')

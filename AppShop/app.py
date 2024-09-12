@@ -18,7 +18,7 @@ def home():
     allCategories = dao.get_all_categories()
     allProducts = dao.get_products_by_category(category_id=category_id, limit=16)
     productsSeller = dao.get_products_bestSeller(12)
-    return render_template('index.html', user=user,countCart=countCart, products=allProducts, categories=allCategories,
+    return render_template('payment.html', user=user,countCart=countCart, products=allProducts, categories=allCategories,
                            productsSeller=productsSeller)
 @app.route("/employee")
 def employee_home():

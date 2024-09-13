@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cosmic Store</title>
-    <link rel="icon" type="image/png" href="static/images/icons/favicon.png"/>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Colo Shop Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Colo Shop Template">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css"
           href="{{ url_for('static', filename='plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}">
@@ -16,18 +18,22 @@
           href="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
     <link rel="stylesheet" type="text/css"
           href="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/animate.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/themify-icons/themify-icons.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/carts.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/blog.css') }}">
+
 </head>
 
 <body>
 
 <div class="super_container">
 
-    <!-- Header -->
+	<!-- Header -->
 
-    <header class="header trans_300">
+	 <header class="header trans_300">
 
         <!-- Top Navigation -->
 
@@ -144,9 +150,9 @@
                                 {% endif %}
 
                                 <li class="checkout">
-                                    <a href="cart.html">
+                                    <a href="{{url_for('view_cart')}}">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        {% if countCart %}
+                                      {% if countCart %}
                                     <span id="checkout_items" class="checkout_items">{{countCart}}</span>
                                     {% endif %}
                                     </a>
@@ -223,167 +229,236 @@
         </div>
     </div>
 
+		<div class="bloger-one" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ url_for('static', filename='images/about-us.jpg') }}') center/cover no-repeat fixed;">
+			<div class = "banner">
+			<div class = "container">
+				<h1 class="Bloger-h1"> Blog</h1>
+			  <h1 class = "banner-title">
+				<span>Cosmic Store</span>
+			  </h1>
+			  <p>Traditional in-store shopping where customers physically visit stores to browse and purchase items.</p>
+			  <form>
+				<input type = "text" class = "search-input" placeholder="find your food . . .">
+				<button type = "submit" class = "search-btn">
+				  <i class = "fas fa-search"></i>
+				</button>
+			  </form>
+			</div>
+		  </div>
+		</div>
 
-    <div class="shopping-cart">
-        <h2>Shopping Cart</h2>
-        <div class="shopping-cart-1">
-            <div class="column-labels">
-                <label class="product-image">Image</label>
-                <label class="product-details">Product</label>
-                <label class="product-price">Price</label>
-                <label class="product-quantity">Quantity</label>
-                <label class="product-removal">Remove</label>
-                <label class="product-line-price">Total</label>
+		<!-- design -->
+		<section class = "design" id = "design">
+		  <div class = "container">
+			<div class = "title">
+			  <h2>Recent Fashion & Design</h2>
+			  <p>Recent Fashion & Design on the Blog</p>
+			</div>
+
+			<div class = "design-content">
+			  <!-- item -->
+			  <div class = "design-item">
+				<div class = "design-img">
+				  <img src = "{{ url_for('static', filename='images/blog-9.jpg') }}" alt = "">
+				  <span><i class = "far fa-heart"></i> 25</span>
+				  <span>Art & Design</span>
+				</div>
+				<div class = "design-title">
+				  <a href = "#">Discover the latest trends in men's fashion and elevate your style with our curated collection.</a>
+				</div>
+			  </div>
+			  <!-- end of item -->
+			  <!-- item -->
+			  <div class = "design-item">
+				<div class = "design-img">
+				  <img src = "{{ url_for('static', filename='images/blog-8.jpg') }}" alt = "">
+				  <span><i class = "far fa-heart"></i> 16</span>
+				  <span>Art & Design</span>
+				</div>
+				<div class = "design-title">
+				  <a href = "#">Unlock your true potential with stylish and versatile men's wear designed for every occasion.</a>
+				</div>
+			  </div>
+			  <!-- end of item -->
+			  <!-- item -->
+			  <div class = "design-item">
+				<div class = "design-img">
+				  <img src = "{{ url_for('static', filename='images/blog-6.jpg') }}" alt = "">
+				  <span><i class = "far fa-heart"></i> 22</span>
+				  <span>Art & Design</span>
+				</div>
+				<div class = "design-title">
+				  <a href = "#">Explore our premium selection of men's fashion essentials, perfect for modern gentlemen.</a>
+				</div>
+			  </div>
+			  <!-- end of item -->
+			  <!-- item -->
+			  <div class = "design-item">
+				<div class = "design-img">
+				  <img src = "{{ url_for('static', filename='images/blog-3.jpg') }}" alt = "">
+				  <span><i class = "far fa-heart"></i> 12</span>
+				  <span>Art & Design</span>
+				</div>
+				<div class = "design-title">
+				  <a href = "#">Stay ahead of the curve with our exclusive range of men's fashion that blends comfort and style.</a>
+				</div>
+			  </div>
+			  <!-- end of item -->
+			  <!-- item -->
+			  <div class = "design-item">
+				<div class = "design-img">
+				  <img src = "{{ url_for('static', filename='images/banner_2.jpg') }}" alt = "">
+				  <span><i class = "far fa-heart"></i> 9</span>
+				  <span>Art & Design</span>
+				</div>
+				<div class = "design-title">
+				  <a href = "#">Transform your wardrobe with our contemporary men's fashion pieces, crafted for the confident man.</a>
+				</div>
+			  </div>
+			  <!-- end of item -->
+			  <!-- item -->
+			  <div class = "design-item">
+				<div class = "design-img">
+				  <img src = "{{ url_for('static', filename='images/blog-2.jpg') }}" alt = "">
+				  <span><i class = "far fa-heart"></i> 39</span>
+				  <span>Art & Design</span>
+				</div>
+				<div class = "design-title">
+				  <a href = "#">Find the perfect balance of sophistication and comfort with our men's fashion collection.</a>
+				</div>
+			  </div>
+			  <!-- end of item -->
+			</div>
+		  </div>
+		</section>
+		<!-- end of design -->
+
+
+
+
+		<!-- about -->
+		<section class = "about" id = "about">
+		  <div class = "container">
+			<div class = "about-content">
+			  <div class="about-img">
+				<img src = "{{ url_for('static', filename='images/blog-6.jpg') }}" alt = "">
+			  </div>
+			  <div class = "about-text">
+				<div class = "title">
+				  <h2>Cosmic Store</h2>
+				  <p>art & design is my passion</p>
+				</div>
+				<p>
+					At Cosmic, "Art & Design is My Passion", we believe that every fashion item is not just a product but also a work of art. We are passionate about creating and designing, bringing you outfits that are not only beautiful but also express your personality and style.
+				</p>
+				<p>
+					We offer a rich collection of clothing products, from modern designs to classic styles. Each product is meticulously cared for, with high-quality materials and unique designs, to bring you the ultimate comfort and style.
+				</p>
+
+
+			  </div>
+			</div>
+		  </div>
+		</section>
+    </div>
+		<!-- end of about -->
+
+
+
+
+
+
+
+
+
+
+	<!-- Newsletter -->
+
+	<div class="newsletter">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+						<h4>Newsletter</h4>
+						<p>Subscribe to our newsletter and get 20% off your first purchase</p>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<form action="post">
+						<div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+							<input id="newsletter_email" type="email" placeholder="Your email" required="required" data-error="Valid email is required.">
+							<button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">subscribe</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+
+                    <p>We prioritize creating a personalized shopping experience for every customer, ensuring that every
+                        visit feels unique and special.</p>
+                    <i>Address :<a href="index.html">shoppingnow@gmail.com</a></i>
+
+                    <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
+                                     alt="Payment Methods"></a>
+                </div>
             </div>
-            {% for product in listProducts %}
-            <div class="product">
-                <div class="product-image">
-                    <img src="{{url_for('static', filename='images/'+product.product_images)}}">
-                </div>
-                <div class="product-details">
-                    <div class="product-title">{{product.product_name}}</div>
-                    <p class="product-description">{{product.product_description}}</p>
-                </div>
-                <div class="product-price">
-                    {{product.product_price-product.product_price*product.product_discount/100}}
-                </div>
-                <div class="product-quantity">
-                    <input type="number" value="{{product.quantity}}" min="1">
-                </div>
-                <div class="product-removal">
-                    <button onclick="removeToCart({{product.cart_id}},this)" class="remove-product">
-                        Remove
-                    </button>
-                </div>
-                <div class="product-line-price">
-                    {{(product.product_price-product.product_price*product.product_discount/100)*product.quantity}}
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Clothing Store</a></li>
+                        <li><a href="#">Trending Shoes</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
                 </div>
             </div>
-            {% endfor %}
-            <div class="totals">
-                <div class="totals-item">
-                    <label>Subtotal :</label>
-                    <div class="totals-value" id="cart-subtotal">71.97</div>
-                </div>
-                <div class="totals-item">
-                    <label>Tax (5%) :</label>
-                    <div class="totals-value" id="cart-tax">3.60</div>
-                </div>
-                <div class="totals-item">
-                    <label>Shipping :</label>
-                    <div class="totals-value" id="cart-shipping">15.00</div>
-                </div>
-                <div class="totals-item totals-item-total">
-                    <label>Grand Total :</label>
-                    <div class="totals-value" id="cart-total">90.57</div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Customer Service</h6>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">Delivery</a></li>
+                        <li><a href="#">Return & Exchanges</a></li>
+                    </ul>
                 </div>
             </div>
+            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Newsletter</h6>
+                    <div class="footer__newslatter">
+                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
 
-            <button class="checkout-1">
-                <h5>
-                    Checkout
-                </h5>
-
-            </button>
-
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer__copyright__text">
+                    <p>Welcome to our shopping page
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index.html" target="_blank">Cosmic
+                            Store</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
+</footer>
 
-
-    <!-- Newsletter -->
-
-    <div class="newsletter">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
-                        <h4>Newsletter</h4>
-                        <p>Subscribe to our newsletter and get 20% off your first purchase</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <form action="post">
-                        <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
-                            <input id="newsletter_email" type="email" placeholder="Your email" required="required"
-                                   data-error="Valid email is required.">
-                            <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300"
-                                    value="Submit">subscribe
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
-
-                        <p>We prioritize creating a personalized shopping experience for every customer, ensuring that
-                            every visit feels unique and special.</p>
-                        <i>Address :<a href="index.html">shoppingnow@gmail.com</a></i>
-
-                        <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
-                                         alt="Payment Methods"></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Shopping</h6>
-                        <ul>
-                            <li><a href="#">Clothing Store</a></li>
-                            <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Customer Service</h6>
-                        <ul>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Delivery</a></li>
-                            <li><a href="#">Return & Exchanges</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Newsletter</h6>
-                        <div class="footer__newslatter">
-                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="footer__copyright__text">
-                        <p>Welcome to our shopping page
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index.html" target="_blank">Cosmic
-                                Store</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
-
-
-</div>
 
 <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='css/bootstrap4/popper.js') }}"></script>
@@ -391,7 +466,8 @@
 <script src="{{ url_for('static', filename='plugins/Isotope/isotope.pkgd.min.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/easing/easing.js') }}"></script>
-<script src="{{ url_for('static', filename='js/carts.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/blog.js') }}"></script>
 </body>
 
 </html>

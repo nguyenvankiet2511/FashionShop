@@ -18,8 +18,8 @@ class LogoutView(BaseView):
 class StatusView(BaseView):
     @expose("/")
     def index(self):
-        logout_user()
-        return redirect(url_for('show_login'))
+        return self.render('admin/status.html')
+
 
 # View để quản lý Products
 class ProductsView(ModelView):

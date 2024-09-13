@@ -118,8 +118,8 @@
                                 <li><a href="{{url_for('view_categories')}}">shop</a></li>
                                 <li><a href="#">promotion</a></li>
                                 <li><a href="#">pages</a></li>
-                                <li><a href="#">blog</a></li>
-                                <li><a href="#">contact</a></li>
+                                <li><a href="{{url_for('view_blog')}}">blog</a></li>
+                                <li><a href="{{url_for('view_contact')}}">contact</a></li>
                             </ul>
                             <ul class="navbar_user">
                                 <li class="search-container">
@@ -148,7 +148,7 @@
                                 {% endif %}
 
                                 <li class="checkout">
-                                    <a href="#">
+                                    <a href="{{url_for('view_cart')}}">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         {% if countCart %}
                                     <span id="checkout_items" class="checkout_items">{{countCart}}</span>
@@ -221,8 +221,8 @@
                 <li class="menu_item"><a href="{{url_for('view_categories')}}">shop</a></li>
                 <li class="menu_item"><a href="#">promotion</a></li>
                 <li class="menu_item"><a href="#">pages</a></li>
-                <li class="menu_item"><a href="#">blog</a></li>
-                <li class="menu_item"><a href="#">contact</a></li>
+                <li class="menu_item"><a href="{{url_for('view_blog')}}">blog</a></li>
+                <li class="menu_item"><a href="{{url_for('view_contact')}}">contact</a></li>
             </ul>
         </div>
     </div>

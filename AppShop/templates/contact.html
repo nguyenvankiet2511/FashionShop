@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Colo Shop Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css"
           href="{{ url_for('static', filename='plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}">
@@ -16,9 +17,12 @@
           href="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
     <link rel="stylesheet" type="text/css"
           href="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/animate.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/themify-icons/themify-icons.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/carts.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/contact_styles.css') }}">
 </head>
 
 <body>
@@ -144,9 +148,9 @@
                                 {% endif %}
 
                                 <li class="checkout">
-                                    <a href="cart.html">
+                                    <a href="{{url_for('view_cart')}}">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        {% if countCart %}
+                                      {% if countCart %}
                                     <span id="checkout_items" class="checkout_items">{{countCart}}</span>
                                     {% endif %}
                                     </a>
@@ -223,68 +227,167 @@
         </div>
     </div>
 
+    <div class="container contact_container">
+        <div class="row">
+            <div class="col">
 
-    <div class="shopping-cart">
-        <h2>Shopping Cart</h2>
-        <div class="shopping-cart-1">
-            <div class="column-labels">
-                <label class="product-image">Image</label>
-                <label class="product-details">Product</label>
-                <label class="product-price">Price</label>
-                <label class="product-quantity">Quantity</label>
-                <label class="product-removal">Remove</label>
-                <label class="product-line-price">Total</label>
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-            {% for product in listProducts %}
-            <div class="product">
-                <div class="product-image">
-                    <img src="{{url_for('static', filename='images/'+product.product_images)}}">
-                </div>
-                <div class="product-details">
-                    <div class="product-title">{{product.product_name}}</div>
-                    <p class="product-description">{{product.product_description}}</p>
-                </div>
-                <div class="product-price">
-                    {{product.product_price-product.product_price*product.product_discount/100}}
-                </div>
-                <div class="product-quantity">
-                    <input type="number" value="{{product.quantity}}" min="1">
-                </div>
-                <div class="product-removal">
-                    <button onclick="removeToCart({{product.cart_id}},this)" class="remove-product">
-                        Remove
-                    </button>
-                </div>
-                <div class="product-line-price">
-                    {{(product.product_price-product.product_price*product.product_discount/100)*product.quantity}}
+        </div>
+
+        <!-- Map Container -->
+        <div class="row">
+            <div class="col">
+                <div id="google_map">
+                    <div class="map_container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3054.4452313824972!2d-82.44450752551299!3d40.04316397829356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x883817cb37360f77%3A0x7f01f274efd7a320!2sComic%20Shop%20Plus!5e0!3m2!1svi!2s!4v1723968554186!5m2!1svi!2s"
+                                width="1110" height="510" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
                 </div>
             </div>
-            {% endfor %}
-            <div class="totals">
-                <div class="totals-item">
-                    <label>Subtotal :</label>
-                    <div class="totals-value" id="cart-subtotal">71.97</div>
+        </div>
+
+        <!-- dánh giá -->
+        <div class="row">
+            <div class="col-lg-12 reviews_col">
+                <div class="tab_title reviews_title">
+                    <h4>Các bài đánh giá (2)</h4>
                 </div>
-                <div class="totals-item">
-                    <label>Tax (5%) :</label>
-                    <div class="totals-value" id="cart-tax">3.60</div>
+
+                <div class="user_review_container d-flex flex-column flex-sm-row">
+                    <!-- Đánh giá 1 -->
+                    <div class="user">
+                        <div class="user_pic">
+                            <!-- Thay thế với hình ảnh người dùng -->
+                            <img src="images/product_2.png" alt="User Picture"/>
+                        </div>
+                        <div class="user_rating">
+                            <ul class="star_rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="review">
+                        <div class="review_date">27 Aug 2016</div>
+                        <div class="user_name">Quang Trường</div>
+                        <p>Tốt</p>
+                    </div>
                 </div>
-                <div class="totals-item">
-                    <label>Shipping :</label>
-                    <div class="totals-value" id="cart-shipping">15.00</div>
+
+                <!-- Đánh giá 2 (thêm vào đây) -->
+                <div class="user_review_container d-flex flex-column flex-sm-row">
+                    <div class="user">
+                        <div class="user_pic">
+                            <!-- Thay thế với hình ảnh người dùng -->
+                            <img src="/images/product_1.png" alt="User Picture"/>
+                        </div>
+                        <div class="user_rating">
+                            <ul class="star_rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star-half-o" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="review">
+                        <div class="review_date">10 Jul 2023</div>
+                        <div class="user_name">Mai Lan</div>
+                        <p>Rất hài lòng</p>
+                    </div>
                 </div>
-                <div class="totals-item totals-item-total">
-                    <label>Grand Total :</label>
-                    <div class="totals-value" id="cart-total">90.57</div>
+            </div>
+        </div>
+
+
+        <!-- Contact Us -->
+
+        <div class="row">
+
+            <div class="col-lg-6 contact_col">
+                <div class="contact_contents">
+                    <h1>Contact Us</h1>
+                    <p>There are many ways to contact us. You may drop us a line, give us a call or send an email,
+                        choose what suits you the most.</p>
+                    <div>
+                        <p>(800) 686-6688</p>
+                        <p>info.deercreative@gmail.com</p>
+                    </div>
+                    <div>
+                        <p>mm</p>
+                    </div>
+                    <div>
+                        <p>Open hours: 8.00-18.00 Mon-Fri</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+
+                <!-- Follow Us -->
+
+                <div class="follow_us_contents">
+                    <h1>Follow Us</h1>
+                    <ul class="social d-flex flex-row">
+                        <li><a href="#" style="background-color: #3a61c9"><i class="fa fa-facebook"
+                                                                             aria-hidden="true"></i></a></li>
+                        <li><a href="#" style="background-color: #41a1f6"><i class="fa fa-twitter"
+                                                                             aria-hidden="true"></i></a></li>
+                        <li><a href="#" style="background-color: #fb4343"><i class="fa fa-google-plus"
+                                                                             aria-hidden="true"></i></a></li>
+                        <li><a href="#" style="background-color: #8f6247"><i class="fa fa-instagram"
+                                                                             aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6 get_in_touch_col">
+                <div class="get_in_touch_contents">
+                    <h1>Get In Touch With Us!</h1>
+                    <p>Fill out the form below to receive a free and confidential feedback.</p>
+                    <form id="feedback_form" action="post">
+                        <div>
+                            <input id="input_name" class="form_input input_name input_ph" type="text" name="name"
+                                   placeholder="Name" required="required" data-error="Name is required.">
+                            <input id="input_email" class="form_input input_email input_ph" type="email" name="email"
+                                   placeholder="Email" required="required" data-error="Valid email is required.">
+                            <textarea id="input_message" class="input_ph input_message" name="message"
+                                      placeholder="Message" rows="3" required
+                                      data-error="Please, write us a message."></textarea>
+                        </div>
+                        <div class="user_rating">
+                            <div class="star_rating">
+                                <span data-rating="1" class="fa fa-star"></span>
+                                <span data-rating="2" class="fa fa-star"></span>
+                                <span data-rating="3" class="fa fa-star"></span>
+                                <span data-rating="4" class="fa fa-star"></span>
+                                <span data-rating="5" class="fa fa-star"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="review_submit" type="submit" class="red_button message_submit_btn trans_300"
+                                    value="Submit">Send Message
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
-            <button class="checkout-1">
-                <h5>
-                    Checkout
-                </h5>
-
-            </button>
 
         </div>
     </div>
@@ -315,83 +418,77 @@
             </div>
         </div>
     </div>
+</div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
 
-    <!-- Footer -->
+                    <p>We prioritize creating a personalized shopping experience for every customer, ensuring that every
+                        visit feels unique and special.</p>
+                    <i>Address :<a href="index.html">shoppingnow@gmail.com</a></i>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
-
-                        <p>We prioritize creating a personalized shopping experience for every customer, ensuring that
-                            every visit feels unique and special.</p>
-                        <i>Address :<a href="index.html">shoppingnow@gmail.com</a></i>
-
-                        <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
-                                         alt="Payment Methods"></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Shopping</h6>
-                        <ul>
-                            <li><a href="#">Clothing Store</a></li>
-                            <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Customer Service</h6>
-                        <ul>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Delivery</a></li>
-                            <li><a href="#">Return & Exchanges</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Newsletter</h6>
-                        <div class="footer__newslatter">
-                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
-
-                        </div>
-                    </div>
+                    <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
+                                     alt="Payment Methods"></a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="footer__copyright__text">
-                        <p>Welcome to our shopping page
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index.html" target="_blank">Cosmic
-                                Store</a>
-                        </p>
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Clothing Store</a></li>
+                        <li><a href="#">Trending Shoes</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Customer Service</h6>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">Delivery</a></li>
+                        <li><a href="#">Return & Exchanges</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Newsletter</h6>
+                    <div class="footer__newslatter">
+                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-    <!-- Footer Section End -->
-
-
-</div>
-
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer__copyright__text">
+                    <p>Welcome to our shopping page
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index.html" target="_blank">Cosmic
+                            Store</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='css/bootstrap4/popper.js') }}"></script>
 <script src="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/Isotope/isotope.pkgd.min.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/easing/easing.js') }}"></script>
-<script src="{{ url_for('static', filename='js/carts.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/contact_custom.js') }}"></script>
 </body>
 
 </html>

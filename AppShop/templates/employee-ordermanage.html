@@ -2,427 +2,247 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="css/navbarpage.css">
-	<link rel="stylesheet" href="css/ordermanager.css">
-	<title>Cosmic Store</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbarpage.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ordermanager.css') }}">
+    <title>Cosmic Store</title>
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.png"/>
 
 </head>
 
 <body>
-	<div class="wrapper-container">
-        <nav id="sidebar">
-            <div class="sidebar-content">
-				<a class="sidebar-brand" href="home.html">
-                    <span>SALE AGENT</span>
-                </a>
-                <ul class="sidebar-nav">
-                    <li class="sidebar-header">Pages</li>
-                    <li class="sidebar-item active">
-                        <a class="sidebar-link" href="home.html">
-                            <i class="fa-solid fa-house"></i> <span>Home</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="profile.html">
-                            <i class="fa-solid fa-user"></i> <span>Profile</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="customercare.html">
-                            <i class="fa-solid fa-headset"></i> <span>Customer Care</span>
-                        </a>
-                    </li>
+<div class="wrapper-container">
+    <nav id="sidebar">
+        <div class="sidebar-content">
+            <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
+                <span>SALE AGENT</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">Pages</li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="{{url_for('view_home_employee')}}">
+                        <i class="fa-solid fa-house"></i> <span>Home</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_employee_profile')}}">
+                        <i class="fa-solid fa-user"></i> <span>Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_customercare')}}">
+                        <i class="fa-solid fa-headset"></i> <span>Customer Care</span>
+                    </a>
+                </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
-                            <i class="fa-solid fa-user-plus"></i> <span>Order Details</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
-                            <i class="fa-solid fa-sign-in-alt"></i> <span>Log Out</span>
-                        </a>
-                    </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
+                        <i class="fa-solid fa-user-plus"></i> <span>Order Details</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Payments</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('user_logout')}}">
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Log Out</span>
+                    </a>
+                </li>
 
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <nav class="navbar">
+            <button class="sidebar-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="navbar-content">
+                <div class="search-container">
+                    <button class="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon" href="#" id="alertsDropdown">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="indicator">4</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon" href="#" id="messagesDropdown">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link profile-toggle" href="#">
+                            <img src="img/avatar-4.jpg" alt="Charles Hall" class="avatar">
+                            <span>Jesse</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="profile.html">Profile</a>
+                            <a class="dropdown-item" href="#">Analytics</a>
+                            <a class="dropdown-item" href="index.html">Settings & Privacy</a>
+                            <a class="dropdown-item" href="#">Help Center</a>
+                            <a class="dropdown-item" href="#">Log out</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
-        <div class="main">
-			<nav class="navbar">
-				<button class="sidebar-toggle">
-					<i class="fa-solid fa-bars"></i>
-				</button>
-				<div class="navbar-content">
-					<div class="search-container">
-						<button class="search-btn">
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</button>
-						<input type="text" class="search-input" placeholder="Search...">
-					</div>
-					<ul class="navbar-nav">
-						<li class="nav-item dropdown">
-							<a class="nav-icon" href="#" id="alertsDropdown">
-								<i class="fa-solid fa-bell"></i>
-								<span class="indicator">4</span>
-							</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon" href="#" id="messagesDropdown">
-								<i class="fa-solid fa-envelope"></i>
-							</a>
-						</li>
-						<li class="nav-item dropdown">
 
-							<a class="nav-link profile-toggle" href="#">
-								<img src="img/avatar-4.jpg" alt="Charles Hall" class="avatar">
-								<span>Jesse</span>
-							</a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="profile.html">Profile</a>
-								<a class="dropdown-item" href="#">Analytics</a>
-								<a class="dropdown-item" href="index.html">Settings & Privacy</a>
-								<a class="dropdown-item" href="#">Help Center</a>
-								<a class="dropdown-item" href="#">Log out</a>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</nav>
-
-				<div class="container">
-					<section class="order-overview">
-						<h1 class="container-h1">Order Overview</h1>
-						<p class="description">Here you can find a summary of all your recent orders and their status.</p>
-					</section>
+        <div class="container">
+            <section class="order-overview">
+                <h1 class="container-h1">Order Overview</h1>
+                <p class="description">Here you can find a summary of all your recent orders and their status.</p>
+            </section>
 
 
+            <div class="row">
+                <div class="col-md-12 customer-with">
+                    <h2>Order Management </h2>
+                    <div class="search-container-order">
 
-					<div class="row">
-						<div class="col-md-12 customer-with">
-							<h2>Order Management </h2>
-							<div class="search-container-order">
-
-								<input type="text" id="searchInput1" class="form-control" placeholder="Search..." onkeyup="searchTable('mytable1')">
-							</div>
-							<div class="table-responsive">
-								<table id="mytable1" class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th><input type="checkbox" id="checkall1" /></th>
-											<th>OrderID</th>
-											<th>Customer</th>
-											<th>Employee</th>
-											<th>Address</th>
-											<th>Shipper</th>
-											<th>Payment Methods</th>
-											<th>Total Amount</th>
-											<th>Order Date</th>
-											<th>Edit</th>
-											<th>Delete</th>
-											<th>Proceed</th>
-										</tr>
-									</thead>
-									<tbody class="table-tbody">
-										<!-- Sample order list -->
-										<tr data-id="1">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>1</td>
-											<td>Nguyễn Văn A</td>
-											<td>Trần Thị B</td>
-											<td>123 Đường A, Hà Nội, Việt Nam</td>
-											<td>VNPost</td>
-											<td>Thẻ Tín Dụng</td>
-											<td>5,000,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="1">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="1">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="1">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-
-										<tr data-id="2">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>2</td>
-											<td>Lê Thị C</td>
-											<td>Nguyễn Văn D</td>
-											<td>456 Đường B, TP.HCM, Việt Nam</td>
-											<td>Giao Hàng Nhanh</td>
-											<td>Thanh Toán Khi Nhận Hàng</td>
-											<td>3,200,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="2">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="2">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="2">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-										<tr data-id="2">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>2</td>
-											<td>Lê Thị C</td>
-											<td>Nguyễn Văn D</td>
-											<td>456 Đường B, TP.HCM, Việt Nam</td>
-											<td>Giao Hàng Nhanh</td>
-											<td>Thanh Toán Khi Nhận Hàng</td>
-											<td>3,200,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="2">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="2">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="2">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-										<tr data-id="2">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>2</td>
-											<td>Lê Thị C</td>
-											<td>Nguyễn Văn D</td>
-											<td>456 Đường B, TP.HCM, Việt Nam</td>
-											<td>Giao Hàng Nhanh</td>
-											<td>Thanh Toán Khi Nhận Hàng</td>
-											<td>3,200,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="2">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="2">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="2">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-										<tr data-id="2">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>2</td>
-											<td>Lê Thị C</td>
-											<td>Nguyễn Văn D</td>
-											<td>456 Đường B, TP.HCM, Việt Nam</td>
-											<td>Giao Hàng Nhanh</td>
-											<td>Thanh Toán Khi Nhận Hàng</td>
-											<td>3,200,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="2">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="2">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="2">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-										<tr data-id="2">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>2</td>
-											<td>Lê Thị C</td>
-											<td>Nguyễn Văn D</td>
-											<td>456 Đường B, TP.HCM, Việt Nam</td>
-											<td>Giao Hàng Nhanh</td>
-											<td>Thanh Toán Khi Nhận Hàng</td>
-											<td>3,200,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="2">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="2">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="2">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-										<tr data-id="2">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>2</td>
-											<td>Lê Thị C</td>
-											<td>Nguyễn Văn D</td>
-											<td>456 Đường B, TP.HCM, Việt Nam</td>
-											<td>Giao Hàng Nhanh</td>
-											<td>Thanh Toán Khi Nhận Hàng</td>
-											<td>3,200,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="2">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="2">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="2">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-										<tr data-id="2">
-											<td><input type="checkbox" class="checkthis" /></td>
-											<td>2</td>
-											<td>Lê Thị C</td>
-											<td>Nguyễn Văn D</td>
-											<td>456 Đường B, TP.HCM, Việt Nam</td>
-											<td>Giao Hàng Nhanh</td>
-											<td>Thanh Toán Khi Nhận Hàng</td>
-											<td>3,200,000 VND</td>
-											<td>28-08-2024</td>
-											<td>
-												<button class="btn btn-primary btn-xs edit-btn" data-id="2">
-													<i class="fa fa-pencil-alt"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-danger btn-xs delete-btn" data-id="2">
-													<i class="fa fa-trash"></i>
-												</button>
-											</td>
-											<td>
-												<button class="btn btn-warning btn-xs confirm-btn" data-id="2">
-													<i class="fa fa-check"></i>
-												</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-
-					</div>
+                        <input type="text" id="searchInput1" class="form-control" placeholder="Search..."
+                               onkeyup="searchTable('mytable1')">
+                    </div>
+                    <div class="table-responsive">
+                        <table id="mytable1" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="checkall1"/></th>
+                                <th>OrderID</th>
+                                <th>Customer</th>
+                                <th>Address</th>
+                                <th>Shipper</th>
+                                <th>Payment Methods</th>
+                                <th>Total Amount</th>
+                                <th>Order Date</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                                <th>Proceed</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-tbody">
+                            <!-- Sample order list -->
+                            {% for order in orders %}
+                            <tr data-id="{{order.id}}">
+                                <td><input type="checkbox" class="checkthis"/></td>
+                                <td>{{order.id}}</td>
+                                <td>{{order.user_name}}</td>
+                                <td>{{order.shipper_name}}</td>
+                                <td>{{order.billing_address}}</td>
+                                <td>{{order.paymentMethods}}</td>
+                                <td>{{order.totalAmount}}</td>
+                                <td>{{order.orderDate}}</td>
+                                <td>
+                                    <a href="{{url_for('view_order_tracking', order_id=order.id)}}">
+                                        <button class="btn btn-primary btn-xs edit-btn" data-id="1">
+                                            <i class="fa fa-pencil-alt"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs delete-btn" data-id="1">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning btn-xs confirm-btn" data-id="1">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
 
 
-				</div>
-				<div class="button-container">
-					<button id="deleteSelected1" class="btn-1 btn-danger mb-3">Delete Selected</button>
-					<button id="confirmSelected1" class="btn-2 btn-warning mb-3">Proceed</button>
-				</div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-
-				<div class="container-order1">
-					<div class="row">
-						<div class="col-md-12 customer-with">
-							<h2>Confirmed Orders</h2>
-							<div class="search-container-order">
-								<input type="text" id="searchInput2" class="form-control" placeholder="Search..." onkeyup="searchTable('mytable2')">
-							</div>
-							<div class="table-responsive">
-								<table id="mytable2" class="table table-bordered table-striped">
-									<thead>
-										<tr>
-											<th>OrderID</th>
-											<th>Customer</th>
-											<th>Employee</th>
-											<th>Address</th>
-											<th>Shipper</th>
-											<th>Payment Methods</th>
-											<th>Total Amount</th>
-											<th>Order Date</th>
-										</tr>
-									</thead>
-									<tbody class="table-tbody">
-										<!-- Confirmed orders will be appended here -->
-										<tr data-id="3">
-											<td>3</td>
-											<td>Phạm Văn E</td>
-											<td>Đỗ Thị F</td>
-											<td>789 Đường C, Đà Nẵng, Việt Nam</td>
-											<td>Viettel Post</td>
-											<td>Chuyển Khoản Ngân Hàng</td>
-											<td>4,100,000 VND</td>
-											<td>28-08-2024</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-
-
-
-
-				</div>
-				<footer class="footer">
-					<div class="container-footer">
-						<div class="row">
-							<div class="col-md-12 text-center">
-								<p>DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables,  <a href="home.html" target="_blank">DataTables documentation</a>.</p>
-								<p> Cosmic Store  2024 - Developed and built</p>
-							</div>
-						</div>
-					</div>
-				</footer>
-
-
-
-
-
-
-
+            </div>
 
 
         </div>
+        <div class="button-container">
+            <button id="deleteSelected1" class="btn-1 btn-danger mb-3">Delete Selected</button>
+            <button id="confirmSelected1" class="btn-2 btn-warning mb-3">Proceed</button>
+        </div>
+
+
+        <div class="container-order1">
+            <div class="row">
+                <div class="col-md-12 customer-with">
+                    <h2>Confirmed Orders</h2>
+                    <div class="search-container-order">
+                        <input type="text" id="searchInput2" class="form-control" placeholder="Search..."
+                               onkeyup="searchTable('mytable2')">
+                    </div>
+                    <div class="table-responsive">
+                        <table id="mytable2" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>OrderID</th>
+                                <th>Customer</th>
+                                <th>Employee</th>
+                                <th>Address</th>
+                                <th>Shipper</th>
+                                <th>Payment Methods</th>
+                                <th>Total Amount</th>
+                                <th>Order Date</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-tbody">
+                            <!-- Confirmed orders will be appended here -->
+                            <tr data-id="3">
+                                <td>3</td>
+                                <td>Phạm Văn E</td>
+                                <td>Đỗ Thị F</td>
+                                <td>789 Đường C, Đà Nẵng, Việt Nam</td>
+                                <td>Viettel Post</td>
+                                <td>Chuyển Khoản Ngân Hàng</td>
+                                <td>4,100,000 VND</td>
+                                <td>28-08-2024</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
+    <footer class="footer">
+        <div class="container-footer">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>DataTables is a third party plugin that is used to generate the demo table below. For more
+                        information about DataTables, <a href="home.html" target="_blank">DataTables documentation</a>.
+                    </p>
+                    <p> Cosmic Store 2024 - Developed and built</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
-	<!-- Modal Delete -->
+</div>
+</div>
+
+
+<!-- Modal Delete -->
 <div id="deleteModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -465,18 +285,18 @@
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Edit Entry</h5>
-            <button type="button" class="close" aria-label="Close"   onclick="closeModal('editModal')">
+            <button type="button" class="close" aria-label="Close" onclick="closeModal('editModal')">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             <form id="editForm">
-               <h4> Would you like to update your information?</h4>
+                <h4> Would you like to update your information?</h4>
                 <!-- Additional fields as needed -->
                 <input type="hidden" id="editId">
-				<a href="ordertracking.html">
-					<button type="button" class="btn btn-primary">Change</button>
-				</a>
+                <a href="ordertracking.html">
+                    <button type="button" class="btn btn-primary">Change</button>
+                </a>
 
 
             </form>
@@ -484,11 +304,12 @@
     </div>
 </div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="js/nabarpage.js"></script>
-	<script src="js/ordermanager.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ordermanager.js') }}"></script>
+
 </body>
 
 </html>

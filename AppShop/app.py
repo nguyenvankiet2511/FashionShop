@@ -154,6 +154,105 @@ def view_product_detail():
     productsNeight= dao.get_products_by_category(category_id,8)
     return render_template('detail-product.html',user=user,countCart=countCart,product=product,category=category, productsNeight=productsNeight)
 
+@app.route("/products/<category_id>", methods=['GET'])
+def view_products_by_category(category_id):
+    if category_id:
+        products = Products.query.filter(Products.category_id == category_id).limit(8).all()
+    else:
+        products = Products.query.limit(12).all()
+
+    return render_template('products_list.html', products=products)
+# @app.route("/carts")
+# def view_cart():
+#     return render_template('carts.html')
+
+@app.route("/cart", methods=["GET"])
+def view_cart():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        countCart = dao.get_count_cart(user_id)
+        listProducts= dao.get_products_to_cart(user_id)
+        return render_template('carts.html',user=user,countCart=countCart, listProducts=listProducts)
+    else:
+        return redirect(url_for('show_login'))
+
+
+@app.route("/cart/remove", methods=['DELETE'])
+def remove_cart():
+    cart_id = request.args.get('cart_id')
+    success = dao.remove_product_to_cart(cart_id)
+    if success:
+        return jsonify({"message": "Sản phẩm đã được xóa khỏi giỏ hàng"}), 200
+    else:
+        return jsonify({"message": "Có lỗi xảy ra khi xóa sản phẩm"}), 500
+
+@app.route("/cart/add-default", methods=['POST','GET'])
+def add_cart_default():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        product_id = request.args.get('product_id')
+        dao.add_to_cart(user_id, product_id, 1)
+        return jsonify({"message": "Sản phẩm đã được thêm vào giỏ hàng"})
+    else:
+        return redirect(url_for('show_login'))
+@app.route("/cart/add", methods=['POST','GET'])
+def add_cart():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        product_id = request.args.get('product_id')
+        quantity = request.args.get('quantity')
+        dao.add_to_cart(user_id, product_id, quantity)
+        return jsonify({'message': 'Sản phẩm đã được thêm vào giỏ hàng thành công!'})
+    else:
+        return jsonify({'error': 'not_authenticated'}), 401
+@app.route("/user/account/profile", methods=['GET','POST'])
+def view_profile():
+    pass
+@app.route("/contact", methods=['GET','POST'])
+def view_contact():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        countCart = dao.get_count_cart(user_id)
+    else:
+        user = None
+        countCart = None
+    return render_template('contact.html', countCart=countCart, user=user)
+@app.route("/blog", methods=['GET'])
+def view_blog():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        countCart = dao.get_count_cart(user_id)
+    else:
+        user = None
+        countCart = None
+    return render_template('blog.html', countCart=countCart, user=user)
+@app.route("/employee", methods=['GET'])
+def view_home_employee():
+    return render_template("employee-home.html")
+
+@app.route("/employee/profile", methods=['GET'])
+def view_employee_profile():
+   return render_template("employee-profile.html")
+@app.route("/employee/help-customer",methods=['GET'])
+def view_customercare():
+    return render_template("customer-care.html")
+@app.route("/employee/order-manager", methods=['GET'])
+def view_order_manager():
+    listOrders= dao.get_all_orders()
+    return render_template("employee-ordermanage.html",orders=listOrders)
+@app.route("/employye/order-tracking", methods=['GET','POST'])
+def view_order_tracking():
+    order_id = request.args.get('order_id')
+    order = dao.get_orders_by_id(order_id)
+    return render_template("employee-ordertracking.html", order=order)
+@app.route("/employee/payments", methods=['GET'])
+def view_payment():
+    return render_template("payment.html")
+
+
 if __name__ == "__main__":
     from AppShop import admin
 

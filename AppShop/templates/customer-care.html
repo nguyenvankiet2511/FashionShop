@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+	<title>Cosmic Store</title>
+    <link rel="icon" type="image/png" href="static/images/icons/favicon.png"/>
+	  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbarpage.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/customercare.css') }}">
+
+</head>
+
+<body>
+	<div class="wrapper-container">
+         <nav id="sidebar">
+        <div class="sidebar-content">
+            <a class="sidebar-brand" href="home.html">
+                <span>SALE AGENT</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">Pages</li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="home.html">
+                        <i class="fa-solid fa-house"></i> <span>Home</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_employee_profile')}}">
+                        <i class="fa-solid fa-user"></i> <span>Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_customercare')}}">
+                        <i class="fa-solid fa-headset"></i> <span>Customer Care</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
+                        <i class="fa-solid fa-user-plus"></i> <span>Order Details</span>
+                    </a>
+                </li>
+				<li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Payments</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('user_logout')}}">
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Log Out</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+        <div class="main">
+			<nav class="navbar">
+				<button class="sidebar-toggle">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<div class="navbar-content">
+					<div class="search-container">
+						<button class="search-btn">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+						<input type="text" class="search-input" placeholder="Search...">
+					</div>
+					<ul class="navbar-nav">
+						<li class="nav-item dropdown">
+							<a class="nav-icon" href="#" id="alertsDropdown">
+								<i class="fa-solid fa-bell"></i>
+								<span class="indicator">4</span>
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-icon" href="#" id="messagesDropdown">
+								<i class="fa-solid fa-envelope"></i>
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+
+							<a class="nav-link profile-toggle" href="#">
+								<img src="img/avatar-4.jpg" alt="Charles Hall" class="avatar">
+								<span>Jesse</span>
+							</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="profile.html">Profile</a>
+								<a class="dropdown-item" href="#">Analytics</a>
+								<a class="dropdown-item" href="index.html">Settings & Privacy</a>
+								<a class="dropdown-item" href="#">Help Center</a>
+								<a class="dropdown-item" href="#">Log out</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+				<!-- Header -->
+
+
+
+				<header>
+					<div class="img-header">
+						<img src="img/customercare.jpg" alt="customercare">
+
+					</div>
+				</header>
+
+
+				<!-- Support Categories Section -->
+				<section class="support-categories">
+					<h2>How Can We Help You?</h2>
+					<div class="categories-container">
+						<div class="category">
+							<img src="img/avatar-2.jpg" alt="FAQ Icon">
+							<h3>FAQs</h3>
+							<p>Find answers to commonly asked questions.</p>
+						</div>
+						<div class="category">
+							<img src="img/avatar-3.jpg" alt="Technical Support Icon">
+							<h3>Technical Support</h3>
+							<p>Get help with technical issues or troubleshooting.</p>
+						</div>
+						<div class="category">
+							<img src="img/avatar-4.jpg" alt="Billing Icon">
+							<h3>Billing</h3>
+							<p>Questions about billing, invoices, or payments.</p>
+						</div>
+					</div>
+				</section>
+
+				<!-- FAQ Section -->
+				<section class="faq-section">
+					<h2>Frequently Asked Questions</h2>
+					<div class="faq">
+						<div class="question" onclick="toggleAnswer(0)">
+							<h3>1. How can I contact you?</h3>
+							<div class="arrow">&#9660;</div>
+						</div>
+						<div class="answer">
+							<p>You can contact us via email at support@example.com or call us at +123 456 789. Our team is available 24/7.</p>
+						</div>
+					</div>
+
+					<div class="faq">
+						<div class="question" onclick="toggleAnswer(1)">
+							<h3>2. What are your customer support hours?</h3>
+							<div class="arrow">&#9660;</div>
+						</div>
+						<div class="answer">
+							<p>Our customer support is available 24/7 to assist you with any inquiries.</p>
+						</div>
+					</div>
+
+					<div class="faq">
+						<div class="question" onclick="toggleAnswer(2)">
+							<h3>3. Do you offer a money-back guarantee?</h3>
+							<div class="arrow">&#9660;</div>
+						</div>
+						<div class="answer">
+							<p>Yes, we offer a 30-day money-back guarantee on all our products and services.</p>
+						</div>
+					</div>
+				</section>
+
+
+				<div class="customer-carousel-container">
+					<button class="carousel-button prev-button">&#10094;</button>
+					<div class="customer-carousel">
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 1</p>
+						</div>
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 2</p>
+						</div>
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 3</p>
+						</div>
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 3</p>
+						</div>
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 3</p>
+						</div>
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 3</p>
+						</div>
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 3</p>
+						</div>
+						<div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 3</p>
+						</div><div class="customer-item">
+							<img src="img/avatar-2.jpg" alt="Customer 3">
+							<p>Customer 3</p>
+						</div>
+						<!-- Thêm nhiều khách hàng hơn nếu cần -->
+					</div>
+					<button class="carousel-button next-button">&#10095;</button>
+				</div>
+
+
+
+				<!-- Contact Form Section -->
+				<section class="contact-form-section">
+					<h2>Contact Us</h2>
+					<form class="contact-form">
+						<input type="text" placeholder="Your Name" required>
+						<input type="email" placeholder="Your Email" required>
+						<textarea placeholder="Your Message" rows="5" required></textarea>
+						<button type="submit">Send Message</button>
+					</form>
+				</section>
+
+
+
+
+
+
+
+        </div>
+    </div>
+  <script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/customercare.js') }}"></script>
+
+
+</body>
+
+</html>

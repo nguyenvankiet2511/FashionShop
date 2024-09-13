@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
 
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ordertracking.css') }}">
 
-    <link rel="stylesheet" href="css/ordertracking.css">
 </head>
 <body>
     <div class="container">
@@ -21,16 +21,16 @@
         <section class="order-info">
             <h2>Order Information</h2>
             <div class="order-details" id="update-progress">
-                <p>Order ID: <span id="order-id">#12345</span></p>
-                <p>Order Date: <input type="date" id="order-date" value="2024-09-01" /></p>
+                <p>Order ID: <span id="order-id">{{order.id}}</span></p>
+                <p>Order Date: <span id="order-date">{{order.orderDate}}</span></p>
                 <p>Status: <span id="order-status">Processing</span></p>
-                <p>Shipping Address: <span id="shipping-address">Cầu Khánh Hội, Quận 4, TP.HCM</span></p>
-                <p>Payment Method: <span id="payment-method">Credit Card</span></p>
-                <p>Recipient: <span id="recipient-name">Nguyễn Văn A</span></p>
-                <p>Contact Number: <span id="contact-number">0123-456-789</span></p>
-                <p>Total Amount: <span id="total-amount">1,500,000 VND</span></p>
+                <p>Shipping Address: <span id="shipping-address">{{order.billing_address}}</span></p>
+                <p>Payment Method: <span id="payment-method">{{order.paymentMethods}}</span></p>
+                <p>Recipient: <span id="recipient-name">{{order.customer_name}}</span></p>
+                <p>Contact Number: <span id="contact-number">{{order.phone}}</span></p>
+                <p>Total Amount: <span id="total-amount">{{order.totalAmount}}</span></p>
 
-                    <a href="ordermanager.html" id="update-button" class="button-success">Cập nhật thành công</a>
+                    <a href="{{url_for('view_order_manager')}}" id="update-button" class="button-success">Cập nhật thành công</a>
 
             </div>
         </section>
@@ -99,6 +99,6 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="js/ordertracking.js"></script>
+  <script src="{{ url_for('static', filename='js/ordertracking.js') }}"></script>
 </body>
 </html>

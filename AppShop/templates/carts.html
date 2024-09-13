@@ -83,7 +83,11 @@
                                     </ul>
                                     {% else %}
                                     <ul class="account_selection">
+
                                         <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
+
+                                      
+
                                                                                      aria-hidden="true"></i>Profile</a>
                                         </li>
                                         <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus"
@@ -114,8 +118,11 @@
                                 <li><a href="{{url_for('view_categories')}}">shop</a></li>
                                 <li><a href="#">promotion</a></li>
                                 <li><a href="#">pages</a></li>
+
                                 <li><a href="{{url_for('view_blog')}}">blog</a></li>
                                 <li><a href="{{url_for('view_contact')}}">contact</a></li>
+               
+
                             </ul>
                             <ul class="navbar_user">
                                 <li class="search-container">
@@ -129,7 +136,11 @@
                                 </li>
                                 {% if user %}
                                 <li class="user-menu">
+
                                     <a href="{{url_for('view_profile')}}">
+
+                               
+
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                         <span class="user-text">{{user.name}}</span>
                                     </a>
@@ -206,7 +217,11 @@
                     </ul>
                     {% else %}
                     <ul class="account_selection">
+
                         <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Profile</a>
+
+                       
+
                         </li>
                         <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus" aria-hidden="true"></i>Logout</a>
                         </li>
@@ -217,8 +232,11 @@
                 <li class="menu_item"><a href="{{url_for('view_categories')}}">shop</a></li>
                 <li class="menu_item"><a href="#">promotion</a></li>
                 <li class="menu_item"><a href="#">pages</a></li>
+
                 <li class="menu_item"><a href="{{url_for('view_blog')}}">blog</a></li>
                 <li class="menu_item"><a href="{{url_for('view_contact')}}">contact</a></li>
+
+
             </ul>
         </div>
     </div>

@@ -2,7 +2,7 @@ import hashlib
 from AppShop import db, app
 from enum import Enum as UserEnum
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Numeric, Text,Enum
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Numeric, Text,Enum, Double
 from sqlalchemy.orm import relationship, backref
 from datetime import datetime
 
@@ -96,7 +96,7 @@ class Products(db.Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255))
-    price = Column(Numeric)
+    price = Column(Double, default=0)
     description = Column(Text)
     imageProduct = Column(String(255))
     category_id = Column(Integer, ForeignKey('Categories.id'), nullable=False)
@@ -144,12 +144,12 @@ class Orders(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     customer_id = Column(Integer, ForeignKey('Customers.id'), nullable=False)
     employee_id = Column(Integer, ForeignKey('Employees.id'), nullable=False)
-    shipper_id = Column(Integer, ForeignKey('Shippers.id'), nullable=False)
-    billingAddress_id = Column(Integer, ForeignKey('BillingAddress.id'), nullable=False)
-    paymentMethods = Column(String(150), default="Thanh toán khi nhận hàng")
+    shipper_id = Column(Integer, ForeignKey('Shippers.id'))
+    billingAddress_id = Column(Integer, ForeignKey('BillingAddress.id'))
+    paymentMethods = Column(String(150), default="Mua hàng trực tiếp")
     orderDate = Column(DateTime)
     active = Column(Boolean)
-    totalAmount = Column(Numeric)
+    totalAmount = Column(Double, default=0)
 
     order_details = relationship("OrderDetails", backref="order")
     order_returns = relationship("OrderReturn", backref="order")
@@ -162,7 +162,7 @@ class OrderDetails(db.Model):
     order_id = Column(Integer, ForeignKey('Orders.id'), nullable=False)
     product_id = Column(Integer, ForeignKey('Products.id'), nullable=False)
     quantity = Column(Integer)
-    price = Column(Numeric)
+    price = Column(Double, default=0)
     discount = Column(Integer, default=0)
 
 
@@ -200,9 +200,9 @@ class OrderReturn(db.Model):
 
 if __name__ == '__main__':
     with app.app_context():
-         #db.drop_all()
-         # db.create_all()
-        # db.session.commit()
+         # db.drop_all()
+        db.create_all()
+        db.session.commit()
         user1 = Users(name="John Doe", gender=True, birthDate=datetime(1980, 5, 15), phone="123-456-7890",
                       email="john.doe@example.com", address="123 Elm St", photoInf="photo1",
                       photoPath="/photos/john.jpg")

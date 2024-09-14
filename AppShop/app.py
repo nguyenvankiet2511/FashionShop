@@ -1,6 +1,5 @@
-from AppShop import app,dao,login
-from AppShop.models import Products
-from AppShop.models import UsersRole,Accounts
+from AppShop import app,dao,login, flow
+from AppShop.models import UsersRole,Accounts, Users, Products, Customers
 from flask import render_template, session, flash, jsonify, redirect, request, url_for
 from flask_login import login_user, current_user, logout_user
 from AppShop.admin import *
@@ -18,7 +17,7 @@ def home():
     allCategories = dao.get_all_categories()
     allProducts = dao.get_products_by_category(category_id=category_id, limit=16)
     productsSeller = dao.get_products_bestSeller(12)
-    return render_template('invoice.html', user=user,countCart=countCart, products=allProducts, categories=allCategories,
+    return render_template('index.html', user=user,countCart=countCart, products=allProducts, categories=allCategories,
                            productsSeller=productsSeller)
 @app.route("/employee")
 def employee_home():
@@ -51,8 +50,43 @@ def user_login():
     else:
         return render_template('login.html')
 
+@app.route("/oauth-login", methods=['GET'])
+def login_oauth():
+    authorization_url, state = flow.authorization_url()
+    print(authorization_url)
+    return redirect(authorization_url)
+@app.route("/callback", methods=['GET'])
 
-
+def oauth_callback():
+    try:
+        user_oauth = dao.get_user_oauth()
+        print(user_oauth)
+        email = user_oauth['email']
+        account = Accounts.query.filter_by(email=email).first()
+        if account is None:
+            import hashlib
+            password = str(hashlib.md5('123456'.encode('utf-8')).hexdigest())
+            fullname = user_oauth['name']
+            image = user_oauth['picture']
+            users = Users(name=fullname, email=email,photoPath=image)
+            db.session.add(users)
+            db.session.flush()
+            customer = Customers( id= users.id)
+            db.session.add(customer)
+            accountNew = Accounts(name=fullname, email=email ,password= password,user_id= users.id)
+            db.session.add(accountNew)
+            db.session.commit()
+        login_user(account)
+        if account.users_role_id == UsersRole.ADMIN:
+            return redirect('/admin')
+        elif account.users_role_id == UsersRole.EMPLOYEE:
+            return redirect('/employee')
+        else:
+            return redirect('/')
+    except Exception as err:
+        print(err)
+        return redirect("/")
+    return redirect("/")
 #Cart------------------------------------------->
 @app.route("/cart", methods=["GET"])
 def view_cart():
@@ -249,4 +283,4 @@ def confirm_payment():
 if __name__ == "__main__":
     from AppShop import admin
 
-    app.run(debug=True)
+    app.run(host='localhost', port=5001,debug=True)

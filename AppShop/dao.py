@@ -1,9 +1,29 @@
 from sqlalchemy.orm import aliased
-
-from AppShop import db
+import google.auth.transport.requests
+from pip._vendor import cachecontrol
+import requests, os
+from flask import request, session, jsonify
+from google.oauth2 import id_token
+from AppShop import db, flow
 from AppShop.models import Categories, Products,Accounts,Users,Carts,Customers,Orders,Shippers,BillingAddress, OrderDetails
 import hashlib, datetime
 
+
+
+def get_user_oauth():
+    flow.fetch_token(authorization_response=request.url)
+
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    user_oauth = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=os.getenv("642815659525-7hq61q6ueb21ujri2jqnroiomf74pola.apps.googleusercontent.com")
+    )
+    return user_oauth
 def auth_user(username, password):
     password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
     return Accounts.query.filter(Accounts.username.__eq__(username.strip()), Accounts.password.__eq__(password)).first()

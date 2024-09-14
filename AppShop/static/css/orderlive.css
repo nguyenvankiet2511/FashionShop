@@ -1,0 +1,517 @@
+/* Định dạng container của danh sách */
+.dropdown-container {
+    position: relative;
+    width: 100%; /* Điều chỉnh chiều rộng của dropdown container */
+}
+
+#productInput {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 200px;
+    overflow-y: auto; /* Thanh cuộn cho danh sách sản phẩm */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 100%;
+    display: none; /* Ẩn danh sách mặc định */
+    /* Tùy chỉnh thanh cuộn */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #888 #f0f0f0; /* Firefox */
+}
+
+/* Thanh cuộn cho trình duyệt Webkit (Chrome, Safari, Edge) */
+.dropdown-list::-webkit-scrollbar {
+    width: 1px; /* Độ rộng của thanh cuộn */
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Màu nền của thanh cuộn */
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    background: #888; /* Màu của thanh cuộn */
+    border-radius: 4px; /* Bo tròn các góc của thanh cuộn */
+}
+
+.dropdown-list::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu của thanh cuộn khi hover */
+}
+
+/* Định dạng ô tìm kiếm không hiển thị thanh cuộn */
+#searchBox {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    overflow: hidden; /* Loại bỏ thanh cuộn cho ô tìm kiếm */
+}
+
+#productSelect {
+    width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: block; /* Đảm bảo select hiển thị */
+    height: auto; /* Tự động điều chỉnh chiều cao */
+}
+
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.customer-form, .customer-table, .actions {
+    width: 70%;
+    margin: 20px auto;
+    background-color: #f4f4f4;
+    padding: 40px 150px 40px 150px;
+    
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    animation: slideIn 0.5s ease-out;
+    font-family: Arial, sans-serif;
+    transition: box-shadow 0.3s ease, transform 0.3s ease; 
+   
+    animation: fadeIn 1s ease-out;
+}
+
+/* Slide In Animation */
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* Form Row */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Labels and Inputs */
+label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+input, datalist {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.input-address {
+    width: 100%; /* Hoặc chiều rộng bạn muốn */
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+  
+/* Button Styling */
+button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    animation: pulse 2s infinite;
+}
+
+button i {
+    margin-right: 8px;
+}
+
+
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+/* Container for the table and buttons */
+
+/* Table styling */
+#customerTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    animation: fadeIn 1s ease-out;
+}
+
+#customerTable th, #customerTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+#customerTable th {
+    background-color: #000;
+    color: white;
+    font-weight: bold;
+}
+
+#customerTable tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+/* Button styling */
+#checkoutButton {
+    background-color: rgb(190, 74, 74);
+    color: white;
+}
+
+#checkoutButton:hover {
+    background-color: #f71616;
+    transform: translateY(-2px);
+}
+
+#sendInvoiceButton {
+    background-color: #76c156;
+    color: white;
+}
+
+#sendInvoiceButton:hover {
+    background-color: #33d208;
+    transform: translateY(-2px);
+}
+
+.instructions {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    animation: fadeIn 1s ease-out;
+}
+
+.instructions h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.instructions p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.instructions p strong {
+    color: #333;
+}
+
+.search-filter {
+    margin: 20px 0;
+}
+
+.search-filter label {
+    font-size: 16px;
+    color: #333;
+}
+
+.search-filter input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: calc(100% - 16px);
+}
+#addButton {
+    background-color: #4c60e0; /* Màu nền ban đầu */
+    color: #fff; /* Màu chữ */
+    border: none;
+    width: 150px;
+    margin-top: 20px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#addButton:hover {
+    background-color: #075ebb; /* Màu nền khi hover */
+    transform: scale(1.05); /* Phóng to một chút */
+}
+
+#clearTableButton {
+    background-color: #ff4d4d; /* Màu nền đỏ */
+    color: white; /* Màu chữ trắng */
+    border: none; /* Không viền */
+    padding: 10px 20px; /* Khoảng cách bên trong nút */
+    font-size: 16px; /* Cỡ chữ */
+    cursor: pointer; /* Đổi con trỏ thành dạng trỏ chuột khi hover */
+    border-radius: 5px; /* Bo góc */
+    display: flex; /* Sử dụng flexbox để canh chỉnh icon và chữ */
+    align-items: center; /* Căn giữa dọc */
+    gap: 8px; /* Khoảng cách giữa icon và chữ */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+}
+
+#clearTableButton:hover {
+    background-color: #e60000; /* Màu nền khi hover */
+}
+
+
+#customerTable{
+    margin-top: 20px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+select:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #f9f9f9;
+}
+
+option {
+    padding: 10px;
+    background-color: #fff;
+}
+
+.product-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-item {
+    display: flex;
+    align-items: center; /* Canh chỉnh các phần tử theo chiều dọc */
+    padding: 5px 0; /* Padding trên và dưới mỗi item */
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+.product-item input[type="text"] {
+    border: 1px solid #ccc; /* Viền cho các input text */
+    padding: 5px; /* Padding bên trong input text */
+    margin: 0; /* Xóa bỏ margin mặc định */
+}
+
+.product-item input:nth-child(2) {
+    flex: 35%; /* Chiếm 35% chiều rộng */
+}
+
+.product-item input:nth-child(3) {
+    flex: 15%; /* Chiếm 15% chiều rộng */
+}
+
+.product-item input:nth-child(4) {
+    flex: 35%; /* Chiếm 35% chiều rộng */
+}
+
+.button-container {
+    flex: 15%; /* Chiếm 15% chiều rộng */
+    display: flex;
+    justify-content: center; /* Căn giữa nút Xóa */
+}
+
+.btn {
+    padding: 5px 10px; /* Padding cho nút */
+    border: none; /* Xóa bỏ viền nút mặc định */
+    cursor: pointer; /* Hiển thị con trỏ chuột khi di chuột qua nút */
+}
+.product-item-main {
+    display: flex;
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    padding: 5px 0; /* Padding trên và dưới mỗi item */
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+    background-color: #f9f9f9; /* Màu nền của hàng */
+    border-bottom: 1px solid #ddd; /* Viền dưới mỗi hàng */
+}
+
+.product-item-main span {
+    flex: 1; /* Đảm bảo các span chiếm diện tích đồng đều */
+    padding: 5px; /* Padding bên trong các span */
+    text-align: left; /* Căn lề trái cho nội dung */
+}
+
+.product-item-main span:nth-child(1) {
+    flex: 35%; /* Chiếm 35% chiều rộng */
+}
+
+.product-item-main span:nth-child(2) {
+    flex: 15%; /* Chiếm 15% chiều rộng */
+}
+
+.product-item-main span:nth-child(3) {
+    flex: 35%; /* Chiếm 35% chiều rộng */
+}
+
+.product-item-main span:nth-child(4) {
+    flex: 15%; /* Chiếm 15% chiều rộng */
+}
+
+#productList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+    width:100%;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none; /* Ẩn danh sách ban đầu */
+}
+
+#productList li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#productList li:last-child {
+    border-bottom: none;
+}
+
+#productList li span {
+    flex: 1;
+    text-align: left;
+}
+
+#productList li span:nth-child(2) {
+    text-align: center;
+}
+
+#productList li span:nth-child(3) {
+    text-align: right;
+    color: #888;
+}
+
+#productList li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+#productList-main {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+    width: 100%;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+#productList-main li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#productList-main li:last-child {
+    border-bottom: none;
+}
+
+#productList-main li span {
+    flex: 1;
+    text-align: left;
+}
+
+#productList-main li span:nth-child(2) {
+    text-align: center;
+}
+
+#productList-main li span:nth-child(3) {
+    text-align: right;
+    color: #888;
+}
+
+#productList-main li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+#confirmPaymentButton {
+    background-color: #28a745; /* Xanh lá cây */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#confirmPaymentButton:hover {
+    background-color: #218838; /* Màu xanh lá cây đậm hơn khi hover */
+}
+
+#confirmPaymentButton:active {
+    background-color: #1e7e34; /* Màu xanh lá cây tối hơn khi nhấn */
+    box-shadow: 0 5px #1c7430; /* Hiệu ứng bóng khi nhấn */
+}
+
+#confirmPaymentButton i {
+    margin-right: 8px; /* Khoảng cách giữa icon và văn bản */
+}

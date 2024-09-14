@@ -147,19 +147,20 @@
                                 <td>{{order.orderDate}}</td>
                                 <td>
                                     <a href="{{url_for('view_order_tracking', order_id=order.id)}}">
-                                        <button class="btn btn-primary btn-xs edit-btn" data-id="1">
+                                        <button class="btn btn-primary btn-xs edit-btn" data-id="{{order.id}}">
                                             <i class="fa fa-pencil-alt"></i>
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs delete-btn" data-id="1">
+                                    <button class="btn btn-danger btn-xs delete-btn" data-id="{{order.id}}">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning btn-xs confirm-btn" data-id="1">
-                                        <i class="fa fa-check"></i>
+                                    <button class="btn btn-warning btn-xs confirm-btn" data-id="{{order.id}}">
+                                        <a href="{{url_for('confirm_order', order_id= order.id)}}"><i
+                                                class="fa fa-check"></i></a>
                                     </button>
                                 </td>
                             </tr>
@@ -172,12 +173,13 @@
                 </div>
 
             </div>
-
-
         </div>
         <div class="button-container">
             <button id="deleteSelected1" class="btn-1 btn-danger mb-3">Delete Selected</button>
-            <button id="confirmSelected1" class="btn-2 btn-warning mb-3">Proceed</button>
+            <!-- Sử dụng thẻ <a> rỗng, sẽ được cập nhật bằng JavaScript -->
+            <a href="#" id="confirmSelectedLink">
+                <button id="confirmSelected1" class="btn-2 btn-warning mb-3">Proceed</button>
+            </a>
         </div>
 
 
@@ -205,16 +207,19 @@
                             </thead>
                             <tbody class="table-tbody">
                             <!-- Confirmed orders will be appended here -->
-                            <tr data-id="3">
-                                <td>3</td>
-                                <td>Phạm Văn E</td>
-                                <td>Đỗ Thị F</td>
-                                <td>789 Đường C, Đà Nẵng, Việt Nam</td>
-                                <td>Viettel Post</td>
-                                <td>Chuyển Khoản Ngân Hàng</td>
-                                <td>4,100,000 VND</td>
-                                <td>28-08-2024</td>
+                            {% for orderConfirm in orderConfirms %}
+                            <tr data-id="{{orderConfirm.id}}">
+                                <td>{{orderConfirm.id}}</td>
+                                <td>{{orderConfirm.user_name}}</td>
+                                <td>XXX</td>
+                                <td>{{orderConfirm.billing_address}}</td>
+                                <td>{{orderConfirm.shipper_name}}</td>
+                                <td>{{orderConfirm.paymentMethods}}</td>
+                                <td>{{orderConfirm.totalAmount}}</td>
+                                <td>{{orderConfirm.orderDate}}</td>
                             </tr>
+                            {% endfor %}
+
                             </tbody>
                         </table>
                     </div>
@@ -310,6 +315,8 @@
 <script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
 <script src="{{ url_for('static', filename='js/ordermanager.js') }}"></script>
 
+
 </body>
+
 
 </html>

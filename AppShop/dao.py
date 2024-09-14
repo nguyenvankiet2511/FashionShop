@@ -1,8 +1,8 @@
 from sqlalchemy.orm import aliased
 
 from AppShop import db
-from AppShop.models import Categories, Products,Accounts,Users,Carts,Customers,Orders,Shippers,BillingAddress
-import hashlib
+from AppShop.models import Categories, Products,Accounts,Users,Carts,Customers,Orders,Shippers,BillingAddress, OrderDetails
+import hashlib, datetime
 
 def auth_user(username, password):
     password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
@@ -35,6 +35,12 @@ def get_products_by_category(category_id, limit):
 
 def get_product(id):
     return Products.query.filter(Products.id.__eq__(id)).first()
+def get_price_product(product_id):
+    product = Products.query.filter_by(id=product_id).first()
+    if product:
+        discounted_price = product.price * (1 - product.discount / 100)
+        return discounted_price
+    return 0
 #Carts-------------------------------------------->
 def get_count_cart(user_id):
     return Carts.query.filter(Carts.customer_id == user_id).count()
@@ -111,6 +117,28 @@ def get_all_orders():
      .all()
 
     return orders
+def get_all_orders_confirm():
+    # Tạo alias cho các bảng liên quan
+    shippers_alias = aliased(Shippers)
+    billing_address_alias = aliased(BillingAddress)
+
+    orders = db.session.query(
+        Orders.id,
+        Users.name.label('user_name'),
+        shippers_alias.companyName.label('shipper_name'),
+        billing_address_alias.address.label('billing_address'),
+        Orders.paymentMethods,
+        Orders.orderDate,
+        Orders.active,
+        Orders.totalAmount
+    ).join(Users, Orders.customer_id == Users.id) \
+        .outerjoin(shippers_alias, Orders.shipper_id == shippers_alias.id) \
+        .outerjoin(billing_address_alias, Orders.billingAddress_id == billing_address_alias.id) \
+        .filter(Orders.active == True) \
+        .all()
+
+    return orders
+
 
 def get_orders_by_id(order_id):
     # Tạo alias cho bảng Users
@@ -129,8 +157,105 @@ def get_orders_by_id(order_id):
      .join(BillingAddress, Orders.billingAddress_id == BillingAddress.id) \
      .filter(Orders.id == order_id) \
      .first()  # Dùng .first() để lấy một kết quả duy nhất
-
     return orders
+
+
+def chang_active_order(order_id):
+    # Find the order by ID
+    order = db.session.query(Orders).filter_by(id=order_id).first()
+
+    if order:
+        order.active = not order.active
+        db.session.commit()
+        return f"Order {order_id} active status changed to {order.active}."
+    else:
+        return f"Order {order_id} not found."
+
+def chang_active_order_list(order_id):
+    for i in range(len(order_id)):
+        id= order_id[i]
+        order = db.session.query(Orders).filter_by(id=id).first()
+        if order:
+            order.active = not order.active
+            db.session.commit()
+            return f"Order {order_id} active status changed to {order.active}."
+        else:
+            return f"Order {order_id} not found."
+
+
+
+
+from decimal import Decimal
+from datetime import datetime
+
+from decimal import Decimal
+
+def create_order(name, phone, ngaySinh, diaChi, employee_id, l_productId, l_soLuong):
+    # Tạo người dùng và khách hàng
+    user = Users(name=name, phone=phone, address=diaChi, birthDate=ngaySinh)
+    db.session.add(user)
+    db.session.flush()  # Đảm bảo user được thêm vào để có thể dùng id của nó ngay lập tức
+
+    customer = Customers(id=user.id)  # Giả sử có quan hệ qua user_id
+    db.session.add(customer)
+    db.session.flush()  # Đảm bảo customer được thêm vào trước khi tạo đơn hàng
+
+    # Tính tổng tiền đơn hàng
+    totals = 0
+    for i in range(len(l_productId)):
+        price = get_price_product(l_productId[i])
+        if price is None or price == '':
+            raise ValueError(f"Không tìm thấy giá cho sản phẩm với ID {l_productId[i]}")
+        try:
+            price = float(price)  # Đảm bảo giá là số thực
+        except ValueError:
+            raise ValueError(f"Giá sản phẩm với ID {l_productId[i]} không hợp lệ")
+
+        quantity = l_soLuong[i]
+        if quantity is None or quantity == '':
+            raise ValueError(f"Số lượng cho sản phẩm với ID {l_productId[i]} không hợp lệ")
+        try:
+            quantity = int(quantity)  # Đảm bảo số lượng là số nguyên
+        except ValueError:
+            raise ValueError(f"Số lượng cho sản phẩm với ID {l_productId[i]} không hợp lệ")
+
+        totals += price * quantity
+
+    # Tạo đơn hàng
+    order = Orders(customer_id=customer.id, employee_id=employee_id, orderDate=datetime.now().date(), active=True,
+                   totalAmount=totals)
+    db.session.add(order)
+    db.session.flush()  # Đảm bảo đơn hàng được thêm vào trước khi tạo chi tiết đơn hàng
+
+    # Tạo chi tiết đơn hàng
+    for i in range(len(l_productId)):
+        product = get_product(l_productId[i])
+        if product is None:
+            raise ValueError(f"Không tìm thấy sản phẩm với ID {l_productId[i]}")
+
+        quantity = l_soLuong[i]
+        try:
+            quantity = int(quantity)  # Đảm bảo số lượng là số nguyên
+        except ValueError:
+            raise ValueError(f"Số lượng cho sản phẩm với ID {l_productId[i]} không hợp lệ")
+
+        order_detail = OrderDetails(
+            product_id=l_productId[i],
+            quantity=quantity,
+            price=product.price,
+            discount=product.discount,
+            order_id=order.id  # Tham chiếu tới order_id
+        )
+        db.session.add(order_detail)
+
+    # Lưu tất cả thay đổi vào cơ sở dữ liệu
+    db.session.commit()
+
+
+
+
+
+
 
 
 

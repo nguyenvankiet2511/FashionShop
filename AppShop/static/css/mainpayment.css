@@ -1,0 +1,175 @@
+/* Reset một số thuộc tính cơ bản để đảm bảo tính nhất quán trên các trình duyệt */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-out;
+}
+
+/* Hiệu ứng fade-in cho container */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Hiệu ứng slide-in cho header */
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+main {
+    padding: 20px 0;
+}
+
+h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.payment-form,
+.qr-code {
+    margin-bottom: 20px;
+}
+
+.payment-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.payment-form input[type="text"],
+.payment-form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.payment-form input[type="text"]:focus,
+.payment-form select:focus {
+    border-color: #5cb85c;
+    outline: none;
+}
+
+.payment-form button {
+    padding: 10px;
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.payment-form button:hover {
+    background-color: #4cae4c;
+    transform: translateY(-2px);
+}
+
+.qr-code {
+    text-align: center;
+}
+
+.qr-code button {
+    padding: 10px;
+    background-color: #0275d8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.qr-code button:hover {
+    background-color: #025aa5;
+    transform: translateY(-2px);
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background: #333;
+    color: #fff;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+footer p {
+    margin: 0;
+}
+
+.success, .error, .order-summary {
+    text-align: center;
+}
+
+.success h1, .error h1, .order-summary h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.success p, .error p, .order-summary p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.success a, .error a, .order-summary a {
+    text-decoration: none;
+    color: #0275d8;
+    font-weight: bold;
+}
+
+.success a:hover, .error a:hover, .order-summary a:hover {
+    text-decoration: underline;
+}

@@ -4,6 +4,129 @@ from flask import render_template, session, flash, jsonify, redirect, request, u
 from flask_login import login_user, current_user, logout_user
 from AppShop.admin import *
 
+
+
+
+from flask import Flask, render_template, request, redirect, send_file
+import qrcode
+from io import BytesIO
+from vnpay import generate_vnpay_url
+
+app = Flask(__name__)
+
+
+def is_valid_card_number(card_number):
+    # Lọc chỉ lấy số và kiểm tra độ dài
+
+
+        return True
+
+
+@app.route('/')
+def index():
+    amount = 100000  # 100,000 VND
+    transaction_ref = '123456'  # Mã giao dịch tạm thời
+    return render_template('vnpay.html', amount=amount, transaction_ref=transaction_ref)
+
+
+@app.route('/confirm_payment', methods=['POST'])
+def confirm_payment():
+    amount = request.form.get('amount')
+    transaction_ref = request.form.get('transaction_ref')
+    card_number = request.form.get('card_number')
+    bank_code = request.form.get('bank_code')
+
+    if not amount or not transaction_ref or not card_number or not bank_code:
+        return "Dữ liệu gửi không hợp lệ!", 400
+
+    if not is_valid_card_number(card_number):
+        return "Số thẻ không hợp lệ!", 400
+
+    # Chuyển hướng đến trang xác nhận thanh toán hoặc trang QR
+    if bank_code:
+        return render_template('confirm_payment.html',
+                               amount=amount,
+                               transaction_ref=transaction_ref,
+                               card_number=card_number,
+                               bank_code=bank_code)
+    else:
+        return render_template('qr_payment.html',
+                               amount=amount,
+                               transaction_ref=transaction_ref)
+
+
+@app.route('/process_payment', methods=['POST'])
+def process_payment():
+    amount = request.form.get('amount')
+    transaction_ref = request.form.get('transaction_ref')
+    bank_code = request.form.get('bank_code')
+
+    if not amount or not transaction_ref or not bank_code:
+        return "Dữ liệu gửi không hợp lệ!", 400
+
+    try:
+        amount = int(amount)
+    except ValueError:
+        return "Số tiền không hợp lệ!", 400
+
+    payment_url = generate_vnpay_url(amount, transaction_ref, bank_code=bank_code)
+    return redirect(payment_url)
+
+
+@app.route('/payment_return', methods=['GET'])
+def payment_return():
+    vnp_response_code = request.args.get('vnp_ResponseCode')
+    transaction_ref = request.args.get('vnp_TxnRef')
+    amount = request.args.get('vnp_Amount')
+    transaction_time = request.args.get('vnp_CreateDate')
+
+    status = 'Thành công' if vnp_response_code == '00' else 'Thất bại'
+    amount_vnd = int(amount) / 100
+
+    return render_template('confirm_payment.html',
+                           transaction_ref=transaction_ref,
+                           amount=amount_vnd,
+                           status=status,
+                           transaction_time=transaction_time)
+
+
+@app.route('/generate_qr')
+def generate_qr():
+    amount = request.args.get('amount')
+    transaction_ref = request.args.get('transaction_ref')
+
+    if not amount or not transaction_ref:
+        return "Dữ liệu gửi không hợp lệ!", 400
+
+    try:
+        amount = int(amount)
+    except ValueError:
+        return "Số tiền không hợp lệ!", 400
+
+    # Tạo dữ liệu cho mã QR
+    qr_data = f"amount={amount}&transaction_ref={transaction_ref}"
+
+    # Tạo mã QR
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(qr_data)
+    qr.make(fit=True)
+
+    img = qr.make_image(fill='black', back_color='white')
+
+    # Lưu hình ảnh vào bộ nhớ tạm thời
+    img_io = BytesIO()
+    img.save(img_io, 'PNG')
+    img_io.seek(0)
+
+    return send_file(img_io, mimetype='image/png')
+
+
+
 @app.route("/")
 def home():
     if current_user.is_authenticated:

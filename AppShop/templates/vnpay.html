@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán VNPay</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/vnpay-icon.png') }}" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thanh Toán VNPay</h1>
+        </header>
+        <main>
+            <section class="payment-form">
+                <h2>Xác Nhận Thanh Toán</h2>
+                <p>Số tiền của bạn là: {{ amount }} VND</p>
+                <form action="/confirm_payment" method="POST">
+                    <input type="hidden" name="amount" value="{{ amount }}">
+                    <input type="hidden" name="transaction_ref" value="{{ transaction_ref }}">
+
+                    <!-- Thêm phần nhập số thẻ -->
+                    <div class="form-group">
+                        <label for="card_number">Nhập số thẻ</label>
+                        <input type="text" id="card_number" name="card_number" placeholder="1900.5555.77" required>
+                    </div>
+
+                    <!-- Thêm phần chọn ngân hàng -->
+                    <div class="form-group">
+                        <label for="bank_code">Ngân hàng</label>
+                        <select id="bank_code" name="bank_code" class="form-control" required>
+                            <option value="" disabled selected>Chọn ngân hàng</option>
+                            <option value="NCB">Ngân hàng NCB</option>
+                            <option value="AGRIBANK">Ngân hàng Agribank</option>
+                            <option value="SCB">Ngân hàng SCB</option>
+                            <option value="SACOMBANK">Ngân hàng SacomBank</option>
+                            <option value="EXIMBANK">Ngân hàng EximBank</option>
+                            <option value="MSBANK">Ngân hàng MSBANK</option>
+                            <option value="NAMABANK">Ngân hàng NamABank</option>
+                            <option value="VNMART">Ví điện tử VnMart</option>
+                            <option value="VIETINBANK">Ngân hàng Vietinbank</option>
+                            <option value="VIETCOMBANK">Ngân hàng VCB</option>
+                            <option value="HDBANK">Ngân hàng HDBank</option>
+                            <option value="DONGABANK">Ngân hàng Dong A</option>
+                            <option value="TPBANK">Ngân hàng TPBank</option>
+                            <option value="OJB">Ngân hàng OceanBank</option>
+                            <option value="BIDV">Ngân hàng BIDV</option>
+                            <option value="TECHCOMBANK">Ngân hàng Techcombank</option>
+                            <option value="VPBANK">Ngân hàng VPBank</option>
+                            <option value="MBBANK">Ngân hàng MBBank</option>
+                            <option value="ACB">Ngân hàng ACB</option>
+                            <option value="OCB">Ngân hàng OCB</option>
+                            <option value="IVB">Ngân hàng IVB</option>
+                            <option value="VISA">Thanh toán qua VISA/MASTER</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">Tiến Hành Thanh Toán</button>
+                </form>
+            </section>
+              <section class="qr-code">
+                <h2>Quét mã QR</h2>
+                <button id="generateQR">Tạo mã QR</button>
+                <div id="qrCodeContainer"></div>
+            </section>
+        </main>
+        <footer>
+            <p>Thanh toán thuận tiện với VNPAY</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+        document.getElementById('generateQR').addEventListener('click', function() {
+            const amount = "{{ amount }}";
+            const transaction_ref = "{{ transaction_ref }}";
+            const bank_code = "{{ bank_code }}"; // Nếu bạn có ngân hàng cụ thể
+
+            fetch(`/generate_qr?amount=${amount}&transaction_ref=${transaction_ref}&bank_code=${bank_code}`)
+                .then(response => response.blob())
+                .then(blob => {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(blob);
+                    const qrCodeContainer = document.getElementById('qrCodeContainer');
+                    qrCodeContainer.innerHTML = '';
+                    qrCodeContainer.appendChild(img);
+                });
+        });
+    </script>
+</body>
+</html>

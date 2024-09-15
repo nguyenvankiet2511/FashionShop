@@ -32,7 +32,7 @@
 </body>
 <script>
     function addToCart(productId) {
-        fetch(`http://127.0.0.1:5000/cart/add-default?product_id=${productId}`, {
+        fetch(`http://localhost:5001/cart/add-default?product_id=${productId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -91,7 +91,7 @@
 
     function redirectToLogin() {
         // Thay đổi URL đến trang đăng nhập
-        window.location.href = 'http://127.0.0.1:5000/login';
+        window.location.href = 'http://localhost:5001/login';
     }
 
     function closeDialog() {
@@ -113,5 +113,12 @@
 <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 <script src="{{ url_for('static', filename='js/products.js') }}"></script>
 <script src="{{ url_for('static', filename='js/categories_custom.js') }}"></script>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="CosmicStore"
+  agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
+  language-code="vi"
+></df-messenger>
 
 </html>

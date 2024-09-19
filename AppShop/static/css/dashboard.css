@@ -356,3 +356,133 @@ pre {
     border-top: 1px solid #444;
     padding-top: 10px;
 }
+
+
+/* Nút đăng xuất */
+.logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-top: 10px;
+    margin-left: 1230px;
+    width: 150px;
+    background-color: transparent;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    top: 10px;
+    right: 10px;
+}
+
+.logout-button i {
+    font-size: 24px;
+    color: #333;
+    margin-right: 8px;
+    transition: color 0.3s ease;
+}
+
+.logout-button span {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Hover hiệu ứng */
+.logout-button:hover {
+    background-color: #f0f0f0; /* Thay đổi màu nền khi hover */
+    transform: scale(1.05); /* Tăng kích thước khi hover */
+}
+
+.logout-button:hover i,
+.logout-button:hover span {
+    color: #007bff; /* Thay đổi màu sắc icon và text khi hover */
+}
+
+/* Thêm hiệu ứng bóng đổ khi hover */
+.logout-button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Container cho các nút và select */
+.custom-button-group {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+/* Container cho nút và chọn ngày */
+.custome-time-select {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa nút và chọn ngày */
+}
+
+/* Nút */
+.custom-button {
+    background-color: #007bff; /* Màu nền xanh */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    margin: 0 10px 0 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hiệu ứng hover cho nút */
+.custom-button:hover {
+    background-color: #0056b3; /* Xanh đậm hơn khi hover */
+    transform: scale(1.05); /* Tăng kích thước khi hover */
+}
+
+/* Container cho input chọn ngày */
+.date-picker-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa label và input */
+}
+
+/* Label cho input chọn ngày */
+.date-label {
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+/* Input chọn ngày */
+.input-purchaseDate {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+/* Hiệu ứng hover cho input chọn ngày */
+.input-purchaseDate:hover {
+    border-color: #007bff; /* Đổi màu viền khi hover */
+}
+
+
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .custom-button-group {
+        flex-wrap: wrap; /* Cho phép các nút xuống hàng khi cần thiết */
+    }
+
+    .custom-button {
+        flex: 1 1 calc(50% - 16px); /* Hai nút mỗi hàng trên màn hình nhỏ hơn */
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-button {
+        flex: 1 1 100%; /* Một nút mỗi hàng trên màn hình rất nhỏ */
+    }
+}

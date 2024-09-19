@@ -2,10 +2,9 @@ import hashlib
 from AppShop import db, app
 from enum import Enum as UserEnum
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Numeric, Text,Enum, Double
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Numeric, Text, Enum, Double
 from sqlalchemy.orm import relationship, backref
 from datetime import datetime
-
 
 
 class UsersRole(UserEnum):
@@ -143,11 +142,11 @@ class Orders(db.Model):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     customer_id = Column(Integer, ForeignKey('Customers.id'), nullable=False)
-    employee_id = Column(Integer, ForeignKey('Employees.id'), nullable=False)
+    employee_id = Column(Integer, ForeignKey('Employees.id'))
     shipper_id = Column(Integer, ForeignKey('Shippers.id'))
     billingAddress_id = Column(Integer, ForeignKey('BillingAddress.id'))
     paymentMethods = Column(String(150), default="Mua hàng trực tiếp")
-    orderDate = Column(DateTime)
+    orderDate = Column(DateTime, default=datetime.now())
     active = Column(Boolean)
     totalAmount = Column(Double, default=0)
 
@@ -200,7 +199,7 @@ class OrderReturn(db.Model):
 
 if __name__ == '__main__':
     with app.app_context():
-         # db.drop_all()
+        db.drop_all()
         db.create_all()
         db.session.commit()
         user1 = Users(name="John Doe", gender=True, birthDate=datetime(1980, 5, 15), phone="123-456-7890",
@@ -275,6 +274,20 @@ if __name__ == '__main__':
         # Thêm dữ liệu vào cơ sở dữ liệu
         db.session.add_all(categories_data)
         db.session.commit()
+        address_data = [
+            BillingAddress(name='Nguyen Van A', phone='0912345678', address='123 ABC Street',
+                           addressDetail='Apartment 5A', customer_id=6),
+            BillingAddress(name='Tran Thi B', phone='0987654321', address='456 DEF Avenue',
+                           addressDetail='House 12', customer_id=6),
+            BillingAddress(name='Le Van C', phone='0923456789', address='789 GHI Road',
+                           addressDetail='Suite 3', customer_id=6),
+            BillingAddress(name='Pham Thi D', phone='0911123456', address='135 JKL Street',
+                           addressDetail='Villa 9', customer_id=6),
+            BillingAddress(name='Vu Thi E', phone='0933456789', address='246 MNO Boulevard',
+                           addressDetail='Flat 21B', customer_id=6)
+        ]
+        db.session.add_all(address_data)
+        db.session.commit()
         from datetime import datetime
 
         products_data = [
@@ -345,158 +358,28 @@ if __name__ == '__main__':
             Products(name='Áo sơ mi caro', price=309000, description='Áo sơ mi caro lịch lãm',
                      imageProduct='shirt-10.jpg', category_id=1, unitsInStock=25, discount=10,
                      createdDate=datetime(2024, 1, 20), updatedDate=datetime(2024, 8, 18)),
-            # Products(name='Áo khoác gió', price=659000, description='Áo khoác gió chống nước',
-            #          imageProduct='windbreaker.jpg', category_id=3, unitsInStock=30, discount=5,
-            #          createdDate=datetime(2024, 2, 5), updatedDate=datetime(2024, 8, 19)),
-            # Products(name='Quần jogger', price=389000, description='Quần jogger thể thao thoải mái',
-            #          imageProduct='joggers.jpg', category_id=2, unitsInStock=40, discount=15,
-            #          createdDate=datetime(2024, 2, 15), updatedDate=datetime(2024, 8, 20)),
-            # Products(name='Giày da', price=799000, description='Giày da chất liệu cao cấp',
-            #          imageProduct='leather_shoes.jpg', category_id=4, unitsInStock=50, discount=10,
-            #          createdDate=datetime(2024, 3, 1), updatedDate=datetime(2024, 8, 21)),
-            # Products(name='Thắt lưng vải', price=149000, description='Thắt lưng vải tiện dụng',
-            #          imageProduct='fabric_belt.jpg', category_id=5, unitsInStock=60, discount=5,
-            #          createdDate=datetime(2024, 3, 10), updatedDate=datetime(2024, 8, 22)),
-            #
-            # Products(name='Áo sơ mi xanh nhạt', price=329000, description='Áo sơ mi xanh nhạt mềm mại',
-            #          imageProduct='light_blue_shirt.jpg', category_id=1, unitsInStock=20, discount=10,
-            #          createdDate=datetime(2024, 4, 1), updatedDate=datetime(2024, 8, 23)),
-            # Products(name='Quần tây đen', price=439000, description='Quần tây đen thanh lịch',
-            #          imageProduct='black_trousers.jpg', category_id=2, unitsInStock=30, discount=20,
-            #          createdDate=datetime(2024, 4, 10), updatedDate=datetime(2024, 8, 24)),
-            # Products(name='Áo khoác lông', price=999000, description='Áo khoác lông ấm áp cho mùa đông',
-            #          imageProduct='fur_jacket.jpg', category_id=3, unitsInStock=15, discount=25,
-            #          createdDate=datetime(2024, 5, 1), updatedDate=datetime(2024, 8, 25)),
-            # Products(name='Giày lười da', price=749000, description='Giày lười da cao cấp',
-            #          imageProduct='leather_loafers.jpg', category_id=4, unitsInStock=25, discount=10,
-            #          createdDate=datetime(2024, 5, 15), updatedDate=datetime(2024, 8, 26)),
-            # Products(name='Kính mát gương', price=349000, description='Kính mát gương thời trang',
-            #          imageProduct='mirror_sunglasses.jpg', category_id=5, unitsInStock=50, discount=15,
-            #          createdDate=datetime(2024, 6, 1), updatedDate=datetime(2024, 8, 27)),
-            #
-            # Products(name='Áo sơ mi ngắn tay', price=289000, description='Áo sơ mi ngắn tay mát mẻ',
-            #          imageProduct='short_sleeve_shirt.jpg', category_id=1, unitsInStock=30, discount=20,
-            #          createdDate=datetime(2024, 6, 10), updatedDate=datetime(2024, 8, 28)),
-            # Products(name='Quần thể thao', price=379000, description='Quần thể thao đa năng',
-            #          imageProduct='sports_pants.jpg', category_id=2, unitsInStock=50, discount=10,
-            #          createdDate=datetime(2024, 6, 20), updatedDate=datetime(2024, 8, 29)),
-            # Products(name='Áo khoác bông', price=869000, description='Áo khoác bông ấm áp cho mùa đông',
-            #          imageProduct='puffer_jacket.jpg', category_id=3, unitsInStock=20, discount=15,
-            #          createdDate=datetime(2024, 7, 1), updatedDate=datetime(2024, 8, 30)),
-            # Products(name='Giày da lộn', price=899000, description='Giày da lộn thời trang',
-            #          imageProduct='suede_shoes.jpg', category_id=4, unitsInStock=30, discount=5,
-            #          createdDate=datetime(2024, 7, 10), updatedDate=datetime(2024, 8, 31)),
-            # Products(name='Thắt lưng da bò', price=229000, description='Thắt lưng da bò cao cấp',
-            #          imageProduct='cowhide_belt.jpg', category_id=5, unitsInStock=40, discount=10,
-            #          createdDate=datetime(2024, 7, 20), updatedDate=datetime(2024, 9, 1)),
-            # Products(name='Áo sơ mi trắng cổ đứng', price=309000, description='Áo sơ mi trắng cổ đứng lịch lãm',
-            #          imageProduct='white_standing_collar_shirt.jpg', category_id=1, unitsInStock=25, discount=15,
-            #          createdDate=datetime(2024, 8, 1), updatedDate=datetime(2024, 9, 2)),
-            # Products(name='Áo khoác dạ', price=899000, description='Áo khoác dạ cho mùa đông',
-            #          imageProduct='wool_coat.jpg', category_id=3, unitsInStock=15, discount=20,
-            #          createdDate=datetime(2024, 8, 10), updatedDate=datetime(2024, 9, 3)),
-            # Products(name='Quần kaki', price=399000, description='Quần kaki thoải mái', imageProduct='khaki_pants.jpg',
-            #          category_id=2, unitsInStock=30, discount=15, createdDate=datetime(2024, 8, 15),
-            #          updatedDate=datetime(2024, 9, 4)),
-            # Products(name='Giày sneaker thể thao', price=899000, description='Giày sneaker thể thao cao cấp',
-            #          imageProduct='sports_sneakers.jpg', category_id=4, unitsInStock=35, discount=10,
-            #          createdDate=datetime(2024, 8, 20), updatedDate=datetime(2024, 9, 5)),
-            # Products(name='Kính mát thời trang mới', price=399000, description='Kính mát thời trang mới nhất',
-            #          imageProduct='new_fashion_sunglasses.jpg', category_id=5, unitsInStock=50, discount=20,
-            #          createdDate=datetime(2024, 8, 25), updatedDate=datetime(2024, 9, 6)),
-            # Products(name='Áo sơ mi đen', price=319000, description='Áo sơ mi đen cổ điển',
-            #          imageProduct='black_shirt.jpg', category_id=1, unitsInStock=20, discount=10,
-            #          createdDate=datetime(2024, 8, 30), updatedDate=datetime(2024, 9, 7)),
-            # Products(name='Quần thể thao ngắn', price=359000, description='Quần thể thao ngắn thoải mái',
-            #          imageProduct='short_sports_pants.jpg', category_id=2, unitsInStock=40, discount=10,
-            #          createdDate=datetime(2024, 9, 1), updatedDate=datetime(2024, 9, 8)),
-            # Products(name='Áo khoác bomber da', price=799000, description='Áo khoác bomber da chất lượng',
-            #          imageProduct='leather_bomber_jacket.jpg', category_id=3, unitsInStock=25, discount=5,
-            #          createdDate=datetime(2024, 9, 5), updatedDate=datetime(2024, 9, 9)),
-            # Products(name='Giày lười bằng vải', price=699000, description='Giày lười bằng vải tiện dụng',
-            #          imageProduct='fabric_loafers.jpg', category_id=4, unitsInStock=30, discount=10,
-            #          createdDate=datetime(2024, 9, 10), updatedDate=datetime(2024, 9, 10)),
-            # Products(name='Thắt lưng bằng vải dày', price=169000, description='Thắt lưng bằng vải dày dạn',
-            #          imageProduct='thick_fabric_belt.jpg', category_id=5, unitsInStock=60, discount=5,
-            #          createdDate=datetime(2024, 9, 15), updatedDate=datetime(2024, 9, 11)),
-            # Products(name='Áo sơ mi trắng cổ trụ', price=299000, description='Áo sơ mi trắng cổ trụ thời trang',
-            #          imageProduct='white_standing_collar_shirt_2.jpg', category_id=1, unitsInStock=25, discount=10,
-            #          createdDate=datetime(2024, 9, 20), updatedDate=datetime(2024, 9, 12)),
-            # Products(name='Quần skinny', price=399000, description='Quần skinny thời trang',
-            #          imageProduct='skinny_pants.jpg', category_id=2, unitsInStock=30, discount=15,
-            #          createdDate=datetime(2024, 9, 25), updatedDate=datetime(2024, 9, 13)),
-            # Products(name='Áo khoác lông vũ', price=999000, description='Áo khoác lông vũ ấm áp cho mùa đông',
-            #          imageProduct='down_jacket.jpg', category_id=3, unitsInStock=15, discount=20,
-            #          createdDate=datetime(2024, 10, 1), updatedDate=datetime(2024, 9, 14)),
-            # Products(name='Giày da công sở', price=849000, description='Giày da công sở lịch sự',
-            #          imageProduct='office_leather_shoes.jpg', category_id=4, unitsInStock=25, discount=10,
-            #          createdDate=datetime(2024, 10, 5), updatedDate=datetime(2024, 9, 15)),
-            # Products(name='Kính mát thể thao', price=349000, description='Kính mát thể thao năng động',
-            #          imageProduct='sporty_sunglasses.jpg', category_id=5, unitsInStock=60, discount=15,
-            #          createdDate=datetime(2024, 10, 10), updatedDate=datetime(2024, 9, 16)),
-            # Products(name='Áo sơ mi tím', price=329000, description='Áo sơ mi tím thanh lịch',
-            #          imageProduct='purple_shirt.jpg', category_id=1, unitsInStock=30, discount=10,
-            #          createdDate=datetime(2024, 10, 15), updatedDate=datetime(2024, 9, 17)),
-            # Products(name='Quần khaki xanh', price=419000, description='Quần khaki xanh thoải mái',
-            #          imageProduct='green_khaki_pants.jpg', category_id=2, unitsInStock=35, discount=20,
-            #          createdDate=datetime(2024, 10, 20), updatedDate=datetime(2024, 9, 18)),
-            # Products(name='Áo khoác dạ dài', price=1099000, description='Áo khoác dạ dài ấm áp cho mùa đông',
-            #          imageProduct='long_wool_coat.jpg', category_id=3, unitsInStock=10, discount=25,
-            #          createdDate=datetime(2024, 10, 25), updatedDate=datetime(2024, 9, 19)),
-            # Products(name='Giày lười mùa đông', price=799000, description='Giày lười mùa đông ấm áp',
-            #          imageProduct='winter_loafers.jpg', category_id=4, unitsInStock=20, discount=15,
-            #          createdDate=datetime(2024, 10, 30), updatedDate=datetime(2024, 9, 20)),
-            # Products(name='Kính mát phong cách cổ điển', price=399000, description='Kính mát phong cách cổ điển',
-            #          imageProduct='classic_sunglasses.jpg', category_id=5, unitsInStock=50, discount=10,
-            #          createdDate=datetime(2024, 11, 1), updatedDate=datetime(2024, 9, 21)),
-            # Products(name='Áo sơ mi cổ điển', price=319000, description='Áo sơ mi cổ điển sang trọng',
-            #          imageProduct='classic_shirt.jpg', category_id=1, unitsInStock=25, discount=5,
-            #          createdDate=datetime(2024, 11, 5), updatedDate=datetime(2024, 9, 22)),
-            # Products(name='Quần thể thao dài', price=389000, description='Quần thể thao dài thoải mái',
-            #          imageProduct='long_sports_pants.jpg', category_id=2, unitsInStock=45, discount=10,
-            #          createdDate=datetime(2024, 11, 10), updatedDate=datetime(2024, 9, 23)),
-            # Products(name='Áo khoác ấm mùa đông', price=1099000, description='Áo khoác ấm mùa đông cực chất',
-            #          imageProduct='winter_coat.jpg', category_id=3, unitsInStock=10, discount=20,
-            #          createdDate=datetime(2024, 11, 15), updatedDate=datetime(2024, 9, 24)),
-            # Products(name='Giày da mềm', price=799000, description='Giày da mềm cao cấp',
-            #          imageProduct='soft_leather_shoes.jpg', category_id=4, unitsInStock=30, discount=10,
-            #          createdDate=datetime(2024, 11, 20), updatedDate=datetime(2024, 9, 25)),
-            # Products(name='Kính mát chống UV', price=449000, description='Kính mát chống UV bảo vệ mắt',
-            #          imageProduct='uv_sunglasses.jpg', category_id=5, unitsInStock=40, discount=15,
-            #          createdDate=datetime(2024, 11, 25), updatedDate=datetime(2024, 9, 26)),
-            # Products(name='Áo sơ mi trắng xẻ cổ', price=329000, description='Áo sơ mi trắng xẻ cổ thời trang',
-            #          imageProduct='white_shirt_v-neck.jpg', category_id=1, unitsInStock=20, discount=10,
-            #          createdDate=datetime(2024, 12, 1), updatedDate=datetime(2024, 9, 27)),
-            # Products(name='Quần jeans xanh', price=399000, description='Quần jeans xanh thời trang',
-            #          imageProduct='blue_jeans.jpg', category_id=2, unitsInStock=30, discount=15,
-            #          createdDate=datetime(2024, 12, 5), updatedDate=datetime(2024, 9, 28)),
-            # Products(name='Áo khoác da mùa đông', price=1199000, description='Áo khoác da mùa đông cao cấp',
-            #          imageProduct='winter_leather_jacket.jpg', category_id=3, unitsInStock=15, discount=20,
-            #          createdDate=datetime(2024, 12, 10), updatedDate=datetime(2024, 9, 29)),
-            # Products(name='Giày lười mùa hè', price=699000, description='Giày lười mùa hè thoải mái',
-            #          imageProduct='summer_loafers.jpg', category_id=4, unitsInStock=25, discount=10,
-            #          createdDate=datetime(2024, 12, 15), updatedDate=datetime(2024, 9, 30)),
-            # Products(name='Kính mát thời trang mới', price=359000,
-            #          description='Kính mát thời trang mới nhất cho mùa đông', imageProduct='winter_sunglasses.jpg',
-            #          category_id=5, unitsInStock=55, discount=15, createdDate=datetime(2024, 12, 20),
-            #          updatedDate=datetime(2024, 10, 1))
+
         ]
         db.session.add_all(products_data)
         db.session.commit()
 
         account_data = [
             Accounts(name="Trần Văn Bình", email="tranvanb@example.com",
-                     username="admin",  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=1, users_role_id=UsersRole.ADMIN, active=True),
+                     username="admin", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=1,
+                     users_role_id=UsersRole.ADMIN, active=True),
             Accounts(name="Lê Thu Cúc", email="lethic@example.com",
-                     username="nhanvien1",  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=3,users_role_id=UsersRole.EMPLOYEE, active=True),
+                     username="nhanvien1", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=3,
+                     users_role_id=UsersRole.EMPLOYEE, active=True),
             Accounts(name="Phạm Anh Dương", email="phamvand@example.com",
-                     username="nhanvien2",  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=4,users_role_id=UsersRole.EMPLOYEE, active=True),
+                     username="nhanvien2", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=4,
+                     users_role_id=UsersRole.EMPLOYEE, active=True),
             Accounts(name="Nguyễn Bùi An Ly", email="nguyenthie@example.com",
-                     username="kh1",  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=6,users_role_id=UsersRole.CUSTOMER, active=True),
+                     username="kh1", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=6,
+                     users_role_id=UsersRole.CUSTOMER, active=True),
             Accounts(name="Hoàng Văn Nam", email="hoangvanf@example.com",
-                     username="kh2",  password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=7,users_role_id=UsersRole.CUSTOMER, active=True)
+                     username="kh2", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=7,
+                     users_role_id=UsersRole.CUSTOMER, active=True)
         ]
 
         db.session.add_all(account_data)
         db.session.commit()
-

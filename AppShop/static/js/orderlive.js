@@ -37,7 +37,7 @@ document.getElementById('addButton').addEventListener('click', function () {
 
     // Reset lại form đơn hàng
     document.getElementById('productSelect').value = '';
-    document.getElementById('quantity').value = '';
+    //document.getElementById('quantity').value = '';
     document.getElementById('note').value = '';
 });
 

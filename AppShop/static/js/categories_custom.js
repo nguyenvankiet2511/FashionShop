@@ -38,7 +38,7 @@ document.getElementById('search-icon').addEventListener('click', function(event)
 });
 
 function addToCart(productId) {
-        fetch(`http://127.0.0.1:5000/cart/add-default?product_id=${productId}`, {
+        fetch(`http://localhost:5001/cart/add-default?product_id=${productId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ function addToCart(productId) {
 
     function redirectToLogin() {
         // Thay đổi URL đến trang đăng nhập
-        window.location.href = 'http://127.0.0.1:5000/login';
+        window.location.href = 'http://localhost:5001/login';
     }
 
     function closeDialog() {

@@ -22,7 +22,7 @@
     }
 
     function addToCartSingle(productId, quantity) {
-        fetch(`http://127.0.0.1:5000/cart/add?product_id=${productId}&quantity=${quantity}`, {
+        fetch(`http://localhost:5001/cart/add?product_id=${productId}&quantity=${quantity}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,7 +81,7 @@
 
     function redirectToLogin() {
         // Thay đổi URL đến trang đăng nhập
-        window.location.href = 'http://127.0.0.1:5000/login';
+        window.location.href = 'http://localhost:5001/login';
     }
 
     function closeDialog() {

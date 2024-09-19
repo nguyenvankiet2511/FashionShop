@@ -86,7 +86,6 @@
 
                                         <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
 
-                                      
 
                                                                                      aria-hidden="true"></i>Profile</a>
                                         </li>
@@ -121,7 +120,7 @@
 
                                 <li><a href="{{url_for('view_blog')}}">blog</a></li>
                                 <li><a href="{{url_for('view_contact')}}">contact</a></li>
-               
+
 
                             </ul>
                             <ul class="navbar_user">
@@ -139,7 +138,6 @@
 
                                     <a href="{{url_for('view_profile')}}">
 
-                               
 
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                         <span class="user-text">{{user.name}}</span>
@@ -158,8 +156,8 @@
                                     <a href="cart.html">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         {% if countCart %}
-                                    <span id="checkout_items" class="checkout_items">{{countCart}}</span>
-                                    {% endif %}
+                                        <span id="checkout_items" class="checkout_items">{{countCart}}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
                             </ul>
@@ -220,7 +218,6 @@
 
                         <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Profile</a>
 
-                       
 
                         </li>
                         <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus" aria-hidden="true"></i>Logout</a>
@@ -253,57 +250,64 @@
                 <label class="product-removal">Remove</label>
                 <label class="product-line-price">Total</label>
             </div>
-            {% for product in listProducts %}
-            <div class="product">
-                <div class="product-image">
-                    <img src="{{url_for('static', filename='images/'+product.product_images)}}">
+            <form id="checkoutForm" action="{{url_for('checkout')}}" method="post">
+                {% for product in listProducts %}
+                <div class="product">
+                    <div class="product-image">
+                        <img src="{{url_for('static', filename='images/'+product.product_images)}}">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-title">{{product.product_name}}</div>
+                        <p class="product-description">{{product.product_description}}</p>
+                    </div>
+                    <div class="product-price">
+                        {{product.product_price-product.product_price*product.product_discount/100}}
+                    </div>
+                    <div class="product-quantity">
+                        <input type="number" value="{{ product.quantity }}" min="1"
+                               data-cart-id="{{ product.cart_id }}"
+                               onchange="updateCartQuantity(this)">
+                    </div>
+                    <div class="product-removal">
+                        <button onclick="removeToCart({{product.cart_id}},this)" class="remove-product">
+                            Remove
+                        </button>
+                    </div>
+                    <div class="product-line-price">
+                        {{(product.product_price-product.product_price*product.product_discount/100)*product.quantity}}
+                    </div>
+                    <input hidden value="{{product.cart_id}}" name="cart_id">
                 </div>
-                <div class="product-details">
-                    <div class="product-title">{{product.product_name}}</div>
-                    <p class="product-description">{{product.product_description}}</p>
-                </div>
-                <div class="product-price">
-                    {{product.product_price-product.product_price*product.product_discount/100}}
-                </div>
-                <div class="product-quantity">
-                    <input type="number" value="{{product.quantity}}" min="1">
-                </div>
-                <div class="product-removal">
-                    <button onclick="removeToCart({{product.cart_id}},this)" class="remove-product">
-                        Remove
-                    </button>
-                </div>
-                <div class="product-line-price">
-                    {{(product.product_price-product.product_price*product.product_discount/100)*product.quantity}}
-                </div>
-            </div>
-            {% endfor %}
-            <div class="totals">
-                <div class="totals-item">
-                    <label>Subtotal :</label>
-                    <div class="totals-value" id="cart-subtotal">71.97</div>
-                </div>
-                <div class="totals-item">
-                    <label>Tax (5%) :</label>
-                    <div class="totals-value" id="cart-tax">3.60</div>
-                </div>
-                <div class="totals-item">
-                    <label>Shipping :</label>
-                    <div class="totals-value" id="cart-shipping">15.00</div>
-                </div>
-                <div class="totals-item totals-item-total">
-                    <label>Grand Total :</label>
-                    <div class="totals-value" id="cart-total">90.57</div>
-                </div>
-            </div>
+                {% endfor %}
 
-            <button class="checkout-1">
-                <h5>
-                    Checkout
-                </h5>
+                <input name="subtotal" id="hidden-subtotal" type="hidden" value="">
+                <input name="tax" id="hidden-tax" type="hidden" value="">
+                <input name="total" id="hidden-total" type="hidden" value="">
+                <div class="totals">
+                    <div class="totals-item">
+                        <label>Subtotal :</label>
+                        <div class="totals-value" id="cart-subtotal">0.0</div>
+                    </div>
+                    <div class="totals-item">
+                        <label>Tax (5%) :</label>
+                        <div class="totals-value" id="cart-tax">0.0</div>
+                    </div>
 
-            </button>
-
+                    <div class="totals-item totals-item-total">
+                        <label>Grand Total :</label>
+                        <div class="totals-value" id="cart-total"></div>
+                    </div>
+                </div>
+                {% if countCart %}
+                <button type="submit" class="checkout-1">
+                    <h5>Checkout</h5>
+                </button>
+                {% else %}
+                <a class="checkout-1" onclick="checkOutError()" style="text-align: center;">
+                    <h5>Checkout</h5>
+                </a>
+                {% endif %}
+            </form>
         </div>
     </div>
 
@@ -410,12 +414,47 @@
 <script src="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/easing/easing.js') }}"></script>
 <script src="{{ url_for('static', filename='js/carts.js') }}"></script>
+<script>
+    function updateHiddenFields() {
+        const subtotal = document.getElementById('cart-subtotal').innerText;
+        const tax = document.getElementById('cart-tax').innerText;
+        const total = document.getElementById('cart-total').innerText;
+
+        document.getElementById('hidden-subtotal').value = subtotal;
+        document.getElementById('hidden-tax').value = tax;
+        document.getElementById('hidden-total').value = total;
+
+         console.log('Updated Values:');
+        console.log('Subtotal:', subtotal);
+        console.log('Tax:', tax);
+        console.log('Total:', total);
+    }
+
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(() => {
+        updateHiddenFields();
+    });
+
+    // Options for the observer (which mutations to observe)
+    const config = { childList: true, subtree: true, characterData: true };
+
+    // Target nodes to observe
+    const targets = document.querySelectorAll('.totals-value');
+
+    // Start observing each target node
+    targets.forEach(target => {
+        observer.observe(target, config);
+    });
+
+    // Initial update
+    updateHiddenFields();
+</script>
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
-  intent="WELCOME"
-  chat-title="CosmicStore"
-  agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
-  language-code="vi"
+        intent="WELCOME"
+        chat-title="CosmicStore"
+        agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
+        language-code="vi"
 ></df-messenger>
 </body>
 

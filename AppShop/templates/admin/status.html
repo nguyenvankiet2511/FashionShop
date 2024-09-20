@@ -34,14 +34,22 @@
 <!-- main wrapper -->
 <!-- ============================================================== -->
 <div class="dashboard-main-wrapper">
+        <nav class="navbar">
+
+        <h1 class="navbar-title" style="color:#fff;">Quản Trị NWA</h1>
+            <ul class="navbar-list">
+                <li class="navbar-item"><a href="#home">Home</a></li>
+                <li class="navbar-item"><a href="#danhmuc">Danh mục</a></li>
+                <li class="navbar-item"><a href="#sanpham">Sản phẩm</a></li>
+                <li class="navbar-item"><a href="#thongke">Thống kê</a></li>
+                <li class="navbar-item"><a href="{{url_for('user_logout')}}">Đăng xuất</a></li>
+            </ul>
+        </nav>
 
     <div class="dashboard-wrapper">
         <div class="dashboard-ecommerce">
             <div class="container-fluid dashboard-content ">
-                <div class="logout-button">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Log Out</span>
-                </div>
+
 
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

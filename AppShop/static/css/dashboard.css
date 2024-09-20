@@ -486,3 +486,47 @@ pre {
         flex: 1 1 100%; /* Một nút mỗi hàng trên màn hình rất nhỏ */
     }
 }
+.navbar-title {
+    text-align: center;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.navbar {
+    background-color: #333;
+    width: 90%;
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 0 auto; /* Căn giữa navbar */
+    border-radius: 5px; /* Bo góc nhẹ cho navbar */
+}
+
+.navbar-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center; /* Căn giữa các mục trong navbar */
+}
+
+.navbar-item {
+    margin-right: 20px;
+}
+
+.navbar-item:last-child {
+    margin-right: 0; /* Loại bỏ khoảng cách cho mục cuối cùng */
+}
+
+.navbar-item a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+    border-radius: 4px; /* Bo góc cho các liên kết */
+}
+
+.navbar-item a:hover {
+    background-color: #fff;
+}

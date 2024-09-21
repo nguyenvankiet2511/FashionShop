@@ -368,7 +368,18 @@ def get_revenue_by_year(year):
     )
 
     return revenue or 0  # Trả về 0 nếu không có doanh thu nào
+def get_revenue_by_month_current(month, year):
+    # Truy vấn để tính tổng doanh thu của các đơn hàng trong một năm cụ thể
 
+    revenue = (
+        db.session.query(func.sum(Orders.totalAmount).label("total_revenue"))
+        .filter(extract('year', Orders.orderDate) == year)
+        .filter(extract('month', Orders.orderDate) == month)# Lọc các đơn hàng theo năm
+        .filter(Orders.active == True)  # Chỉ tính các đơn hàng đã được xác nhận
+        .scalar()  # Trả về giá trị doanh thu
+    )
+
+    return revenue or 0  # Trả về 0 nếu không có doanh thu nào
 
 # số lượng mặt hàng đã bán
 def get_total_items_sold_by_year(year):
@@ -382,6 +393,17 @@ def get_total_items_sold_by_year(year):
 
     return total_quantity or 0
 
+def get_total_items_sold_by_month(month,year):
+    total_quantity = (
+        db.session.query(func.sum(OrderDetails.quantity).label("total_items_sold"))
+        .join(Orders, Orders.id == OrderDetails.order_id)
+        .filter(Orders.active == True)
+        .filter(extract('year', Orders.orderDate) == year)
+        .filter(extract('month', Orders.orderDate) == month)
+        .scalar()
+    )
+
+    return total_quantity or 0
 
 # doanh thu theo quý
 def get_revenue_by_quarter(year):
@@ -406,29 +428,154 @@ def get_revenue_by_quarter(year):
     return result
 
 #daoanh thu 4 nam
-def get_revenue_last_4_years():
+def get_revenue_last_3_years():
     # Lấy năm hiện tại
     current_year = datetime.now().year
 
-    # Tạo danh sách các năm gần nhất
-    years = [current_year - i for i in range(4)]
+    # Tạo danh sách các năm gần nhất (3 năm)
+    years = [current_year - i for i in range(3)]
 
-    # Truy vấn doanh thu theo năm
-    revenue_by_year = (
+    # Truy vấn doanh thu theo năm và quý
+    revenue_by_quarter = (
         db.session.query(
             extract('year', Orders.orderDate).label('year'),
+            extract('quarter', Orders.orderDate).label('quarter'),
             func.sum(Orders.totalAmount).label('total_revenue')
         )
         .filter(Orders.active == True)  # Chỉ tính các đơn hàng đã xác nhận
         .filter(extract('year', Orders.orderDate).in_(years))  # Lọc theo các năm gần nhất
-        .group_by(extract('year', Orders.orderDate))
-        .order_by(extract('year', Orders.orderDate).desc())  # Sắp xếp theo năm giảm dần
+        .group_by(extract('year', Orders.orderDate), extract('quarter', Orders.orderDate))
+        .order_by(extract('year', Orders.orderDate).desc(), extract('quarter', Orders.orderDate))  # Sắp xếp theo năm và quý
         .all()
     )
 
     # Định dạng kết quả
-    result = {year: 0 for year in years}
-    for year, total_revenue in revenue_by_year:
-        result[year] = total_revenue
+    result = {year: {1: 0, 2: 0, 3: 0, 4: 0} for year in years}
+    for year, quarter, total_revenue in revenue_by_quarter:
+        result[year][quarter] = total_revenue
 
     return result
+
+def get_best_selling_product_by_year(year):
+    # Truy vấn để lấy tên sản phẩm và tổng số lượng đã bán trong một năm
+    best_selling_product = (
+        db.session.query(
+            Products.name,  # Lấy tên sản phẩm
+            func.sum(OrderDetails.quantity).label('total_sold')
+        )
+        .join(OrderDetails, OrderDetails.product_id == Products.id)
+        .join(Orders, Orders.id == OrderDetails.order_id)  # Kết hợp với bảng Orders để lấy ngày đặt hàng
+        .filter(extract('year', Orders.orderDate) == year)  # Lọc theo năm
+        .group_by(Products.name)  # Nhóm theo tên sản phẩm
+        .order_by(func.sum(OrderDetails.quantity).desc())  # Sắp xếp theo tổng số lượng bán
+        .first()  # Lấy sản phẩm bán chạy nhất
+    )
+
+    return best_selling_product
+
+
+def get_best_selling_product_month(month,year):
+
+    # Truy vấn để lấy tên sản phẩm và tổng số lượng đã bán trong một năm
+    best_selling_product = (
+        db.session.query(
+            Products.name,  # Lấy tên sản phẩm
+            func.sum(OrderDetails.quantity).label('total_sold')
+        )
+        .join(OrderDetails, OrderDetails.product_id == Products.id)
+        .join(Orders, Orders.id == OrderDetails.order_id)  # Kết hợp với bảng Orders để lấy ngày đặt hàng
+        .filter(extract('year', Orders.orderDate) == year)
+        .filter(extract('month', Orders.orderDate) == month)# Lọc theo năm
+        .group_by(Products.name)  # Nhóm theo tên sản phẩm
+        .order_by(func.sum(OrderDetails.quantity).desc())  # Sắp xếp theo tổng số lượng bán
+        .first()  # Lấy sản phẩm bán chạy nhất
+    )
+
+    return best_selling_product
+from sqlalchemy import func
+
+def doanh_thu_san_pham_theo_thang_nam(thang, nam):
+    doanh_thu = (
+        db.session.query(
+            Products.name,
+            func.sum((OrderDetails.quantity * OrderDetails.price) * (1 - OrderDetails.discount / 100)).label('doanh_thu'),
+            func.sum(OrderDetails.quantity).label('luot_mua')
+        )
+        .join(OrderDetails, OrderDetails.product_id == Products.id)
+        .join(Orders, Orders.id == OrderDetails.order_id)
+        .filter(extract('month', Orders.orderDate) == thang)
+        .filter(extract('year', Orders.orderDate) == nam)
+        .group_by(Products.id, Products.name)
+        .order_by(func.sum(OrderDetails.quantity).desc())  # Sắp xếp theo lượt mua giảm dần
+    ).all()
+
+    return doanh_thu
+
+def tong_ton_kho():
+    tong_kho = db.session.query(func.sum(Products.unitsInStock)).scalar()  # Sử dụng scalar() để lấy giá trị đơn
+    return tong_kho
+
+def tong_so_luong_mua_theo_danh_muc(thang, nam):
+    # Truy vấn số lượng mua theo danh mục
+    tong_so_luong = (
+        db.session.query(
+            Categories.id.label('category_id'),
+            Categories.name.label('category_name'),
+            func.sum(OrderDetails.quantity).label('tong_so_luong_mua')
+        )
+        .join(Products, Products.category_id == Categories.id)
+        .join(OrderDetails, OrderDetails.product_id == Products.id)
+        .join(Orders, Orders.id == OrderDetails.order_id)
+        .filter(extract('year', Orders.orderDate) == nam)
+        .filter(extract('month', Orders.orderDate) == thang)
+        .group_by(Categories.id, Categories.name)
+    ).all()
+
+    # Chuyển kết quả truy vấn thành từ điển
+    danh_sach_mua = {item.category_id: item.tong_so_luong_mua for item in tong_so_luong}
+
+    # Truy vấn tất cả danh mục
+    all_categories = db.session.query(Categories).all()
+
+    # Tạo danh sách kết quả
+    ket_qua = []
+    for category in all_categories:
+        ket_qua.append({
+            'category_id': category.id,
+            'category_name': category.name,
+            'tong_so_luong_mua': danh_sach_mua.get(category.id, 0)  # Gán số lượng mua, nếu không có thì là 0
+        })
+
+    return ket_qua
+def doanh_thu_theo_danh_muc(thang, nam):
+    # Truy vấn doanh thu theo danh mục
+    doanh_thu = (
+        db.session.query(
+            Categories.id.label('category_id'),
+            Categories.name.label('category_name'),
+            func.sum(OrderDetails.quantity * Products.price).label('doanh_thu')  # Tính doanh thu
+        )
+        .join(Products, Products.category_id == Categories.id)
+        .join(OrderDetails, OrderDetails.product_id == Products.id)
+        .join(Orders, Orders.id == OrderDetails.order_id)
+        .filter(extract('year', Orders.orderDate) == nam)
+        .filter(extract('month', Orders.orderDate) == thang)
+        .group_by(Categories.id, Categories.name)
+    ).all()
+
+    # Chuyển kết quả truy vấn thành từ điển
+    danh_sach_doanh_thu = {item.category_id: item.doanh_thu for item in doanh_thu}
+
+    # Truy vấn tất cả danh mục
+    all_categories = db.session.query(Categories).all()
+
+    # Tạo danh sách kết quả
+    ket_qua = []
+    for category in all_categories:
+        ket_qua.append({
+            'category_id': category.id,
+            'category_name': category.name,
+            'doanh_thu': danh_sach_doanh_thu.get(category.id, 0)  # Gán doanh thu, nếu không có thì là 0
+        })
+
+    return ket_qua

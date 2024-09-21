@@ -35,15 +35,7 @@
     // ============================================================== 
     // Product Category
     // ============================================================== 
-    var chart = new Chartist.Pie('.ct-chart-category', {
-        series: [60, 30, 30],
-        labels: ['Bananas', 'Apples', 'Grapes']
-    }, {
-        donut: true,
-        showLabel: false,
-        donutWidth: 40
 
-    });
 
 
     chart.on('draw', function(data) {
@@ -207,41 +199,4 @@
     // Revenue By Categories
     // ============================================================== 
 
-    var chart = c3.generate({
-        bindto: "#c3chart_category",
-        data: {
-            columns: [
-                ['Men', 100],
-                ['Women', 80],
-                ['Accessories', 50],
-                ['Children', 40],
-                ['Apperal', 20],
-
-            ],
-            type: 'donut',
-
-            onclick: function(d, i) { console.log("onclick", d, i); },
-            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function(d, i) { console.log("onmouseout", d, i); },
-
-            colors: {
-                Men: '#5969ff',
-                Women: '#ff407b',
-                Accessories: '#25d5f2',
-                Children: '#ffc750',
-                Apperal: '#2ec551',
-
-
-
-            }
-        },
-        donut: {
-            label: {
-                show: false
-            }
-        },
-
-
-
-    });
 

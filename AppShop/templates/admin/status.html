@@ -34,23 +34,22 @@
 <!-- main wrapper -->
 <!-- ============================================================== -->
 <div class="dashboard-main-wrapper">
-        <nav class="navbar">
+    <nav class="navbar">
 
         <h1 class="navbar-title" style="color:#fff;">Quản Trị NWA</h1>
-            <ul class="navbar-list">
-                <li class="navbar-item"><a href="#home">Home</a></li>
-                <li class="navbar-item"><a href="#danhmuc">Danh mục</a></li>
-                <li class="navbar-item"><a href="#sanpham">Sản phẩm</a></li>
-                <li class="navbar-item"><a href="#thongke">Thống kê</a></li>
-                <li class="navbar-item"><a href="{{url_for('user_logout')}}">Đăng xuất</a></li>
-            </ul>
-        </nav>
+       <ul class="navbar-list">
+    <li class="navbar-item"><a href="#home">Home</a></li>
+    <li class="navbar-item"><a href="{{ url_for('categories.index_view') }}">Danh mục</a></li>
+    <li class="navbar-item"><a href="{{ url_for('products.index_view') }}">Sản phẩm</a></li>
+    <li class="navbar-item"><a href="{{ url_for('statusview.index') }}">Thống kê</a></li>
+    <li class="navbar-item"><a href="{{ url_for('user_logout') }}">Đăng xuất</a></li>
+</ul>
+
+    </nav>
 
     <div class="dashboard-wrapper">
         <div class="dashboard-ecommerce">
             <div class="container-fluid dashboard-content ">
-
-
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
@@ -83,9 +82,9 @@
                             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Doanh thu </h5>
+                                        <h5 class="text-muted">Doanh thu trong tháng {{month}} năm {{year}} </h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">{{totalYear}}</h1>
+                                            <h1 class="mb-1">{{revenue_month_current}} VND</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                             <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
@@ -98,9 +97,9 @@
                             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Mặt hàng bán chạy nhất</h5>
+                                        <h5 class="text-muted">Mặt hàng bán chạy nhất trong tháng {{month}}</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">Sản phẩm #1</h1>
+                                            <h1 class="mb-1">{{bestSellerMonth.name}}</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-info font-weight-bold">
                                             <span><i class="fa fa-fw fa-star"></i></span><span>Top Seller</span>
@@ -114,9 +113,9 @@
                             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Tổng số hàng đã bán</h5>
+                                        <h5 class="text-muted">Tổng số hàng đã bán trong tháng {{month}}</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">{{totalItems}}</h1>
+                                            <h1 class="mb-1">{{totalItemsMonth}}</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                             <span><i class="fa fa-fw fa-arrow-up"></i></span><span>7.50%</span>
@@ -130,9 +129,9 @@
                             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Số lượng hàng tồn kho</h5>
+                                        <h5 class="text-muted">Số lượng hàng trong kho</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">500</h1>
+                                            <h1 class="mb-1">{{tonKho}}</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-warning font-weight-bold">
                                         <span><i
@@ -239,23 +238,9 @@
                                 <div class="card">
                                     <h5 class="card-header">Danh Mục Sản Phẩm</h5>
                                     <div class="card-body">
-                                        <div class="ct-chart-category ct-golden-section" style="height: 315px;"></div>
+                                        <canvas class="ct-chart-category" style="height: 315px;"></canvas>
                                         <div class="text-center m-t-40">
-                                            <span class="legend-item mr-3">
-                                                <span class="fa-xs text-primary mr-1 legend-tile"><i
-                                                        class="fa fa-fw fa-square-full"></i></span>
-                                                <span class="legend-text">Nam</span>
-                                            </span>
-                                            <span class="legend-item mr-3">
-                                                <span class="fa-xs text-secondary mr-1 legend-tile"><i
-                                                        class="fa fa-fw fa-square-full"></i></span>
-                                                <span class="legend-text">Nữ</span>
-                                            </span>
-                                            <span class="legend-item mr-3">
-                                                <span class="fa-xs text-info mr-1 legend-tile"><i
-                                                        class="fa fa-fw fa-square-full"></i></span>
-                                                <span class="legend-text">Phụ Kiện</span>
-                                            </span>
+                                            <!-- Legend sẽ tự động tạo từ dữ liệu -->
                                         </div>
                                     </div>
                                 </div>
@@ -292,48 +277,26 @@
                                 <!-- Các chiến dịch hiệu quả nhất -->
                                 <!-- ============================================================== -->
                                 <div class="card">
-                                    <h5 class="card-header">Các Chiến Dịch Hiệu Quả Nhất</h5>
+                                    <h5 class="card-header">Top các sản phẩm bán chạy</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table class="table no-wrap p-table">
                                                 <thead class="bg-light">
                                                 <tr class="border-0">
-                                                    <th class="border-0">Chiến Dịch</th>
-                                                    <th class="border-0">Lượt Xem</th>
+                                                    <th class="border-0">Sản phẩm</th>
+                                                    <th class="border-0">Lượt mua</th>
                                                     <th class="border-0">Doanh Thu</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                {% for item in revenueProduct %}
                                                 <tr>
-                                                    <td>Chiến Dịch#1</td>
-                                                    <td>98,789</td>
-                                                    <td>$4,563</td>
+                                                    <td>{{item.name}}</td>
+                                                    <td>{{item.luot_mua}}</td>
+                                                    <td>{{item.doanh_thu}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Chiến Dịch#2</td>
-                                                    <td>2,789</td>
-                                                    <td>$325</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Chiến Dịch#3</td>
-                                                    <td>1,459</td>
-                                                    <td>$225</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Chiến Dịch#4</td>
-                                                    <td>5,035</td>
-                                                    <td>$856</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Chiến Dịch#5</td>
-                                                    <td>10,000</td>
-                                                    <td>$1,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Chiến Dịch#5</td>
-                                                    <td>10,000</td>
-                                                    <td>$1,000</td>
-                                                </tr>
+                                                {% endfor %}
+
                                                 <tr>
                                                     <td colspan="3">
                                                         <a href="#" class="btn btn-outline-light float-right">Chi
@@ -359,9 +322,9 @@
                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                 <div class="card border-3 border-top border-top-primary">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Doanh Thu</h5>
+                                        <h5 class="text-muted">Doanh thu năm {{year}}</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">$12,099</h1>
+                                            <h1 class="mb-1">{{totalYear}} VND</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                         <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i
@@ -379,13 +342,12 @@
                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                 <div class="card border-3 border-top border-top-primary">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Khách Hàng Mới</h5>
+                                        <h5 class="text-muted">Sản phẩm bán chạy trong năm {{year}}</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">1,245</h1>
+                                            <h1 class="mb-1">{{bestSeller.name}}</h1>
                                         </div>
-                                        <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">10%</span>
+                                        <div class="metric-label d-inline-block float-right text-info font-weight-bold">
+                                            <span><i class="fa fa-fw fa-star"></i></span><span>Top Seller</span>
                                         </div>
                                     </div>
                                 </div>
@@ -399,13 +361,13 @@
                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                 <div class="card border-3 border-top border-top-primary">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Lượt Truy Cập</h5>
+                                        <h5 class="text-muted">Số lượng sản phẩm tồn kho</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">13,000</h1>
+                                            <h1 class="mb-1">{{tonKho}}</h1>
                                         </div>
-                                        <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i
-                                                class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5%</span>
+                                        <div class="metric-label d-inline-block float-right text-warning font-weight-bold">
+                                        <span><i
+                                                class="fa fa-fw fa-exclamation-triangle"></i></span><span>Tồn kho thấp</span>
                                         </div>
                                     </div>
                                 </div>
@@ -419,9 +381,9 @@
                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                 <div class="card border-3 border-top border-top-primary">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Tổng Đơn Hàng</h5>
+                                        <h5 class="text-muted">Tổng số hàng đã bán trong năm {{year}}</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">1,340</h1>
+                                            <h1 class="mb-1">{{totalItems}}</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
                                         <span class="icon-circle-small icon-box-xs text-danger bg-danger-light"><i
@@ -527,7 +489,7 @@
 <!-- morris js -->
 <script src="{{ url_for('static', filename='js/raphael.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/morris.js') }}"></script>
- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- chart c3 js -->
 <script src="{{ url_for('static', filename='js/c3.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/d3-5.4.0.min.js') }}"></script>
@@ -592,43 +554,144 @@
     });
 </script>
 <script>
-     document.addEventListener('DOMContentLoaded', function () {
-            var revenueData = {{ revenueFourYear | tojson | safe }};
+    document.addEventListener('DOMContentLoaded', function () {
+        var revenueData = {{ revenueThreeYear | tojson | safe }};
+
+        var data = [];
+        for (var year in revenueData) {
+            if (revenueData.hasOwnProperty(year)) {
+                var quarterData = [
+                    { x: year + ' Q1', y: revenueData[year][1] || 0 },
+                    { x: year + ' Q2', y: revenueData[year][2] || 0 },
+                    { x: year + ' Q3', y: revenueData[year][3] || 0 },
+                    { x: year + ' Q4', y: revenueData[year][4] || 0 }
+                ];
+
+                data = data.concat(quarterData);
+            }
+        }
+
+        Morris.Area({
+            element: 'morris_totalrevenue',
+            behaveLikeLine: true,
+            data: data,
+            xkey: 'x',
+            ykeys: ['y'],
+            labels: ['Doanh thu'],
+            lineColors: ['#5969ff'],
+            resize: true
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
 
 
-            var data = [];
-            for (var year in revenueData) {
-                if (revenueData.hasOwnProperty(year)) {
-                    var quarterData = [
-                        { x: year + ' Q1', y: 0 },
-                        { x: year + ' Q2', y: 0 },
-                        { x: year + ' Q3', y: 0 },
-                        { x: year + ' Q4', y: 0 }
-                    ];
 
-                    // Chia doanh thu đều cho 4 quý (có thể thay đổi tùy thuộc vào dữ liệu thực tế)
-                    var revenuePerQuarter = revenueData[year] / 4;
 
-                    quarterData[0].y = revenuePerQuarter;
-                    quarterData[1].y = revenuePerQuarter;
-                    quarterData[2].y = revenuePerQuarter;
-                    quarterData[3].y = revenuePerQuarter;
 
-                    data = data.concat(quarterData);
+
+
+        var chart = new Chartist.Line('.ct-chart', {
+        labels: ['Mon', 'Tue', 'Wed'],
+        series: [
+            [1, 5, 2, 5],
+            [2, 3, 4, 8]
+
+        ]
+    }, {
+        low: 0,
+        showArea: true,
+        showPoint: false,
+        fullWidth: true
+    });
+
+        const danhMucMua = {{ xxx | tojson | safe }};
+
+        const labels = danhMucMua.map(item => item.category_name);
+        const quantities = danhMucMua.map(item => item.tong_so_luong_mua);
+
+        const chartData = {
+            labels: labels,
+            datasets: [{
+                label: 'Số lượng mua theo danh mục',
+                data: quantities,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: 'pie', // Đổi thành 'pie' để vẽ biểu đồ hình tròn
+            data: chartData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
                 }
             }
+        };
 
-            Morris.Area({
-                element: 'morris_totalrevenue',
-                behaveLikeLine: true,
-                data: data,
-                xkey: 'x',
-                ykeys: ['y'],
-                labels: ['Y'],
-                lineColors: ['#5969ff'],
-                resize: true
-            });
+        const myChart = new Chart(
+            document.getElementsByClassName('ct-chart-category')[0],
+            config
+        );
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const danhMucDT = {{ doanhThuDM | tojson | safe }}; // Lấy dữ liệu từ backend
+
+        // Tạo mảng columns cho C3
+        const columns = danhMucDT.map(item => [item.category_name, item.doanh_thu]);
+
+        var chart = c3.generate({
+            bindto: "#c3chart_category",
+            data: {
+                columns: columns,
+                type: 'donut',
+                onclick: function(d, i) { console.log("onclick", d, i); },
+                onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+                onmouseout: function(d, i) { console.log("onmouseout", d, i); },
+                colors: {
+                    'Men': '#5969ff',
+                    'Women': '#ff407b',
+                    'Accessories': '#25d5f2',
+                    'Children': '#ffc750',
+                    'Apperal': '#2ec551',
+                }
+            },
+            donut: {
+                label: {
+                    show: false
+                }
+            },
         });
+    });
 </script>
 
 

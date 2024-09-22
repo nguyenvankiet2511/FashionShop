@@ -21,45 +21,43 @@
 <div class="wrapper-container">
     <nav id="sidebar">
         <div class="sidebar-content">
-            <a class="sidebar-brand" href="home.html">
-                <span>SALE AGENT</span>
+            <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
+                <span>Nhân viên bán hàng</span>
             </a>
             <ul class="sidebar-nav">
-                <li class="sidebar-header">Pages</li>
+                <li class="sidebar-header">Trang</li>
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="home.html">
-                        <i class="fa-solid fa-house"></i> <span>Home</span>
+                    <a class="sidebar-link" href="{{url_for('view_home_employee')}}">
+                        <i class="fa-solid fa-house"></i> <span>Trang Chủ</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="profile.html">
-                        <i class="fa-solid fa-user"></i> <span>Profile</span>
+                    <a class="sidebar-link" href="{{url_for('view_employee_profile')}}">
+                        <i class="fa-solid fa-user"></i> <span>Hồ Sơ</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="customercare.html">
-                        <i class="fa-solid fa-headset"></i> <span>Customer Care</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ordermanager.html">
-                        <i class="fa-solid fa-user-plus"></i> <span>Order Details</span>
+                    <a class="sidebar-link" href="{{url_for('view_customercare')}}">
+                        <i class="fa-solid fa-headset"></i> <span>Chăm Sóc Khách Hàng</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="orderlive.html">
-                        <i class="fa-solid fa-file-invoice"></i> <span>Customer Invoice</span>
+                    <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
+                        <i class="fa-solid fa-user-plus"></i> <span>Chi Tiết Đơn Hàng</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                        <i class="fa-solid fa-sign-in-alt"></i> <span>Log Out</span>
+                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
+                        <i class="fa-solid fa-credit-card"></i> <span>Thanh Toán</span>
                     </a>
                 </li>
-
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('user_logout')}}">
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Đăng Xuất</span>
+                    </a>
+                </li>
             </ul>
+
         </div>
     </nav>
     <div class="main">
@@ -89,11 +87,12 @@
                     <li class="nav-item dropdown">
 
                         <a class="nav-link profile-toggle" href="#">
-                            <img src="img/avatar-4.jpg" alt="Charles Hall" class="avatar">
-                            <span>Jesse</span>
+                            <img src="{{ url_for('static', filename='images/'+user.photoPath) }}" alt="Charles Hall"
+                                 class="avatar">
+                            <span>{{user.name}}</span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="profile.html">Profile</a>
+                            <a class="dropdown-item" href="{{ url_for('view_employee_profile')}}">Profile</a>
                             <a class="dropdown-item" href="#">Analytics</a>
                             <a class="dropdown-item" href="index.html">Settings & Privacy</a>
                             <a class="dropdown-item" href="#">Help Center</a>
@@ -165,15 +164,15 @@
                 </ul>
 
                 <div class="instructions">
-                    <p>1. <strong>Proceed to Checkout:</strong> Click "Submit" to finalize your purchase. You’ll be
-                        guided
-                        through the payment process.</p>
-                    <p>2. <strong>Confirm Payment:</strong> Follow the prompts to confirm your payment and complete your
-                        purchase. A confirmation will be sent to you shortly.</p>
+                    <p>1. <strong>Tiến Hành Đến Thanh Toán:</strong> Nhấn "Gửi" để hoàn tất việc mua hàng của bạn. Bạn
+                        sẽ được hướng dẫn qua quy trình thanh toán.</p>
+                    <p>2. <strong>Xác Nhận Thanh Toán:</strong> Làm theo các hướng dẫn để xác nhận thanh toán và hoàn
+                        tất giao dịch. Một thông báo xác nhận sẽ được gửi đến bạn trong thời gian sớm nhất.</p>
                     <button type="submit" id="confirmPaymentButton">
-                        <i class="fas fa-check"></i> Confirm Payment
+                        <i class="fas fa-check"></i> Xác Nhận Thanh Toán
                     </button>
                 </div>
+
             </div>
         </form>
     </div>

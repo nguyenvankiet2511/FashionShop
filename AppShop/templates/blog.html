@@ -73,31 +73,32 @@
                                         <li><a href="#">Spanish</a></li>
                                     </ul>
                                 </li>
-                                <li class="account">
-                                    <a href="#">
-                                        My Account
-                                        <i class="fa fa-angle-down"></i>
-                                    </a>
-                                    {% if user is none %}
-                                    <ul class="account_selection">
-                                        <li><a href="{{url_for('show_login')}}"><i class="fa fa-sign-in"
-                                                                                   aria-hidden="true"></i>Sign In</a>
-                                        </li>
-                                        <li><a href="{{url_for('show_login')}}"><i class="fa fa-user-plus"
-                                                                                   aria-hidden="true"></i>Register</a>
-                                        </li>
-                                    </ul>
-                                    {% else %}
-                                    <ul class="account_selection">
-                                        <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
-                                                                                     aria-hidden="true"></i>Profile</a>
-                                        </li>
-                                        <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus"
-                                                                                    aria-hidden="true"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                    {% endif %}
-                                </li>
+                               <li class="account">
+                                   <a href="#">
+                                       Tài Khoản Của Tôi
+                                       <i class="fa fa-angle-down"></i>
+                                   </a>
+                                   {% if user is none %}
+                                   <ul class="account_selection">
+                                       <li><a href="{{url_for('show_login')}}"><i class="fa fa-sign-in"
+                                                                                  aria-hidden="true"></i>Đăng Nhập</a>
+                                       </li>
+                                       <li><a href="{{url_for('show_login')}}"><i class="fa fa-user-plus"
+                                                                                  aria-hidden="true"></i>Đăng Ký</a>
+                                       </li>
+                                   </ul>
+                                   {% else %}
+                                   <ul class="account_selection">
+                                       <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
+                                                                                    aria-hidden="true"></i>Hồ Sơ</a>
+                                       </li>
+                                       <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus"
+                                                                                   aria-hidden="true"></i>Đăng Xuất</a>
+                                       </li>
+                                   </ul>
+                                   {% endif %}
+                               </li>
+
                             </ul>
                         </div>
                     </div>
@@ -112,7 +113,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-right">
                         <div class="logo_container">
-                            <a href="{{url_for('home')}}">colo<span>shop</span></a>
+                            <a href="{{url_for('home')}}">Cosmic<span>Store</span></a>
                         </div>
                         <nav class="navbar">
                             <ul class="navbar_menu">
@@ -230,136 +231,137 @@
     </div>
 
 		<div class="bloger-one" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{{ url_for('static', filename='images/about-us.jpg') }}') center/cover no-repeat fixed;">
-			<div class = "banner">
-			<div class = "container">
-				<h1 class="Bloger-h1"> Blog</h1>
-			  <h1 class = "banner-title">
-				<span>Cosmic Store</span>
-			  </h1>
-			  <p>Traditional in-store shopping where customers physically visit stores to browse and purchase items.</p>
-			  <form>
-				<input type = "text" class = "search-input" placeholder="find your food . . .">
-				<button type = "submit" class = "search-btn">
-				  <i class = "fas fa-search"></i>
-				</button>
-			  </form>
-			</div>
-		  </div>
-		</div>
+    <div class="banner">
+        <div class="container">
+            <h1 class="Bloger-h1">Blog</h1>
+            <h1 class="banner-title">
+                <span>Cosmic Store</span>
+            </h1>
+            <p>Mua sắm truyền thống tại cửa hàng, nơi khách hàng trực tiếp đến các cửa hàng để duyệt và mua sắm hàng hóa.</p>
+            <form>
+                <input type="text" class="search-input" placeholder="tìm kiếm sản phẩm của bạn . . .">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 		<!-- design -->
-		<section class = "design" id = "design">
-		  <div class = "container">
-			<div class = "title">
-			  <h2>Recent Fashion & Design</h2>
-			  <p>Recent Fashion & Design on the Blog</p>
-			</div>
+	<section class="design" id="design">
+    <div class="container">
+        <div class="title">
+            <h2>Thời Trang & Thiết Kế Mới Nhất</h2>
+            <p>Thời Trang & Thiết Kế Mới Nhất trên Blog</p>
+        </div>
 
-			<div class = "design-content">
-			  <!-- item -->
-			  <div class = "design-item">
-				<div class = "design-img">
-				  <img src = "{{ url_for('static', filename='images/blog-9.jpg') }}" alt = "">
-				  <span><i class = "far fa-heart"></i> 25</span>
-				  <span>Art & Design</span>
-				</div>
-				<div class = "design-title">
-				  <a href = "#">Discover the latest trends in men's fashion and elevate your style with our curated collection.</a>
-				</div>
-			  </div>
-			  <!-- end of item -->
-			  <!-- item -->
-			  <div class = "design-item">
-				<div class = "design-img">
-				  <img src = "{{ url_for('static', filename='images/blog-8.jpg') }}" alt = "">
-				  <span><i class = "far fa-heart"></i> 16</span>
-				  <span>Art & Design</span>
-				</div>
-				<div class = "design-title">
-				  <a href = "#">Unlock your true potential with stylish and versatile men's wear designed for every occasion.</a>
-				</div>
-			  </div>
-			  <!-- end of item -->
-			  <!-- item -->
-			  <div class = "design-item">
-				<div class = "design-img">
-				  <img src = "{{ url_for('static', filename='images/blog-6.jpg') }}" alt = "">
-				  <span><i class = "far fa-heart"></i> 22</span>
-				  <span>Art & Design</span>
-				</div>
-				<div class = "design-title">
-				  <a href = "#">Explore our premium selection of men's fashion essentials, perfect for modern gentlemen.</a>
-				</div>
-			  </div>
-			  <!-- end of item -->
-			  <!-- item -->
-			  <div class = "design-item">
-				<div class = "design-img">
-				  <img src = "{{ url_for('static', filename='images/blog-3.jpg') }}" alt = "">
-				  <span><i class = "far fa-heart"></i> 12</span>
-				  <span>Art & Design</span>
-				</div>
-				<div class = "design-title">
-				  <a href = "#">Stay ahead of the curve with our exclusive range of men's fashion that blends comfort and style.</a>
-				</div>
-			  </div>
-			  <!-- end of item -->
-			  <!-- item -->
-			  <div class = "design-item">
-				<div class = "design-img">
-				  <img src = "{{ url_for('static', filename='images/banner_2.jpg') }}" alt = "">
-				  <span><i class = "far fa-heart"></i> 9</span>
-				  <span>Art & Design</span>
-				</div>
-				<div class = "design-title">
-				  <a href = "#">Transform your wardrobe with our contemporary men's fashion pieces, crafted for the confident man.</a>
-				</div>
-			  </div>
-			  <!-- end of item -->
-			  <!-- item -->
-			  <div class = "design-item">
-				<div class = "design-img">
-				  <img src = "{{ url_for('static', filename='images/blog-2.jpg') }}" alt = "">
-				  <span><i class = "far fa-heart"></i> 39</span>
-				  <span>Art & Design</span>
-				</div>
-				<div class = "design-title">
-				  <a href = "#">Find the perfect balance of sophistication and comfort with our men's fashion collection.</a>
-				</div>
-			  </div>
-			  <!-- end of item -->
-			</div>
-		  </div>
-		</section>
+        <div class="design-content">
+            <!-- item -->
+            <div class="design-item">
+                <div class="design-img">
+                    <img src="{{ url_for('static', filename='images/blog-9.jpg') }}" alt="">
+                    <span><i class="far fa-heart"></i> 25</span>
+                    <span>Nghệ Thuật & Thiết Kế</span>
+                </div>
+                <div class="design-title">
+                    <a href="#">Khám phá những xu hướng mới nhất trong thời trang nam và nâng cao phong cách của bạn với bộ sưu tập được chọn lọc của chúng tôi.</a>
+                </div>
+            </div>
+            <!-- end of item -->
+            <!-- item -->
+            <div class="design-item">
+                <div class="design-img">
+                    <img src="{{ url_for('static', filename='images/blog-8.jpg') }}" alt="">
+                    <span><i class="far fa-heart"></i> 16</span>
+                    <span>Nghệ Thuật & Thiết Kế</span>
+                </div>
+                <div class="design-title">
+                    <a href="#">Khám phá tiềm năng thực sự của bạn với trang phục nam tính thời trang và linh hoạt, được thiết kế cho mọi dịp.</a>
+                </div>
+            </div>
+            <!-- end of item -->
+            <!-- item -->
+            <div class="design-item">
+                <div class="design-img">
+                    <img src="{{ url_for('static', filename='images/blog-6.jpg') }}" alt="">
+                    <span><i class="far fa-heart"></i> 22</span>
+                    <span>Nghệ Thuật & Thiết Kế</span>
+                </div>
+                <div class="design-title">
+                    <a href="#">Khám phá bộ sưu tập thời trang nam cao cấp của chúng tôi, hoàn hảo cho những quý ông hiện đại.</a>
+                </div>
+            </div>
+            <!-- end of item -->
+            <!-- item -->
+            <div class="design-item">
+                <div class="design-img">
+                    <img src="{{ url_for('static', filename='images/blog-3.jpg') }}" alt="">
+                    <span><i class="far fa-heart"></i> 12</span>
+                    <span>Nghệ Thuật & Thiết Kế</span>
+                </div>
+                <div class="design-title">
+                    <a href="#">Đi trước xu hướng với bộ sưu tập thời trang nam độc quyền của chúng tôi, kết hợp giữa sự thoải mái và phong cách.</a>
+                </div>
+            </div>
+            <!-- end of item -->
+            <!-- item -->
+            <div class="design-item">
+                <div class="design-img">
+                    <img src="{{ url_for('static', filename='images/banner_2.jpg') }}" alt="">
+                    <span><i class="far fa-heart"></i> 9</span>
+                    <span>Nghệ Thuật & Thiết Kế</span>
+                </div>
+                <div class="design-title">
+                    <a href="#">Biến đổi tủ quần áo của bạn với những sản phẩm thời trang nam hiện đại, được chế tác cho người đàn ông tự tin.</a>
+                </div>
+            </div>
+            <!-- end of item -->
+            <!-- item -->
+            <div class="design-item">
+                <div class="design-img">
+                    <img src="{{ url_for('static', filename='images/blog-2.jpg') }}" alt="">
+                    <span><i class="far fa-heart"></i> 39</span>
+                    <span>Nghệ Thuật & Thiết Kế</span>
+                </div>
+                <div class="design-title">
+                    <a href="#">Tìm sự cân bằng hoàn hảo giữa sự tinh tế và thoải mái với bộ sưu tập thời trang nam của chúng tôi.</a>
+                </div>
+            </div>
+            <!-- end of item -->
+        </div>
+    </div>
+</section>
+
 		<!-- end of design -->
 
 
 
 
 		<!-- about -->
-		<section class = "about" id = "about">
-		  <div class = "container">
-			<div class = "about-content">
-			  <div class="about-img">
-				<img src = "{{ url_for('static', filename='images/blog-6.jpg') }}" alt = "">
-			  </div>
-			  <div class = "about-text">
-				<div class = "title">
-				  <h2>Cosmic Store</h2>
-				  <p>art & design is my passion</p>
-				</div>
-				<p>
-					At Cosmic, "Art & Design is My Passion", we believe that every fashion item is not just a product but also a work of art. We are passionate about creating and designing, bringing you outfits that are not only beautiful but also express your personality and style.
-				</p>
-				<p>
-					We offer a rich collection of clothing products, from modern designs to classic styles. Each product is meticulously cared for, with high-quality materials and unique designs, to bring you the ultimate comfort and style.
-				</p>
+		<section class="about" id="about">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-img">
+                <img src="{{ url_for('static', filename='images/blog-6.jpg') }}" alt="">
+            </div>
+            <div class="about-text">
+                <div class="title">
+                    <h2>Cosmic Store</h2>
+                    <p>nghệ thuật & thiết kế là niềm đam mê của tôi</p>
+                </div>
+                <p>
+                    Tại Cosmic, "Nghệ Thuật & Thiết Kế Là Niềm Đam Mê Của Tôi", chúng tôi tin rằng mỗi sản phẩm thời trang không chỉ là một món hàng mà còn là một tác phẩm nghệ thuật. Chúng tôi đam mê việc sáng tạo và thiết kế, mang đến cho bạn những bộ trang phục không chỉ đẹp mà còn thể hiện cá tính và phong cách của bạn.
+                </p>
+                <p>
+                    Chúng tôi cung cấp một bộ sưu tập phong phú các sản phẩm quần áo, từ những thiết kế hiện đại đến những phong cách cổ điển. Mỗi sản phẩm đều được chăm sóc tỉ mỉ, với chất liệu cao cấp và thiết kế độc đáo, để mang lại cho bạn sự thoải mái và phong cách tối ưu.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-
-			  </div>
-			</div>
-		  </div>
-		</section>
     </div>
 		<!-- end of about -->
 
@@ -374,71 +376,71 @@
 
 	<!-- Newsletter -->
 
-	<div class="newsletter">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
-						<h4>Newsletter</h4>
-						<p>Subscribe to our newsletter and get 20% off your first purchase</p>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<form action="post">
-						<div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
-							<input id="newsletter_email" type="email" placeholder="Your email" required="required" data-error="Valid email is required.">
-							<button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">subscribe</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Footer -->
+<div class="newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+                    <h4>Bản Tin</h4>
+                    <p>Đăng ký nhận bản tin chúng tôi được giảm 20% lần mua đầu tiên</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <form action="post">
+                    <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+                        <input id="newsletter_email" type="email" placeholder="Email của bạn" required="required"
+                               data-error="Yêu cầu email hợp lệ.">
+                        <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300"
+                                value="Submit">đăng ký
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
-
-                    <p>We prioritize creating a personalized shopping experience for every customer, ensuring that every
-                        visit feels unique and special.</p>
-                    <i>Address :<a href="index.html">shoppingnow@gmail.com</a></i>
-
+                    <p>Chúng tôi ưu tiên tạo ra trải nghiệm mua sắm cá nhân hóa cho từng khách hàng, đảm bảo rằng mỗi
+                        lần ghé thăm đều cảm thấy độc đáo và đặc biệt.</p>
+                    <i>Địa chỉ: <a href="index.html">shoppingnow@gmail.com</a></i>
                     <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
-                                     alt="Payment Methods"></a>
+                                     alt="Phương thức thanh toán"></a>
                 </div>
             </div>
             <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Shopping</h6>
+                    <h6>Mua sắm</h6>
                     <ul>
-                        <li><a href="#">Clothing Store</a></li>
-                        <li><a href="#">Trending Shoes</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li><a href="#">Cửa hàng quần áo</a></li>
+                        <li><a href="#">Giày dép thịnh hành</a></li>
+                        <li><a href="#">Phụ kiện</a></li>
+                        <li><a href="#">Khuyến mãi</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Customer Service</h6>
+                    <h6>Dịch vụ khách hàng</h6>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Payment Methods</a></li>
-                        <li><a href="#">Delivery</a></li>
-                        <li><a href="#">Return & Exchanges</a></li>
+                        <li><a href="#">Liên hệ chúng tôi</a></li>
+                        <li><a href="#">Phương thức thanh toán</a></li>
+                        <li><a href="#">Giao hàng</a></li>
+                        <li><a href="#">Đổi trả hàng</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Newsletter</h6>
+                    <h6>Bản tin</h6>
                     <div class="footer__newslatter">
-                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
-
+                        <p>Hãy là người đầu tiên biết về sản phẩm mới, bộ sưu tập, giảm giá & chương trình khuyến
+                            mãi!</p>
                     </div>
                 </div>
             </div>
@@ -446,11 +448,11 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="footer__copyright__text">
-                    <p>Welcome to our shopping page
+                    <p>Chào mừng bạn đến với trang mua sắm của chúng tôi
                         <script>
                             document.write(new Date().getFullYear());
                         </script>
-                        <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index.html" target="_blank">Cosmic
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> bởi <a href="index.html" target="_blank">Cosmic
                             Store</a>
                     </p>
                 </div>

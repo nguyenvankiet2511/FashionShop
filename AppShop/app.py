@@ -22,9 +22,7 @@ def home():
                            productsSeller=productsSeller)
 
 
-@app.route("/employee")
-def employee_home():
-    return render_template('employee-home.html')
+
 
 
 @app.route("/login")
@@ -311,24 +309,41 @@ def success_order():
 
 @app.route("/employee", methods=['GET'])
 def view_home_employee():
-    return render_template("employee-home.html")
+    user_id = int(current_user.user_id)
+    user = dao.get_inf_user(user_id)
+    return render_template("employee-home.html", user=user)
+
 
 
 @app.route("/employee/profile", methods=['GET'])
 def view_employee_profile():
-    return render_template("employee-profile.html")
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+
+        return render_template('employee-profile.html', user=user)
+    else:
+        return redirect(url_for('show_login'))
 
 
 @app.route("/employee/help-customer", methods=['GET'])
 def view_customercare():
-    return render_template("customer-care.html")
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        return render_template('customer-care.html', user=user)
+    else:
+        return redirect(url_for('show_login'))
+
 
 
 @app.route("/employee/order-manager", methods=['GET'])
 def view_order_manager():
+    user_id = int(current_user.user_id)
+    user = dao.get_inf_user(user_id)
     listOrders = dao.get_all_orders()
     order_confirm = dao.get_all_orders_confirm()
-    return render_template("employee-ordermanage.html", orders=listOrders, orderConfirms=order_confirm)
+    return render_template("employee-ordermanage.html", orders=listOrders, orderConfirms=order_confirm, user=user)
 
 
 @app.route("/employee/confirm-order")
@@ -362,8 +377,12 @@ def view_order_tracking():
 
 @app.route("/employee/payment", methods=['GET'])
 def view_payment():
+    user_id = int(current_user.user_id)
+    user = dao.get_inf_user(user_id)
     products = dao.get_all_products()
-    return render_template("payment.html", products=products)
+    return render_template("payment.html", products=products,user=user)
+
+
 
 
 @app.route("/employee/confirm-payment", methods=['POST', 'GET'])

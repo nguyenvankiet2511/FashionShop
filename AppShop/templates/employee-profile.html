@@ -15,45 +15,43 @@
 
 <body>
 <div class="wrapper-container">
-     <nav id="sidebar">
+    <nav id="sidebar">
         <div class="sidebar-content">
             <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
-                <span>SALE AGENT</span>
+                <span>Nhân viên bán hàng</span>
             </a>
             <ul class="sidebar-nav">
-                <li class="sidebar-header">Pages</li>
+                <li class="sidebar-header">Trang</li>
                 <li class="sidebar-item active">
                     <a class="sidebar-link" href="{{url_for('view_home_employee')}}">
-                        <i class="fa-solid fa-house"></i> <span>Home</span>
+                        <i class="fa-solid fa-house"></i> <span>Trang Chủ</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('view_employee_profile')}}">
-                        <i class="fa-solid fa-user"></i> <span>Profile</span>
+                        <i class="fa-solid fa-user"></i> <span>Hồ Sơ</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('view_customercare')}}">
-                        <i class="fa-solid fa-headset"></i> <span>Customer Care</span>
+                        <i class="fa-solid fa-headset"></i> <span>Chăm Sóc Khách Hàng</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
-                        <i class="fa-solid fa-user-plus"></i> <span>Order Details</span>
+                        <i class="fa-solid fa-user-plus"></i> <span>Chi Tiết Đơn Hàng</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('view_payment')}}">
-                        <i class="fa-solid fa-sign-in-alt"></i> <span>Payments</span>
+                        <i class="fa-solid fa-credit-card"></i> <span>Thanh Toán</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('user_logout')}}">
-                        <i class="fa-solid fa-sign-in-alt"></i> <span>Log Out</span>
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Đăng Xuất</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </nav>
@@ -84,11 +82,11 @@
                     <li class="nav-item dropdown">
 
                         <a class="nav-link profile-toggle" href="#">
-                            <img src="{{ url_for('static', filename='images/avatar-4.jpg') }}" alt="Charles Hall" class="avatar">
-                            <span>Jesse</span>
+                            <img src="{{ url_for('static', filename='images/'+user.photoPath) }}" alt="Charles Hall" class="avatar">
+                            <span>{{user.name}}</span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="profile.html">Profile</a>
+                            <a class="dropdown-item" href="{{ url_for('view_employee_profile')}}">Profile</a>
                             <a class="dropdown-item" href="#">Analytics</a>
                             <a class="dropdown-item" href="index.html">Settings & Privacy</a>
                             <a class="dropdown-item" href="#">Help Center</a>
@@ -103,14 +101,17 @@
 
             <div class="container-nabar">
                 <div class="navbar-translate">
-                    <div class="align-items-center" style="background-image: url('{{ url_for('static', filename='images/avatar-4.jpg') }}');">
+                    <div class="align-items-center"
+                         style="background-image: url('{{ url_for('static', filename='images/'+ user.photoPath) }}');">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="namenav">
-                                    <h1 class="display-2 text-white">Hello Jesse</h1>
-                                    <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress
-                                        you've made with your work and manage your projects or assigned tasks</p>
-                                    <a href="#!" class="btn btn-info">Edit profile</a>
+                                    <h1 class="display-2 text-white">Xin chào {{ user.name }}</h1>
+                                    <p class="text-white mt-0 mb-5">Đây là trang hồ sơ của bạn. Bạn có thể xem tiến
+                                        trình
+                                        bạn đã đạt được trong công việc và quản lý dự án hoặc các nhiệm vụ được
+                                        giao.</p>
+                                    <a href="#!" class="btn btn-info">Chỉnh sửa hồ sơ</a>
                                 </div>
                             </div>
                         </div>
@@ -122,30 +123,32 @@
             <div class="profile-row">
                 <div class="profile-container">
                     <div class="personal-info">
-                        <h2>Personal Information</h2>
+                        <h2>Thông tin cá nhân</h2>
 
                         <form id="profile-form">
-                            <label for="name"><strong>Name:</strong></label>
-                            <input type="text" id="name" name="name" value="John Doe">
+                            <label for="name"><strong>Tên:</strong></label>
+                            <input type="text" id="name" name="name" value="{{user.name}}" >
 
                             <label for="email"><strong>Email:</strong></label>
-                            <input type="email" id="email" name="email" value="johndoe@example.com">
+                            <input type="email" id="email" name="email" value="{{user.email}}" readonly>
 
-                            <label for="phone"><strong>Phone Number:</strong></label>
-                            <input type="tel" id="phone" name="phone" value="123-456-7890">
+                            <label for="phone"><strong>Số điện thoại:</strong></label>
+                            <input type="tel" id="phone" name="phone" value="{{user.phone}}">
 
-                            <label for="address"><strong>Address:</strong></label>
-                            <input type="text" id="address" name="address" value="123 Main St, Anytown, USA">
+                            <label for="address"><strong>Địa chỉ:</strong></label>
+                            <input type="text" id="address" name="address" value="{{user.address}}">
 
-                            <label for="customer-id"><strong>Customer ID:</strong></label>
-                            <input type="text" id="customer-id" name="customer-id" value="CUST-001" readonly>
+                            <label for="gender"><strong>Giới tính:</strong></label>
+                            <input type="text" id="gender" name="gender" value="{{ 'Nam' if user.gender else 'Nữ' }}" readonly>
 
-                            <label for="customer-code"><strong>Customer Code:</strong></label>
-                            <input type="text" id="customer-code" name="customer-code" value="ABC123XYZ" readonly>
 
-                            <button type="submit" class="btn-save">Save Changes</button>
+                            <label for="customer-code"><strong>Ngày sinh:</strong></label>
+                            <input type="text" id="customer-code" name="customer-code" value="{{user.birthDate}}" >
 
+                            <button type="submit" class="btn-save">Lưu thay đổi</button>
                         </form>
+
+
                     </div>
                 </div>
 
@@ -154,11 +157,11 @@
                         <div class="col-md-6 ml-auto mr-auto">
                             <div class="profile">
                                 <div class="avatar">
-                                    <img src="img/avatar-4.jpg"
+                                    <img src="{{ url_for('static', filename='images/'+ user.photoPath) }}"
                                          alt="Circle Image" class="img-raised rounded-circle img-fluid">
                                 </div>
                                 <div class="name">
-                                    <h3 class="title">Christian Jesse</h3>
+                                    <h3 class="title">{{ user.name }}</h3>
                                     <h6>Customer</h6>
                                     <a href="#pablo" class="btn btn-just-icon btn-link btn-facebook"><i
                                             class="fab fa-facebook"></i></a>
@@ -172,14 +175,48 @@
                         </div>
                     </div>
                     <div class="description text-center">
-                        <p>"Customers are the backbone of any business. They seek quality, value, and a great shopping
-                            experience. A happy customer not only returns but also promotes the brand to others."</p>
+                        <p>"Khách hàng là nền tảng của mọi doanh nghiệp. Họ tìm kiếm chất lượng, giá trị và trải nghiệm
+                            mua sắm tuyệt vời. Một khách hàng hài lòng không chỉ quay lại mà còn quảng bá thương hiệu
+                            đến người khác."</p>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
- <script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
+<script>
+    const form = document.getElementById('profile-form');
+
+    // Hàm để lưu dữ liệu
+    function saveData() {
+        const formData = new FormData(form);
+        fetch('/save-profile', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Lắng nghe sự kiện input để tự động lưu
+    form.addEventListener('input', saveData);
+
+    // Lắng nghe sự kiện submit để xử lý khi nhấn nút "Lưu thay đổi"
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn làm mới trang
+        saveData(); // Lưu lại thông tin khi nhấn nút
+        // Không xóa dữ liệu trong form
+        alert('Đã lưu thay đổi!');
+    });
+
+
+</script>
+<script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
 </body>
 </html>

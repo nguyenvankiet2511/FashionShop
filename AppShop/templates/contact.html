@@ -110,7 +110,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-right">
                         <div class="logo_container">
-                            <a href="{{url_for('home')}}">colo<span>shop</span></a>
+                             <a href="{{url_for('home')}}">Cosmic<span>Store</span></a>
                         </div>
                         <nav class="navbar">
                             <ul class="navbar_menu">
@@ -269,7 +269,7 @@
                     <div class="user">
                         <div class="user_pic">
                             <!-- Thay thế với hình ảnh người dùng -->
-                            <img src="images/product_2.png" alt="User Picture"/>
+                            <img src="{{ url_for('static', filename='images/blog-2.jpg') }}" alt="User Picture"/>
                         </div>
                         <div class="user_rating">
                             <ul class="star_rating">
@@ -293,7 +293,7 @@
                     <div class="user">
                         <div class="user_pic">
                             <!-- Thay thế với hình ảnh người dùng -->
-                            <img src="/images/product_1.png" alt="User Picture"/>
+                            <img src="{{ url_for('static', filename='images/blog-03.jpg') }}"  alt="User Picture"/>
                         </div>
                         <div class="user_rating">
                             <ul class="star_rating">

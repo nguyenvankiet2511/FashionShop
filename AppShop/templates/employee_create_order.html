@@ -18,94 +18,86 @@
 <body>
 	<div class="wrapper-container">
         <nav id="sidebar">
-            <div class="sidebar-content">
-                <a class="sidebar-brand" href="home.html">
-                    <span>SALE AGENT</span>
-                </a>
-                <ul class="sidebar-nav">
-                    <li class="sidebar-header">Pages</li>
-                    <li class="sidebar-item active">
-                        <a class="sidebar-link" href="home.html">
-                            <i class="fa-solid fa-house"></i> <span>Home</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="profile.html">
-                            <i class="fa-solid fa-user"></i> <span>Profile</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="customercare.html">
-                            <i class="fa-solid fa-headset"></i> <span>Customer Care</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="ordermanager.html">
-                            <i class="fa-solid fa-user-plus"></i> <span>Order Details</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="orderlive.html">
-                            <i class="fa-solid fa-file-invoice"></i> <span>Customer Invoice</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
-                        <i class="fa-solid fa-sign-in-alt"></i> <span>Payments</span>
+        <div class="sidebar-content">
+             <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
+                <span>Nhân viên bán hàng</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">Trang</li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="{{url_for('view_home_employee')}}">
+                        <i class="fa-solid fa-house"></i> <span>Trang Chủ</span>
                     </a>
                 </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
-                            <i class="fa-solid fa-sign-in-alt"></i> <span>Log Out</span>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_employee_profile')}}">
+                        <i class="fa-solid fa-user"></i> <span>Hồ Sơ</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_customercare')}}">
+                        <i class="fa-solid fa-headset"></i> <span>Chăm Sóc Khách Hàng</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
+                        <i class="fa-solid fa-user-plus"></i> <span>Chi Tiết Đơn Hàng</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
+                        <i class="fa-solid fa-credit-card"></i> <span>Thanh Toán</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{url_for('user_logout')}}">
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Đăng Xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        <div class="main">
+             <nav class="navbar">
+            <button class="sidebar-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="navbar-content">
+                <div class="search-container">
+                    <button class="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon" href="#" id="alertsDropdown">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="indicator">4</span>
                         </a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon" href="#" id="messagesDropdown">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
 
+                        <a class="nav-link profile-toggle" href="#">
+                            <img src="{{ url_for('static', filename='images/avatar-01.jpg') }}" alt="Charles Hall" class="avatar">
+                            <span>Jane Smith</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ url_for('view_employee_profile')}}">Profile</a>
+                            <a class="dropdown-item" href="#">Analytics</a>
+                            <a class="dropdown-item" href="index.html">Settings & Privacy</a>
+                            <a class="dropdown-item" href="#">Help Center</a>
+                            <a class="dropdown-item" href="#">Log out</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
-        <div class="main">
-            <nav class="navbar">
-                <button class="sidebar-toggle">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="navbar-content">
-                    <div class="search-container">
-                        <button class="search-btn">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                        <input type="text" class="search-input" placeholder="Search...">
-                    </div>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-icon" href="#" id="alertsDropdown">
-                                <i class="fa-solid fa-bell"></i>
-                                <span class="indicator">4</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-icon" href="#" id="messagesDropdown">
-                                <i class="fa-solid fa-envelope"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link profile-toggle" href="#">
-                                <img src="img/avatar-4.jpg" alt="Charles Hall" class="avatar">
-                                <span>Jesse</span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="profile.html">Profile</a>
-                                <a class="dropdown-item" href="#">Analytics</a>
-                                <a class="dropdown-item" href="index.html">Settings & Privacy</a>
-                                <a class="dropdown-item" href="#">Help Center</a>
-                                <a class="dropdown-item" href="#">Log out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <div class="customer-form">
                 <h2>Customer Information</h2>

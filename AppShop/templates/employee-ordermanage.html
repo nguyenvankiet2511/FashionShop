@@ -19,43 +19,41 @@
 <div class="wrapper-container">
     <nav id="sidebar">
         <div class="sidebar-content">
-            <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
-                <span>SALE AGENT</span>
+           <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
+                <span>Nhân viên bán hàng</span>
             </a>
             <ul class="sidebar-nav">
-                <li class="sidebar-header">Pages</li>
+                <li class="sidebar-header">Trang</li>
                 <li class="sidebar-item active">
                     <a class="sidebar-link" href="{{url_for('view_home_employee')}}">
-                        <i class="fa-solid fa-house"></i> <span>Home</span>
+                        <i class="fa-solid fa-house"></i> <span>Trang Chủ</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('view_employee_profile')}}">
-                        <i class="fa-solid fa-user"></i> <span>Profile</span>
+                        <i class="fa-solid fa-user"></i> <span>Hồ Sơ</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('view_customercare')}}">
-                        <i class="fa-solid fa-headset"></i> <span>Customer Care</span>
+                        <i class="fa-solid fa-headset"></i> <span>Chăm Sóc Khách Hàng</span>
                     </a>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
-                        <i class="fa-solid fa-user-plus"></i> <span>Order Details</span>
+                        <i class="fa-solid fa-user-plus"></i> <span>Chi Tiết Đơn Hàng</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
-                        <i class="fa-solid fa-sign-in-alt"></i> <span>Payments</span>
+                   <a class="sidebar-link" href="{{url_for('view_payment')}}">
+                        <i class="fa-solid fa-credit-card"></i> <span>Thanh Toán</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{url_for('user_logout')}}">
-                        <i class="fa-solid fa-sign-in-alt"></i> <span>Log Out</span>
+                        <i class="fa-solid fa-sign-in-alt"></i> <span>Đăng Xuất</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </nav>
@@ -86,11 +84,12 @@
                     <li class="nav-item dropdown">
 
                         <a class="nav-link profile-toggle" href="#">
-                            <img src="img/avatar-4.jpg" alt="Charles Hall" class="avatar">
-                            <span>Jesse</span>
+                            <img src="{{ url_for('static', filename='images/'+user.photoPath) }}" alt="Charles Hall"
+                                 class="avatar">
+                            <span>{{user.name}}</span>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="profile.html">Profile</a>
+                            <a class="dropdown-item" href="{{ url_for('view_employee_profile')}}">Profile</a>
                             <a class="dropdown-item" href="#">Analytics</a>
                             <a class="dropdown-item" href="index.html">Settings & Privacy</a>
                             <a class="dropdown-item" href="#">Help Center</a>
@@ -103,17 +102,16 @@
 
         <div class="container">
             <section class="order-overview">
-                <h1 class="container-h1">Order Overview</h1>
-                <p class="description">Here you can find a summary of all your recent orders and their status.</p>
+                <h1 class="container-h1">Tổng Quan Đơn Hàng</h1>
+                <p class="description">Tại đây bạn có thể tìm thấy tóm tắt về tất cả các đơn hàng gần đây và trạng thái
+                    của chúng.</p>
             </section>
-
 
             <div class="row">
                 <div class="col-md-12 customer-with">
-                    <h2>Order Management </h2>
+                    <h2>Quản Lý Đơn Hàng</h2>
                     <div class="search-container-order">
-
-                        <input type="text" id="searchInput1" class="form-control" placeholder="Search..."
+                        <input type="text" id="searchInput1" class="form-control" placeholder="Tìm kiếm..."
                                onkeyup="searchTable('mytable1')">
                     </div>
                     <div class="table-responsive">
@@ -121,25 +119,24 @@
                             <thead>
                             <tr>
                                 <th><input type="checkbox" id="checkall1"/></th>
-                                <th>OrderID</th>
-                                <th>Customer</th>
-                                <th>Address</th>
-                                <th>Payment Methods</th>
-                                <th>Total Amount</th>
-                                <th>Order Date</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                                <th>Proceed</th>
+                                <th>Mã Đơn Hàng</th>
+                                <th>Khách Hàng</th>
+                                <th>Địa Chỉ</th>
+                                <th>Phương Thức Thanh Toán</th>
+                                <th>Tổng Số Tiền</th>
+                                <th>Ngày Đặt Hàng</th>
+                                <th>Chỉnh Sửa</th>
+                                <th>Xóa</th>
+                                <th>Tiến Hành</th>
                             </tr>
                             </thead>
                             <tbody class="table-tbody">
-                            <!-- Sample order list -->
+                            <!-- Danh sách đơn hàng mẫu -->
                             {% for order in orders %}
                             <tr data-id="{{order.id}}">
                                 <td><input type="checkbox" class="checkthis"/></td>
                                 <td>{{order.id}}</td>
                                 <td>{{order.user_name}}</td>
-
                                 <td>{{order.billing_address}}</td>
                                 <td>{{order.paymentMethods}}</td>
                                 <td>{{order.totalAmount}}</td>
@@ -164,20 +161,19 @@
                                 </td>
                             </tr>
                             {% endfor %}
-
-
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
+
+
         <div class="button-container">
-            <button id="deleteSelected1" class="btn-1 btn-danger mb-3">Delete Selected</button>
+            <button id="deleteSelected1" class="btn-1 btn-danger mb-3">Xóa Đã Chọn</button>
             <!-- Sử dụng thẻ <a> rỗng, sẽ được cập nhật bằng JavaScript -->
             <a href="#" id="confirmSelectedLink">
-                <button id="confirmSelected1" class="btn-2 btn-warning mb-3">Proceed</button>
+                <button id="confirmSelected1" class="btn-2 btn-warning mb-3">Xác nhận</button>
             </a>
         </div>
 
@@ -185,23 +181,22 @@
         <div class="container-order1">
             <div class="row">
                 <div class="col-md-12 customer-with">
-                    <h2>Confirmed Orders</h2>
+                  <h2>Đơn Hàng Đã Xác Nhận</h2>
                     <div class="search-container-order">
-                        <input type="text" id="searchInput2" class="form-control" placeholder="Search..."
+                        <input type="text" id="searchInput2" class="form-control" placeholder="Tìm kiếm..."
                                onkeyup="searchTable('mytable2')">
                     </div>
                     <div class="table-responsive">
                         <table id="mytable2" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>OrderID</th>
-                                <th>Customer</th>
-                                <th>Employee</th>
-                                <th>Address</th>
-
-                                <th>Payment Methods</th>
-                                <th>Total Amount</th>
-                                <th>Order Date</th>
+                                <th>Mã Đơn Hàng</th>
+                                <th>Khách Hàng</th>
+                                <th>Nhân Viên</th>
+                                <th>Địa Chỉ</th>
+                                <th>Phương Thức Thanh Toán</th>
+                                <th>Tổng Số Tiền</th>
+                                <th>Ngày Đặt Hàng</th>
                             </tr>
                             </thead>
                             <tbody class="table-tbody">
@@ -229,17 +224,16 @@
 
     </div>
     <footer class="footer">
-        <div class="container-footer">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>DataTables is a third party plugin that is used to generate the demo table below. For more
-                        information about DataTables, <a href="home.html" target="_blank">DataTables documentation</a>.
-                    </p>
-                    <p> Cosmic Store 2024 - Developed and built</p>
-                </div>
+    <div class="container-footer">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p>DataTables là một dữ liệu bên thứ ba được sử dụng để tạo bảng demo bên dưới. Để biết thêm thông tin về DataTables, <a href="home.html" target="_blank">Dữ liệu</a>.</p>
+                <p>Cửa Hàng Cosmic 2024</p>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
+
 
 
 </div>

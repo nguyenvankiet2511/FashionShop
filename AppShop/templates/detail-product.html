@@ -151,8 +151,8 @@
                                     <a href="{{url_for('view_cart')}}">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                         {% if countCart %}
-                                    <span id="checkout_items" class="checkout_items">{{countCart}}</span>
-                                    {% endif %}
+                                        <span id="checkout_items" class="checkout_items">{{countCart}}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
                             </ul>
@@ -339,20 +339,20 @@
                 <div class="row">
                     <div class="col-lg-5 desc_col">
                         <div class="tab_title">
-                            <h4>Description</h4>
+                            <h4>Mô tả</h4>
                         </div>
                         <div class="tab_text_block">
-                            <h2>Pocket cotton sweatshirt</h2>
-                            <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis.
-                                Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                            <h2>Sản phẩm chất lượng</h2>
+                            <p>
+                                Chúng tôi mang đến cho bạn những sản phẩm tuyệt vời, được chăm chút từng chi tiết...</p>
                         </div>
                         <div class="tab_image">
                             <img src="{{ url_for('static', filename='images/' + product.imageProduct) }}" alt="">
                         </div>
                         <div class="tab_text_block">
-                            <h2>Pocket cotton sweatshirt</h2>
-                            <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis.
-                                Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                            <h2>Đa dạng và phong phú</h2>
+                            <p>
+                                Với nhiều mẫu mã và màu sắc, bạn sẽ dễ dàng tìm thấy sự lựa chọn ưng ý cho mình...</p>
                         </div>
                     </div>
                     <div class="col-lg-5 offset-lg-2 desc_col">
@@ -360,15 +360,17 @@
                             <img src="{{ url_for('static', filename='images/' + product.imageProduct) }}" alt="">
                         </div>
                         <div class="tab_text_block">
-                            <h2>Pocket cotton sweatshirt</h2>
-                            <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis.
-                                Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                            <h2>Khám phá lựa chọn của bạn</h2>
+                            <p>
+                                Hãy đến và trải nghiệm sản phẩm, chắc chắn bạn sẽ hài lòng với những gì chúng tôi mang
+                                lại...</p>
                         </div>
                         <div class="tab_image desc_last">
                             <img src="{{ url_for('static', filename='images/' + product.imageProduct) }}" alt="">
                         </div>
                     </div>
                 </div>
+
 
                 <div class="row">
                     <div class="col additional_info_col">
@@ -497,95 +499,90 @@
 
     </div>
     <!-- Newsletter -->
-
-    <div class="newsletter">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
-                        <h4>Newsletter</h4>
-                        <p>Subscribe to our newsletter and get 20% off your first purchase</p>
+<div class="newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+                    <h4>Bản Tin</h4>
+                    <p>Đăng ký nhận bản tin chúng tôi được giảm 20% lần mua đầu tiên</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <form action="post">
+                    <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+                        <input id="newsletter_email" type="email" placeholder="Email của bạn" required="required"
+                               data-error="Yêu cầu email hợp lệ.">
+                        <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300"
+                                value="Submit">đăng ký
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <p>Chúng tôi ưu tiên tạo ra trải nghiệm mua sắm cá nhân hóa cho từng khách hàng, đảm bảo rằng mỗi
+                        lần ghé thăm đều cảm thấy độc đáo và đặc biệt.</p>
+                    <i>Địa chỉ: <a href="index.html">shoppingnow@gmail.com</a></i>
+                    <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
+                                     alt="Phương thức thanh toán"></a>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Mua sắm</h6>
+                    <ul>
+                        <li><a href="#">Cửa hàng quần áo</a></li>
+                        <li><a href="#">Giày dép thịnh hành</a></li>
+                        <li><a href="#">Phụ kiện</a></li>
+                        <li><a href="#">Khuyến mãi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Dịch vụ khách hàng</h6>
+                    <ul>
+                        <li><a href="#">Liên hệ chúng tôi</a></li>
+                        <li><a href="#">Phương thức thanh toán</a></li>
+                        <li><a href="#">Giao hàng</a></li>
+                        <li><a href="#">Đổi trả hàng</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Bản tin</h6>
+                    <div class="footer__newslatter">
+                        <p>Hãy là người đầu tiên biết về sản phẩm mới, bộ sưu tập, giảm giá & chương trình khuyến
+                            mãi!</p>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <form action="post">
-                        <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
-                            <input id="newsletter_email" type="email" placeholder="Your email" required="required"
-                                   data-error="Valid email is required.">
-                            <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300"
-                                    value="Submit">subscribe
-                            </button>
-                        </div>
-                    </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer__copyright__text">
+                    <p>Chào mừng bạn đến với trang mua sắm của chúng tôi
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> bởi <a href="index.html" target="_blank">Cosmic
+                            Store</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
-
-                        <p>We prioritize creating a personalized shopping experience for every customer, ensuring that
-                            every visit feels unique and special.</p>
-                        <i>Address :<a href="index.html">shoppingnow@gmail.com</a></i>
-
-                        <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
-                                         alt="Payment Methods"></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Shopping</h6>
-                        <ul>
-                            <li><a href="#">Clothing Store</a></li>
-                            <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Customer Service</h6>
-                        <ul>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Delivery</a></li>
-                            <li><a href="#">Return & Exchanges</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
-                    <div class="footer__widget">
-                        <h6>Newsletter</h6>
-                        <div class="footer__newslatter">
-                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="footer__copyright__text">
-                        <p>Welcome to our shopping page
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index.html" target="_blank">Cosmic
-                                Store</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+</footer>
     <!-- Footer Section End -->
 
 
@@ -600,12 +597,12 @@
     <script src="{{ url_for('static', filename='js/categories_custom.js') }}"></script>
     <script src="{{ url_for('static', filename='js/single_custom.js') }}"></script>
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<df-messenger
-  intent="WELCOME"
-  chat-title="CosmicStore"
-  agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
-  language-code="vi"
-></df-messenger>
+    <df-messenger
+            intent="WELCOME"
+            chat-title="CosmicStore"
+            agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
+            language-code="vi"
+    ></df-messenger>
 </body>
 
 </html>

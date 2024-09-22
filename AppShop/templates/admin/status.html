@@ -37,13 +37,13 @@
     <nav class="navbar">
 
         <h1 class="navbar-title" style="color:#fff;">Quản Trị NWA</h1>
-       <ul class="navbar-list">
-    <li class="navbar-item"><a href="#home">Home</a></li>
-    <li class="navbar-item"><a href="{{ url_for('categories.index_view') }}">Danh mục</a></li>
-    <li class="navbar-item"><a href="{{ url_for('products.index_view') }}">Sản phẩm</a></li>
-    <li class="navbar-item"><a href="{{ url_for('statusview.index') }}">Thống kê</a></li>
-    <li class="navbar-item"><a href="{{ url_for('user_logout') }}">Đăng xuất</a></li>
-</ul>
+        <ul class="navbar-list">
+            <li class="navbar-item"><a href="#home">Home</a></li>
+            <li class="navbar-item"><a href="{{ url_for('categories.index_view') }}">Danh mục</a></li>
+            <li class="navbar-item"><a href="{{ url_for('products.index_view') }}">Sản phẩm</a></li>
+            <li class="navbar-item"><a href="{{ url_for('statusview.index') }}">Thống kê</a></li>
+            <li class="navbar-item"><a href="{{ url_for('user_logout') }}">Đăng xuất</a></li>
+        </ul>
 
     </nav>
 
@@ -153,21 +153,22 @@
                             <!-- ============================================================== -->
                             <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Recent Orders</h5>
+                                    <h5 class="card-header">Đơn Hàng Gần Đây</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead class="bg-light">
                                                 <tr class="border-0">
-                                                    <th class="border-0">#</th>
+                                                    <th class="border-0">STT</th>
 
-                                                    <th class="border-0">Product Name</th>
-                                                    <th class="border-0">Product Id</th>
-                                                    <th class="border-0">Quantity</th>
-                                                    <th class="border-0">Price</th>
-                                                    <th class="border-0">Order Time</th>
-                                                    <th class="border-0">Customer</th>
-                                                    <th class="border-0">Status</th>
+                                                    <th class="border-0">Tên Sản Phẩm</th>
+                                                    <th class="border-0">Mã Sản Phẩm</th>
+                                                    <th class="border-0">Số Lượng</th>
+                                                    <th class="border-0">Giá</th>
+                                                    <th class="border-0">Thời Gian Đặt Hàng</th>
+                                                    <th class="border-0">Khách Hàng</th>
+                                                    <th class="border-0">Trạng Thái</th>
+
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -187,8 +188,8 @@
 
                                                 <tr>
                                                     <td colspan="9"><a href="#"
-                                                                       class="btn btn-outline-light float-right">View
-                                                        Details</a></td>
+                                                                       class="btn btn-outline-light float-right">Xem Chi Tiết
+                                                </a></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -199,7 +200,6 @@
                             </div>
                             <!-- ============================================================== -->
                             <!-- end recent orders  -->
-
 
                             <!-- ============================================================== -->
                             <!-- ============================================================== -->

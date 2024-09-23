@@ -212,7 +212,7 @@
                                 <td>{{orderConfirm.paymentMethods}}</td>
                                 <td>{{orderConfirm.totalAmount}}</td>
                                 <td>{{orderConfirm.orderDate}}</td>
-                                <td> <i class="fas fa-file-invoice icon-invoice"></i> Hóa đơn </td>
+                                <td> <a href="{{url_for('view_invoice', order_id=orderConfirm.id)}}"><i class="fas fa-file-invoice icon-invoice"></i> Hóa đơn </a></td>
                             </tr>
                             {% endfor %}
 

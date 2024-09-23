@@ -22,29 +22,35 @@
     }
 
     function addToCartSingle(productId, quantity) {
-        fetch(`http://localhost:5001/cart/add?product_id=${productId}&quantity=${quantity}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed to add to cart');
-            }
-        })
-        .then(data => {
-            // Thông báo khi thêm vào giỏ hàng thành công
-            alert(data.message);
-        })
-        .catch(error => {
+    fetch(`http://localhost:5001/cart/add?product_id=${productId}&quantity=${quantity}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add to cart');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Thông báo khi thêm vào giỏ hàng thành công
+        alert(data.message);
+        window.location.reload();
+    })
+    .catch(error => {
+        if (error.message === 'Failed to fetch') {
+            // Xử lý khi không có kết nối internet
+            alert('Không có kết nối internet. Vui lòng kiểm tra và thử lại.');
+        } else {
             console.error('Error:', error);
             // Hiển thị hộp thoại lỗi với tùy chọn đăng nhập
             showErrorDialog('Bạn chưa đăng nhập! Đăng nhập ngay?');
-        });
-    }
+        }
+    });
+}
+
 
     function showErrorDialog(message) {
         // Tạo phần tử div cho hộp thoại nếu chưa tồn tại

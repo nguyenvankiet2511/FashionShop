@@ -239,8 +239,50 @@ def get_order_details_with_info():
         .join(Users, Users.id == Customers.id)
         .all()
     )
-
     return results
+
+#Lấy thông tin order-invoice
+def get_order_confirm(order_id):
+    billing_address_alias = aliased(BillingAddress)
+
+    order = db.session.query(
+        Orders.id,
+        Users.name.label('user_name'),
+        Users.gender,
+        Users.birthDate,
+        Users.phone,
+        Users.email,
+        Users.address.label('user_address'),
+        billing_address_alias.address.label('billing_address'),
+        Orders.paymentMethods,
+        Orders.orderDate,
+        Orders.orderComfirm,
+        Orders.active,
+        Orders.totalAmount
+    ).join(Users, Orders.customer_id == Users.id) \
+        .outerjoin(billing_address_alias, Orders.billingAddress_id == billing_address_alias.id) \
+        .filter(Orders.id == order_id) \
+        .first()
+    return  order
+
+
+#lấy orderdetail
+def get_order_detail(order_id):
+    order_details = db.session.query(
+        OrderDetails.id,
+        Products.name.label('product_name'),
+        Products.imageProduct.label('product_image'),
+        OrderDetails.quantity,
+        OrderDetails.price,
+        OrderDetails.discount
+    ).join(Products, OrderDetails.product_id == Products.id) \
+     .filter(OrderDetails.order_id == order_id) \
+     .all()
+
+    if not order_details:
+        return None
+
+    return order_details
 
 
 def chang_active_order(order_id):

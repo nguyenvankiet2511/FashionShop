@@ -54,6 +54,7 @@ function addToCart(productId) {
         .then(data => {
             // Thông báo khi thêm vào giỏ hàng thành công
             alert(data.message);
+            window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);

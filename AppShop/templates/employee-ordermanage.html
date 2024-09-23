@@ -197,6 +197,7 @@
                                 <th>Phương Thức Thanh Toán</th>
                                 <th>Tổng Số Tiền</th>
                                 <th>Ngày Đặt Hàng</th>
+                                <th>In hóa đơn</th>
                             </tr>
                             </thead>
                             <tbody class="table-tbody">
@@ -211,6 +212,7 @@
                                 <td>{{orderConfirm.paymentMethods}}</td>
                                 <td>{{orderConfirm.totalAmount}}</td>
                                 <td>{{orderConfirm.orderDate}}</td>
+                                <td> <i class="fas fa-file-invoice icon-invoice"></i> Hóa đơn </td>
                             </tr>
                             {% endfor %}
 

@@ -143,18 +143,20 @@
                                 <td>{{order.orderDate}}</td>
                                 <td>
                                     <a href="{{url_for('view_order_tracking', order_id=order.id)}}">
-                                        <button class="btn btn-primary btn-xs edit-btn" data-id="{{order.id}}">
+                                        <button class="btn btn-primary btn-xs " data-id="{{order.id}}">
                                             <i class="fa fa-pencil-alt"></i>
                                         </button>
                                     </a>
                                 </td>
                                 <td>
-                                    <button class="btn btn-danger btn-xs delete-btn" data-id="{{order.id}}">
+                                    <a href="{{url_for('remove_order', order_id= order.id)}}">
+                                    <button class="btn btn-danger btn-xs " data-id="{{order.id}}">
                                         <i class="fa fa-trash"></i>
                                     </button>
+                                        </a>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning btn-xs confirm-btn" data-id="{{order.id}}">
+                                    <button class="btn btn-warning btn-xs " data-id="{{order.id}}">
                                         <a href="{{url_for('confirm_order', order_id= order.id)}}"><i
                                                 class="fa fa-check"></i></a>
                                     </button>

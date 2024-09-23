@@ -237,7 +237,12 @@ def view_products_by_category(category_id):
 
 @app.route("/user/account/profile", methods=['GET', 'POST'])
 def view_profile():
-    pass
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        return render_template('profile.html', user=user)
+    else:
+        return redirect(url_for('show_login'))
 
 
 @app.route("/contact", methods=['GET', 'POST'])
@@ -402,7 +407,19 @@ def confirm_payment():
     dao.create_order(name=hoten, ngaySinh=ngaySinh, diaChi=diaChi, phone=phone, l_soLuong=quantities,
                      l_productId=product_ids, employee_id=employee_id)
     return redirect(url_for('view_order_manager'))
-
+#Invoice-----------------------------------------------------
+@app.route("/employee/invoice")
+def view_invoice():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+        currentDate=  datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        order_id= request.args.get('order_id')
+        order=dao.get_order_confirm(order_id)
+        orderDetail= dao.get_order_detail(order_id)
+        return render_template('invoice.html', order= order, order_detail= orderDetail, currentDate=currentDate, user=user)
+    else:
+        return redirect(url_for('show_login'))
 
 if __name__ == "__main__":
     from AppShop import admin

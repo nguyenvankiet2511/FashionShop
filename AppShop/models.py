@@ -147,6 +147,7 @@ class Orders(db.Model):
     billingAddress_id = Column(Integer, ForeignKey('BillingAddress.id'))
     paymentMethods = Column(String(150), default="Mua hàng trực tiếp")
     orderDate = Column(DateTime, default=datetime.now())
+    orderComfirm = Column(DateTime)
     active = Column(Boolean)
     totalAmount = Column(Double, default=0)
 
@@ -382,4 +383,32 @@ if __name__ == '__main__':
         ]
 
         db.session.add_all(account_data)
+        db.session.commit()
+        orders_data = [
+            Orders(customer_id=6, employee_id=2,  billingAddress_id=1, paymentMethods="COD",
+                   orderDate=datetime.now(), active=False, totalAmount=100000),
+            Orders(customer_id=7, employee_id=3,  billingAddress_id=2, paymentMethods="Credit Card",
+                   orderDate=datetime.now(), active=False, totalAmount=150000),
+            Orders(customer_id=6, employee_id=4,  billingAddress_id=3, paymentMethods="Bank Transfer",
+                   orderDate=datetime.now(), active=False, totalAmount=200000),
+            Orders(customer_id=9, employee_id=5, billingAddress_id=4, paymentMethods="Mua hàng trực tiếp",
+                   orderDate=datetime.now(), active=True, totalAmount=300000,orderComfirm=datetime.now()),
+            Orders(customer_id=10, employee_id=2,billingAddress_id=5, paymentMethods="Paypal",
+                   orderDate=datetime.now(), active=True, totalAmount=250000,orderComfirm=datetime.now())
+        ]
+        db.session.add_all(orders_data)
+        db.session.commit()
+
+        order_details_data = [
+            OrderDetails(order_id=1, product_id=1, quantity=2, price=50000, discount=5),
+            OrderDetails(order_id=2, product_id=12, quantity=1, price=30000, discount=0),
+            OrderDetails(order_id=1, product_id=3, quantity=3, price=45000, discount=10),
+            OrderDetails(order_id=3, product_id=11, quantity=2, price=120000, discount=25),
+            OrderDetails(order_id=3, product_id=5, quantity=1, price=120000, discount=10),
+            OrderDetails(order_id=1, product_id=14, quantity=4, price=120000, discount=15),
+            OrderDetails(order_id=2, product_id=7, quantity=5, price=120000, discount=5),
+            OrderDetails(order_id=5, product_id=8, quantity=4, price=120000, discount=17),
+            OrderDetails(order_id=4, product_id=9, quantity=2, price=80000, discount=20)
+        ]
+        db.session.add_all(order_details_data)
         db.session.commit()

@@ -214,7 +214,7 @@ if __name__ == '__main__':
                   email="john.doe@example.com", address="123 Elm St", photoInf="photo1", photoPath="/photos/john.jpg"),
             Users(name="Jane Smith", gender=False, birthDate=datetime(1990, 8, 22), phone="234-567-8901",
                   email="jane.smith@example.com", address="456 Oak St", photoInf="photo2",
-                  photoPath="/photos/jane.jpg"),
+                  photoPath="avatar-01.jpg"),
             Users(name="Alice Johnson", gender=True, birthDate=datetime(1985, 12, 30), phone="345-678-9012",
                   email="alice.johnson@example.com", address="789 Pine St", photoInf="photo3",
                   photoPath="/photos/alice.jpg"),
@@ -275,16 +275,16 @@ if __name__ == '__main__':
         db.session.add_all(categories_data)
         db.session.commit()
         address_data = [
-            BillingAddress(name='Nguyen Van A', phone='0912345678', address='123 ABC Street',
-                           addressDetail='Apartment 5A', customer_id=6),
-            BillingAddress(name='Tran Thi B', phone='0987654321', address='456 DEF Avenue',
-                           addressDetail='House 12', customer_id=6),
-            BillingAddress(name='Le Van C', phone='0923456789', address='789 GHI Road',
-                           addressDetail='Suite 3', customer_id=6),
-            BillingAddress(name='Pham Thi D', phone='0911123456', address='135 JKL Street',
-                           addressDetail='Villa 9', customer_id=6),
-            BillingAddress(name='Vu Thi E', phone='0933456789', address='246 MNO Boulevard',
-                           addressDetail='Flat 21B', customer_id=6)
+            BillingAddress(name='Nguyen Van Thai', phone='0912345678', address='Khánh Hội,Quận 4',
+                           addressDetail='Khánh Hội,Quận 4', customer_id=6),
+            BillingAddress(name='Tran Thi Thu Van', phone='0987654321', address='Nguyễn Huệ , Quận 1',
+                           addressDetail='Nguyễn Huệ , Quận 1', customer_id=6),
+            BillingAddress(name='Le Van Tung', phone='0923456789', address='Phạm Hữu Thọ,Quận 7',
+                           addressDetail=' Phạm Hữu Thọ,Quận 7', customer_id=6),
+            BillingAddress(name='Pham Thi Hoa', phone='0911123456', address='Quang Trung,Gò Vấp',
+                           addressDetail='Quang Trung,Gò Vấp', customer_id=6),
+            BillingAddress(name='Vu Thi Phụng', phone='0933456789', address='Phạm Văn Đồng,Thủ Đức',
+                           addressDetail='Phạm Văn Đồng,Thủ Đức', customer_id=6)
         ]
         db.session.add_all(address_data)
         db.session.commit()
@@ -321,7 +321,7 @@ if __name__ == '__main__':
                      imageProduct='shirt-4.jpg', category_id=3, unitsInStock=30, discount=10,
                      createdDate=datetime(2024, 4, 15), updatedDate=datetime(2024, 8, 7)),
             Products(name='Áo khoác denim', price=749000, description='Áo khoác denim trẻ trung',
-                     imageProduct='shirt-2.jpg', category_id=3, unitsInStock=20, discount=5,
+                     imageProduct='aodenium.jpg', category_id=3, unitsInStock=20, discount=5,
                      createdDate=datetime(2024, 8, 1), updatedDate=datetime(2024, 8, 14)),
             Products(name='Áo khoác hoodie', price=669000, description='Áo khoác hoodie ấm áp',
                      imageProduct='shirt-9.jpg', category_id=3, unitsInStock=45, discount=15,

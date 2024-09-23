@@ -438,4 +438,31 @@ button.btn-warning:hover {
     color: #0056b3; /* Màu liên kết khi hover */
 }
 
+td {
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .icon-invoice {
+    font-size: 20px;
+    color: #333;
+    transition: transform 0.3s ease, color 0.3s ease;
+    margin-right: 8px;
+  }
+
+  /* Hover effect on entire td element */
+  td:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+    color: #007bff;
+  }
+
+  /* Hover effect on icon */
+  td:hover .icon-invoice {
+    transform: scale(1.2);
+    color: #007bff;
+  }
+
 

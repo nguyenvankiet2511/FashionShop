@@ -15,7 +15,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:%s@localhost/Creat
     "123456")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app=app)
-admin = Admin(app=app, name='Quản Trị NWA', template_mode='bootstrap4')
+admin = Admin(app=app, name='Cosmic Store', template_mode='bootstrap4')
 login = LoginManager(app=app)
 ma = Marshmallow(app=app)
 

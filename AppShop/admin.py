@@ -1,4 +1,5 @@
 from datetime import datetime
+from os import abort
 
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import Admin, BaseView, expose, AdminIndexView
@@ -6,6 +7,9 @@ from flask import redirect, request, url_for
 from flask_login import logout_user, current_user
 from AppShop import admin, db, app, dao
 from AppShop.models import UsersRole, Accounts, Products, Categories, BillingAddress
+from flask_admin.contrib.sqla import ModelView
+from flask_admin.form import FileUploadField
+
 
 
 # class AuthenticatedModelView(ModelView):
@@ -53,9 +57,21 @@ class StatusView(BaseView):
 
 
 # View để quản lý Products
+
+
 class ProductsView(ModelView):
-    column_list = ['id', 'name', 'price', 'category_id', 'unitsInStock', 'discount', 'createdDate', 'updatedDate']
-    form_columns = ['name', 'price', 'description', 'imageProduct', 'category_id', 'unitsInStock', 'discount']
+    # Danh sách các cột hiển thị trong bảng
+    column_list = [
+        'id',
+        'name',
+        'price',
+        'category_id',
+        'unitsInStock',
+        'discount',
+        'createdDate',
+        'updatedDate'
+    ]
+
 
 
 class CategoriesView(ModelView):
@@ -64,11 +80,41 @@ class CategoriesView(ModelView):
         'id': 'Mã danh mục',
         'name': 'Tên danh mục'
     }
+    column_filters = ['name']
+
+
+class AccountsView(ModelView):
+    # Danh sách các cột hiển thị trong bảng
+    column_list = ['id', 'name', 'email', 'username', 'active', 'users_role_id']
+
+    # Các trường xuất hiện trong form thêm mới và chỉnh sửa
+    form_columns = ['name', 'email', 'username', 'password', 'active', 'users_role_id']
+
+    # Tùy chỉnh nhãn cột
+    column_labels = {
+        'id': 'Mã tài khoản',
+        'name': 'Tên',
+        'email': 'Email',
+        'username': 'Tên người dùng',
+        'active': 'Trạng thái',
+        'users_role_id': 'Vai trò người dùng'
+    }
+    column_exclude_list = ['password']
+    def on_model_change(self, form, model, is_created):
+        if is_created or form.password.data:
+            model.set_password(form.password.data)
+    def is_accessible(self):
+        return True
+    def _handle_view(self, name, **kwargs):
+        if not self.is_accessible():
+            abort(403)  # Chặn truy cập nếu không có quyền
+
 
 
 # Thêm các view vào Flask-Admin
 admin.add_view(CategoriesView(Categories, db.session, name='Danh mục'))
 admin.add_view(ProductsView(Products, db.session, name='Sản phẩm'))
+admin.add_view(AccountsView(Accounts,db.session, name="Tài khoản"))
 admin.add_view(StatusView(name="Thống kê"))
 admin.add_view(LogoutView(name="Đăng xuất"))
 

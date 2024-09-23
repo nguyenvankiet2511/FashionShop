@@ -80,8 +80,8 @@ def oauth_callback():
             db.session.flush()
             customer = Customers(id=users.id)
             db.session.add(customer)
-            accountNew = Accounts(name=fullname, email=email, password=password, user_id=users.id)
-            db.session.add(accountNew)
+            account = Accounts(name=fullname, email=email, password=password, user_id=users.id)
+            db.session.add(account)
             db.session.commit()
         login_user(account)
         if account.users_role_id == UsersRole.ADMIN:
@@ -268,7 +268,12 @@ def view_blog():
         countCart = None
     return render_template('blog.html', countCart=countCart, user=user)
 
-
+@app.route("/history-order", methods=['GET'])
+def view_history_order():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        history_order= dao.get_orders_with_products(user_id)
+        return render_template('order-history.html', orders=history_order)
 # checkout--------------------------------------------
 @app.route('/checkout', methods=['POST', 'GET'])
 def checkout():
@@ -357,7 +362,14 @@ def confirm_order():
     dao.chang_active_order(order_id)
     return redirect(url_for('view_order_manager'))
 
-
+@app.route("/remove-order", methods=['POST','GET'])
+def remove_order():
+    order_id= request.args.get('order_id')
+    result = dao.delete_order(order_id)
+    if result:
+        return redirect(url_for('view_order_manager'))
+    else:
+        return redirect(url_for('view_order_manager'))
 @app.route("/employee/confirm-order-list", methods=['GET'])
 def confirm_order_list():
     list_id = request.args.get('list_id', '')

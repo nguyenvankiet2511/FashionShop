@@ -1,5 +1,5 @@
 from sqlalchemy import func, extract, case
-from sqlalchemy.orm import aliased
+from sqlalchemy.orm import aliased, joinedload
 import google.auth.transport.requests
 from pip._vendor import cachecontrol
 import requests, os
@@ -111,11 +111,20 @@ def get_cart_by_id(id):
 
 
 def add_to_cart(user_id, product_id, quantity):
+    try:
+        # Chuyển đổi quantity thành số nguyên
+        quantity = int(quantity)
+    except ValueError:
+        raise ValueError(f"Số lượng '{quantity}' không phải là số hợp lệ.")
+
     existing_cart_item = Carts.query.filter_by(customer_id=user_id, product_id=product_id).first()
+
     if existing_cart_item:
+        # Nếu tồn tại, cộng thêm số lượng
         existing_cart_item.quantity += quantity
         db.session.commit()
     else:
+        # Nếu không tồn tại, tạo sản phẩm mới trong giỏ hàng
         new_cart_item = Carts(customer_id=user_id, product_id=product_id, quantity=quantity)
         db.session.add(new_cart_item)
         db.session.commit()
@@ -291,6 +300,7 @@ def chang_active_order(order_id):
 
     if order:
         order.active = not order.active
+        order.orderComfirm= datetime.now()
         db.session.commit()
         return f"Order {order_id} active status changed to {order.active}."
     else:
@@ -308,6 +318,15 @@ def chang_active_order_list(order_id):
         else:
             return f"Order {order_id} not found."
 
+def delete_order(order_id):
+    db.session.query(OrderDetails).filter_by(order_id=order_id).delete()
+    order = db.session.query(Orders).filter_by(id=order_id).first()
+    if order:
+        db.session.delete(order)
+        db.session.commit()
+        return True
+    else:
+        return False
 
 from decimal import Decimal
 from datetime import datetime
@@ -394,6 +413,17 @@ def create_order_customer(customer_id, address_id, total, paymentMethods, l_cart
         db.session.commit()
 
 
+def get_orders_with_products(customer_id):
+    # Lấy tất cả đơn hàng của khách hàng theo customer_id
+    orders = (
+        Orders.query
+        .options(joinedload(Orders.order_details).joinedload(OrderDetails.product))  # Tải chi tiết đơn hàng và sản phẩm
+        .filter_by(customer_id=customer_id)
+        .all()
+    )
+
+    # Trả về đơn hàng cùng với thông tin sản phẩm (bao gồm cả hình ảnh)
+    return orders
 # Address--------------------------------------------------------------
 def get_address_by_user_id(user_id):
     return BillingAddress.query.filter(BillingAddress.customer_id == user_id).all()

@@ -18,316 +18,233 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbarpage.css') }}">
+
 
     <title>Cosmic Store</title>
     <link rel="icon" type="image/png" href="static/images/icons/favicon.png"/>
 </head>
 <body>
-<div class="wrapper-container">
-    <nav id="sidebar">
-        <div class="sidebar-content">
-            <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
-                <span>Nhân viên bán hàng</span>
-            </a>
-            <ul class="sidebar-nav">
-                <li class="sidebar-header">Trang</li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="{{url_for('view_home_employee')}}">
-                        <i class="fa-solid fa-house"></i> <span>Trang Chủ</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{url_for('view_employee_profile')}}">
-                        <i class="fa-solid fa-user"></i> <span>Hồ Sơ</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{url_for('view_customercare')}}">
-                        <i class="fa-solid fa-headset"></i> <span>Chăm Sóc Khách Hàng</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
-                        <i class="fa-solid fa-user-plus"></i> <span>Chi Tiết Đơn Hàng</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
-                        <i class="fa-solid fa-credit-card"></i> <span>Thanh Toán</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{url_for('user_logout')}}">
-                        <i class="fa-solid fa-sign-in-alt"></i> <span>Đăng Xuất</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="main">
-        <nav class="navbar">
-            <button class="sidebar-toggle">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div class="navbar-content">
-                <div class="search-container">
-                    <button class="search-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </div>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon" href="#" id="alertsDropdown">
-                            <i class="fa-solid fa-bell"></i>
-                            <span class="indicator">4</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon" href="#" id="messagesDropdown">
-                            <i class="fa-solid fa-envelope"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
 
-                        <a class="nav-link profile-toggle" href="#">
-                            <img src="{{ url_for('static', filename='images/'+user.photoPath) }}" alt="Charles Hall"
-                                 class="avatar">
-                            <span>{{user.name}}</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ url_for('view_employee_profile')}}">Profile</a>
-                            <a class="dropdown-item" href="#">Analytics</a>
-                            <a class="dropdown-item" href="index.html">Settings & Privacy</a>
-                            <a class="dropdown-item" href="#">Help Center</a>
-                            <a class="dropdown-item" href="#">Log out</a>
+
+<!-- Invoice 1 start -->
+<div class="invoice-1 invoice-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="invoice-inner clearfix">
+                    <div class="invoice-info clearfix" id="invoice_wrapper">
+                        <div class="invoice-headar">
+                            <div class="row g-0">
+                                <div class="col-sm-6">
+                                    <div class="invoice-logo">
+                                        <!-- logo started -->
+                                        <div class="logo">
+                                            <h2>Cosmic Store</h2>
+                                        </div>
+                                        <!-- logo ended -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 invoice-id">
+                                    <div class="info">
+                                        <h1 class="color-white inv-header-1">Hóa đơn</h1>
+                                        <p class="color-white mb-1">Invoice Number <span>#{{order.id}}</span>
+                                        </p>
+                                        <p class="color-white mb-0">Invoice Date <span>{{currentDate}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <!-- Invoice 1 start -->
-        <div class="invoice-1 invoice-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="invoice-inner clearfix">
-                            <div class="invoice-info clearfix" id="invoice_wrapper">
-                                <div class="invoice-headar">
-                                    <div class="row g-0">
-                                        <div class="col-sm-6">
-                                            <div class="invoice-logo">
-                                                <!-- logo started -->
-                                                <div class="logo">
-                                                    <h2>Cosmic Store</h2>
-                                                </div>
-                                                <!-- logo ended -->
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 invoice-id">
-                                            <div class="info">
-                                                <h1 class="color-white inv-header-1">Hóa đơn</h1>
-                                                <p class="color-white mb-1">Invoice Number <span>#{{order.id}}</span>
-                                                </p>
-                                                <p class="color-white mb-0">Invoice Date <span>{{currentDate}}</span>
-                                                </p>
-                                            </div>
-                                        </div>
+                        <div class="invoice-top">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="invoice-number mb-30">
+                                        <h4 class="inv-title-1">Thông tin hóa đơn</h4>
+                                        <h2 class="name mb-10">Mã hóa đơn #{{order.id}}</h2>
+                                        <p class="invo-addr-1">
+                                            Ngày đặt: {{order.orderDate}} <br/>
+                                            Phương thức thanh toán: {{order.paymentMethods}}<br/>
+                                            Địa chỉ nhận hàng: {{order.billing_address}} <br/>
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="invoice-top">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="invoice-number mb-30">
-                                                <h4 class="inv-title-1">Thông tin hóa đơn</h4>
-                                                <h2 class="name mb-10">Mã hóa đơn #{{order.id}}</h2>
-                                                <p class="invo-addr-1">
-                                                    Ngày đặt: {{order.orderDate}} <br/>
-                                                    Phương thức thanh toán: {{order.paymentMethods}}<br/>
-                                                    Địa chỉ nhận hàng: {{order.billing_address}} <br/>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="invoice-number mb-30">
-                                                <div class="invoice-number-inner">
-                                                    <h4 class="inv-title-1">Thông tin khách hàng</h4>
-                                                    <h2 class="name mb-10">{{order.user_name}}</h2>
-                                                    <p class="invo-addr-1">
-                                                        {{order.phone}} <br/>
-                                                        {{order.email}} <br/>
-                                                        {{order.user_address}} <br/>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="invoice-center">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0 table-striped invoice-table">
-                                            <thead class="bg-active">
-                                            <tr class="tr">
-                                                <th>No.</th>
-                                                <th class="pl0 text-start">Item Description</th>
-                                                <th class="text-center">Price</th>
-                                                <th class="text-center">Quantity</th>
-                                                <th class="text-end">Amount</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for item in order_detail %}
-                                            <tr class="tr">
-                                                <td>
-                                                    <div class="item-desc-1">
-                                                        <span>01</span>
-                                                    </div>
-                                                </td>
-                                                <td class="pl0">{{item.product_name}}</td>
-                                                <td class="text-center">{{item.price*(1-item.discount/100)}}</td>
-                                                <td class="text-center">{{item.quantity}}</td>
-                                                <td class="text-end">
-                                                    {{(item.price*(1-item.discount/100))*item.quantity}}
-                                                </td>
-                                            </tr>
-                                            {% endfor %}
-                                            <tr class="tr2">
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="text-center">SubTotal</td>
-                                                <td class="text-end">{{order.totalAmount*0.95}} VNĐ</td>
-                                            </tr>
-                                            <tr class="tr2">
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="text-center">Tax (5%)</td>
-                                                <td class="text-end">{{order.totalAmount*0.05}} VNĐ</td>
-                                            </tr>
-                                            <tr class="tr2">
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="text-center f-w-600 active-color">Grand Total</td>
-                                                <td class="f-w-600 text-end active-color">{{order.totalAmount}} VNĐ</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="invoice-bottom">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-8 col-sm-7">
-                                            <div class="mb-30 dear-client">
-                                                <h3 class="inv-title-1">Terms & Conditions</h3>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry. Lorem Ipsum has been typesetting industry. Lorem Ipsum</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-4 col-sm-5">
-                                            <div class="mb-30 payment-method">
-                                                <h3 class="inv-title-1">Phương thức thanh toán</h3>
-                                                <ul class="payment-method-list-1 text-14">
-                                                    <li><strong>Loại hình:</strong> {{order.methodPayments}}</li>
-                                                    <li><strong>Tên khách hàng:</strong>{{order.user_name}}</li>
-                                                    <li><strong>Ngày thành công</strong>:</strong>
-                                                        {{order.orderComfirm}}
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="invoice-contact clearfix">
-                                    <div class="row g-0">
-                                        <div class="col-lg-9 col-md-11 col-sm-12">
-                                            <div class="contact-info">
-                                                <a href="tel:+55-4XX-634-7071"><i class="fa fa-phone"></i> +00 123 647
-                                                    840</a>
-                                                <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>
-                                                    info@themevessel.com</a>
-                                                <a href="tel:info@themevessel.com" class="mr-0 d-none-580"><i
-                                                        class="fa fa-map-marker"></i> 169 Teroghoria, Bangladesh</a>
-                                            </div>
+                                <div class="col-sm-6">
+                                    <div class="invoice-number mb-30">
+                                        <div class="invoice-number-inner">
+                                            <h4 class="inv-title-1">Thông tin khách hàng</h4>
+                                            <h2 class="name mb-10">{{order.user_name}}</h2>
+                                            <p class="invo-addr-1">
+                                                {{order.phone}} <br/>
+                                                {{order.email}} <br/>
+                                                {{order.user_address}} <br/>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="invoice-btn-section clearfix d-print-none">
-                                <a href="javascript:void(0);" class="btn btn-lg btn-print" onclick="printInvoice()">
-                                    <i class="fa fa-print"></i> Print Invoice
-                                </a>
-
-                                <a id="invoice_download_btn" class="btn btn-lg btn-download btn-theme">
-                                    <i class="fa fa-download"></i> Download Invoice
-                                </a>
+                        </div>
+                        <div class="invoice-center">
+                            <div class="table-responsive">
+                                <table class="table mb-0 table-striped invoice-table">
+                                    <thead class="bg-active">
+                                    <tr class="tr">
+                                        <th>No.</th>
+                                        <th class="pl0 text-start">Item Description</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Amount</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in order_detail %}
+                                    <tr class="tr">
+                                        <td>
+                                            <div class="item-desc-1">
+                                                <span>01</span>
+                                            </div>
+                                        </td>
+                                        <td class="pl0">{{item.product_name}}</td>
+                                        <td class="text-center">{{item.price*(1-item.discount/100)}}</td>
+                                        <td class="text-center">{{item.quantity}}</td>
+                                        <td class="text-end">
+                                            {{(item.price*(1-item.discount/100))*item.quantity}}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr class="tr2">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center">SubTotal</td>
+                                        <td class="text-end">{{order.totalAmount*0.95}} VNĐ</td>
+                                    </tr>
+                                    <tr class="tr2">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center">Tax (5%)</td>
+                                        <td class="text-end">{{order.totalAmount*0.05}} VNĐ</td>
+                                    </tr>
+                                    <tr class="tr2">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-center f-w-600 active-color">Grand Total</td>
+                                        <td class="f-w-600 text-end active-color">{{order.totalAmount}} VNĐ</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                        <div class="invoice-bottom">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-8 col-sm-7">
+                                    <div class="mb-30 dear-client">
+                                        <h3 class="inv-title-1">Terms & Conditions</h3>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                            industry. Lorem Ipsum has been typesetting industry. Lorem Ipsum</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-4 col-sm-5">
+                                    <div class="mb-30 payment-method">
+                                        <h3 class="inv-title-1">Phương thức thanh toán</h3>
+                                        <ul class="payment-method-list-1 text-14">
+                                            <li><strong>Loại hình:</strong> {{order.methodPayments}}</li>
+                                            <li><strong>Tên khách hàng:</strong>{{order.user_name}}</li>
+                                            <li><strong>Ngày thành công</strong>:</strong>
+                                                {{order.orderComfirm}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-contact clearfix">
+                            <div class="row g-0">
+                                <div class="col-lg-9 col-md-11 col-sm-12">
+                                    <div class="contact-info">
+                                        <a href="tel:+55-4XX-634-7071"><i class="fa fa-phone"></i> +00 123 647
+                                            840</a>
+                                        <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>
+                                            info@themevessel.com</a>
+                                        <a href="tel:info@themevessel.com" class="mr-0 d-none-580"><i
+                                                class="fa fa-map-marker"></i> 169 Teroghoria, Bangladesh</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invoice-btn-section clearfix d-print-none">
+                        <a href="javascript:window.print()" class="btn btn-lg btn-print">
+                            <i class="fa fa-print"></i> Print Invoice
+                        </a>
+
+                        <a id="invoice_download_btn" class="btn btn-lg btn-download btn-theme">
+                            <i class="fa fa-download"></i> Download Invoice
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="invoid-change" style="margin:20px 0px 0px 10px">
+    <a class="sidebar-link" href="{{url_for('view_order_manager')}}">
+        <i class="fas fa-arrow-left"></i> <!-- Icon quay lại -->
+        <span>Trở về</span>
+    </a>
 </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/jspdf.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</div>
 
-    <script>
-        document.getElementById("invoice_download_btn").addEventListener("click", function() {
-        const invoice = document.getElementById("invoice_wrapper");
-        const invoiceNumber = document.querySelector('.invoice-info span').innerText; // Lấy mã hóa đơn thực tế
 
-        html2canvas(invoice).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');  // Chuyển đổi canvas thành ảnh
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="js/jspdf.min.js"></script>
+<script src="js/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
-            // Thêm hình ảnh từ canvas vào PDF
-            const imgWidth = 190;
-            const pageHeight = 295;
-            const imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-            let position = 0;
 
+<script>
+    document.getElementById("invoice_download_btn").addEventListener("click", function() {
+    const invoice = document.getElementById("invoice_wrapper");
+    const invoiceNumber = document.querySelector('.invoice-info span').innerText; // Lấy mã hóa đơn thực tế
+
+    html2canvas(invoice).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');  // Chuyển đổi canvas thành ảnh
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Thêm hình ảnh từ canvas vào PDF
+        const imgWidth = 190;
+        const pageHeight = 295;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            doc.addPage();
             doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
+        }
 
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                doc.addPage();
-                doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-
-            // Tạo tên tệp với mã hóa đơn thực tế
-            doc.save(`invoice_${invoiceNumber}.pdf`);
-        }).catch(function (error) {
-            console.error("Error capturing invoice: ", error);
-        });
+        // Tạo tên tệp với mã hóa đơn thực tế
+        doc.save(`invoice_${invoiceNumber}.pdf`);
+    }).catch(function (error) {
+        console.error("Error capturing invoice: ", error);
     });
-
-        function printInvoice() {
-        var invoice = document.getElementById("invoice_wrapper").innerHTML;
-        var originalContents = document.body.innerHTML;
-
-        document.body.innerHTML = invoice;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
+});
 
 
-    </script>
+</script>
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/ordermanager.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ordermanager.js') }}"></script>
 </body>
 </html>

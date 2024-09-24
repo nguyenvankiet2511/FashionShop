@@ -222,7 +222,7 @@
                 <li class="menu_item"><a href="{{url_for('home')}}">home</a></li>
                 <li class="menu_item"><a href="{{url_for('view_categories')}}">shop</a></li>
                 <li class="menu_item"><a href="#">promotion</a></li>
-                <li class="menu_item"><a href="#">pages</a></li>
+              <li><a href="{{url_for('view_history_order')}}">History</a></li>
                 <li class="menu_item"><a href="{{url_for('view_blog')}}">blog</a></li>
                 <li class="menu_item"><a href="{{url_for('view_contact')}}">contact</a></li>
             </ul>
@@ -269,8 +269,7 @@
                 1234</p>
             <p>Hoặc gửi email đến <a href="mailto:support@example.com">support@example.com</a></p>
         </div>
-
-        <!-- Newsletter -->
+    </div>
 
         <div class="newsletter">
             <div class="container">
@@ -296,6 +295,8 @@
             </div>
         </div>
     </div>
+        <!-- Newsletter -->
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">

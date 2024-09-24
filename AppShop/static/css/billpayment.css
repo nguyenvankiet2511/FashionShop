@@ -483,3 +483,27 @@ table th{
 }
 
 
+.invoid-change .sidebar-link {
+    display: inline-flex;
+    align-items: center;
+
+    text-decoration: none;
+    color: #333; /* Màu văn bản */
+    font-size: 23px; /* Cỡ chữ */
+    font-weight: bold; /* Đậm chữ */
+    transition: color 0.3s ease;
+}
+
+.invoid-change .sidebar-link:hover {
+    color: #007bff; /* Đổi màu khi hover */
+}
+
+.invoid-change .sidebar-link i {
+    margin-right: 8px; /* Khoảng cách giữa icon và văn bản */
+    font-size: 18px; /* Kích thước icon */
+    transition: transform 0.3s ease;
+}
+
+.invoid-change .sidebar-link:hover i {
+    transform: translateX(-5px); /* Hiệu ứng di chuyển icon khi hover */
+}

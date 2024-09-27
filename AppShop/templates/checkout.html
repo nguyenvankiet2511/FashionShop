@@ -118,7 +118,7 @@
                                 <li><a href="{{url_for('home')}}">home</a></li>
                                 <li><a href="{{url_for('view_categories')}}">shop</a></li>
                                 <li><a href="#">promotion</a></li>
-                                    <li><a href="{{url_for('view_history_order')}}">History</a></li>
+                                <li><a href="{{url_for('view_history_order')}}">History</a></li>
 
                                 <li><a href="{{url_for('view_blog')}}">blog</a></li>
                                 <li><a href="{{url_for('view_contact')}}">contact</a></li>
@@ -244,7 +244,7 @@
         <!-- Phần 1: Thông tin địa chỉ -->
         <div class="address-info">
             <h3>Thông tin địa chỉ</h3>
-            <form>
+            <form id="address-form" action="{{ url_for('create_address') }}" method="post">
                 <div class="form-row">
                     <div class="form-col-6">
                         <label for="firstname">Họ</label>
@@ -255,29 +255,16 @@
                         <input type="text" id="lastname" name="lastname" placeholder="">
                     </div>
                     <div class="form-col-12">
-                        <label for="country">Nơi sống</label>
-                        <select id="country" name="country">
-                            <option value="" disabled selected hidden>Chọn quốc gia</option>
-                            <option value="VietNam">Việt Nam</option>
-                            <option value="France">France</option>
-                            <option value="Italy">Italy</option>
-                            <option value="Philippines">Philippines</option>
-                            <option value="South Korea">South Korea</option>
-                            <option value="Hongkong">Hongkong</option>
-                            <option value="Japan">Japan</option>
-                        </select>
+                        <label for="city">Thành phố</label>
+                        <input type="text" id="city" name="city" placeholder="">
                     </div>
                     <div class="form-col-6">
                         <label for="address">Địa chỉ nhận hàng</label>
                         <input type="text" id="address" name="address" placeholder="House number and street name">
                     </div>
                     <div class="form-col-6">
-                        <label for="city">Thành phố</label>
-                        <input type="text" id="city" name="city" placeholder="">
-                    </div>
-                    <div class="form-col-6">
-                        <label for="zipcode">Mã ZIP</label>
-                        <input type="text" id="zipcode" name="zipcode" placeholder="">
+                        <label>Số nhà (địa chỉ chi tiết)</label>
+                        <input type="text" name="addressDetail" placeholder="">
                     </div>
                     <div class="form-col-6">
                         <label for="phone">Số điện thoại</label>
@@ -302,7 +289,7 @@
 
         <div class="address-info" style="margin-top: 35px;">
             <h3>Thông tin địa chỉ</h3>
-            <form id="address-form">
+            <form id="address-display-form">
                 <div class="form-row">
                     <div class="form-col-12">
                         <label for="address">Chọn địa chỉ:</label>
@@ -594,6 +581,36 @@
 
 
     </script>
+    <script>
+ document.getElementById('address-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this);
+
+    // Send the form data using Fetch API
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json()) // Expecting JSON response
+    .then(data => {
+        // Check if the address was created successfully
+        if (data.success) {
+            // Update the address select options
+            const addressSelect = document.getElementById('address-select');
+            const newOption = document.createElement('option');
+            newOption.value = data.new_address.id; // Use the ID from the response
+            newOption.text = `${data.new_address.name} - ${data.new_address.phone} - ${data.new_address.addressDetail}`;
+            addressSelect.add(newOption); // Add the new address to the select element
+            addressSelect.value = newOption.value; // Optionally select the new address
+        } else {
+            alert('Error creating address: ' + data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
+
 </body>
 
 </html>

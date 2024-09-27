@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Colo Shop Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/categories_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css"
@@ -22,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/responsive.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile-main.css') }}">
-
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chatbox.css') }}">
 
 
 
@@ -54,5 +55,63 @@
   agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
   language-code="vi"
 ></df-messenger>
+
+ <script>
+    const socket = io();
+    let buyerId = {{ account_id }}; // ID of the current user
+
+    function selectChat(id) {
+        buyerId = id; // Update the buyer ID when selecting a chat
+        loadMessages();
+    }
+
+    document.getElementById('send-button').onclick = function() {
+        const message = document.getElementById('message-input').value;
+        fetch('/send_message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ buyer_id: buyerId, content: message })
+        });
+        document.getElementById('message-input').value = ''; // Clear the input after sending
+    };
+
+    socket.on('new_message', function(data) {
+        const messagesDiv = document.getElementById('messages');
+        const messageClass = data.serder ? 'seller-message' : 'buyer-message'; // Classify the message
+
+        // Check if the message is from the current user or the shop
+        const senderName = data.serder ?   'Shop': 'Bạn';
+
+        messagesDiv.innerHTML += `<div class="${messageClass}">${senderName}: ${data.content} <span class="timestamp">${data.timestamp}</span></div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+    });
+
+    // Load previous messages
+    function loadMessages() {
+        fetch('/get_messages/' + buyerId)
+            .then(response => response.json())
+            .then(messages => {
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = ''; // Clear previous messages
+
+                messages.forEach(msg => {
+                    const messageClass = msg.serder ? 'seller-message' : 'buyer-message'; // Classify the message
+
+                    // Check if the message is from the current user or the shop
+                    const senderName = msg.serder ? 'Shop':'Bạn' ;
+
+                    messagesDiv.innerHTML += `<div class="${messageClass}">${senderName}: ${msg.content} <span class="timestamp">${msg.timestamp}</span></div>`;
+                });
+
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+            });
+    }
+
+    // Load messages when the page loads
+    loadMessages();
+</script>
+
 
 </html>

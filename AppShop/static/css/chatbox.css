@@ -1,0 +1,89 @@
+#chat-container {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            display: flex; /* Sử dụng Flexbox để bố trí */
+        }
+        #sidebar-chat {
+            width: 200px; /* Chiều rộng của thanh bên trái */
+            margin-right: 20px; /* Khoảng cách giữa thanh bên trái và khu vực chat */
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+        #chat-box {
+            flex: 1; /* Làm cho khu vực chat chiếm toàn bộ không gian còn lại */
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+        #messages {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto; /* Cho phép cuộn */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fafafa;
+        }
+        #messages div {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+        .buyer-message {
+            background-color: #d1e7dd;
+            align-self: flex-end; /* Tin nhắn của người mua nằm bên phải */
+        }
+        .seller-message {
+            background-color: #f8d7da;
+            align-self: flex-start; /* Tin nhắn của người bán nằm bên trái */
+        }
+        .timestamp {
+            display: block; /* Để hiển thị thời gian trên một dòng riêng */
+            font-size: 0.8em; /* Kích thước chữ nhỏ hơn */
+            color: #555; /* Màu sắc chữ cho thời gian */
+            margin-top: 5px; /* Khoảng cách phía trên giữa nội dung và thời gian */
+        }
+        #input-area {
+            display: flex;
+            margin-top: 10px;
+        }
+        #message-input {
+            flex: 1; /* Chiếm toàn bộ không gian còn lại */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #send-button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+        .chat-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .chat-list li {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            background-color: #e7f3fe;
+        }
+        .chat-list li:hover {
+            background-color: #d1e7dd;
+        }

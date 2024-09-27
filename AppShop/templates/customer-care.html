@@ -10,12 +10,111 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
     <title>Cosmic Store</title>
     <link rel="icon" type="image/png" href="static/images/icons/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbarpage.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/customercare.css') }}">
-
+    <style>
+        #chat-container {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            display: flex; /* Sử dụng Flexbox để bố trí */
+        }
+        #sidebar-chat {
+            width: 200px; /* Chiều rộng của thanh bên trái */
+            margin-right: 20px; /* Khoảng cách giữa thanh bên trái và khu vực chat */
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+            .no-messages {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 18px;
+            color: #888;
+            text-align: center;
+        }
+        #chat-box {
+            flex: 1; /* Làm cho khu vực chat chiếm toàn bộ không gian còn lại */
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+        #messages {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto; /* Cho phép cuộn */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fafafa;
+        }
+        #messages div {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+        .buyer-message {
+            background-color: #d1e7dd;
+            align-self: flex-end; /* Tin nhắn của người mua nằm bên phải */
+        }
+        .seller-message {
+            background-color: #f8d7da;
+            align-self: flex-start; /* Tin nhắn của người bán nằm bên trái */
+        }
+        .timestamp {
+            display: block; /* Để hiển thị thời gian trên một dòng riêng */
+            font-size: 0.8em; /* Kích thước chữ nhỏ hơn */
+            color: #555; /* Màu sắc chữ cho thời gian */
+            margin-top: 5px; /* Khoảng cách phía trên giữa nội dung và thời gian */
+        }
+        #input-area {
+            display: flex;
+            margin-top: 10px;
+        }
+        #message-input {
+            flex: 1; /* Chiếm toàn bộ không gian còn lại */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #send-button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+        .chat-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .chat-list li {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            background-color: #e7f3fe;
+        }
+        .chat-list li:hover {
+            background-color: #d1e7dd;
+        }
+    </style>
 </head>
 
 <body>
@@ -105,120 +204,24 @@
         </nav>
 
         <!-- Header -->
-
-
-        <header>
-            <div class="img-header">
-                <img src="{{ url_for('static', filename='images/customercare.jpg') }}" alt="customercare">
-
+        <div id="chat-container">
+            <div id="sidebar-chat">
+                <h3>Danh sách Chat</h3>
+                <ul class="chat-list" id="chat-list">
+    {% for account in accounts %}
+    <li onclick="selectChat({{ account.id }}, '{{ account.name }}')"> {{ account.name }}</li>
+    {% endfor %}
+</ul>
 
             </div>
-        </header>
-
-
-        <!-- Mục hỗ trợ -->
-        <section class="support-categories">
-            <h2>Chúng tôi có thể giúp gì cho bạn?</h2>
-            <div class="categories-container">
-                <div class="category">
-                    <img src="{{ url_for('static', filename='images/avatar-2.jpg') }}"
-                         alt="Biểu tượng Câu hỏi thường gặp">
-
-                    <h3>Câu hỏi thường gặp</h3>
-                    <p>Tìm câu trả lời cho những câu hỏi thường gặp.</p>
-                </div>
-                <div class="category">
-                    <img src="{{ url_for('static', filename='images/avatar-3.jpg') }}" alt="Biểu tượng Hỗ trợ kỹ thuật">
-                    <h3>Hỗ trợ kỹ thuật</h3>
-                    <p>Nhận trợ giúp với các vấn đề kỹ thuật hoặc khắc phục sự cố.</p>
-                </div>
-                <div class="category">
-                    <img src="{{ url_for('static', filename='images/avatar-4.jpg') }}" alt="Biểu tượng Thanh toán">
-                    <h3>Thanh toán</h3>
-                    <p>Các câu hỏi về thanh toán, hóa đơn hoặc chi phí.</p>
+            <div id="chat-box">
+                <h2>Chat giữa Người Mua và Người Bán</h2>
+                <div id="messages"></div>
+                <div id="input-area">
+                    <input type="text" id="message-input" placeholder="Nhập tin nhắn...">
+                    <button id="send-button">Gửi</button>
                 </div>
             </div>
-        </section>
-
-        <!-- Mục Câu hỏi thường gặp -->
-        <section class="faq-section">
-            <h2>Câu hỏi thường gặp</h2>
-            <div class="faq">
-                <div class="question" onclick="toggleAnswer(0)">
-                    <h3>1. Làm thế nào tôi có thể liên hệ với bạn?</h3>
-                    <div class="arrow">&#9660;</div>
-                </div>
-                <div class="answer">
-                    <p>Bạn có thể liên hệ với chúng tôi qua email tại support@example.com hoặc gọi cho chúng tôi theo số
-                        +123 456 789. Đội ngũ của chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7.</p>
-                </div>
-            </div>
-
-            <div class="faq">
-                <div class="question" onclick="toggleAnswer(1)">
-                    <h3>2. Giờ hỗ trợ khách hàng của bạn là gì?</h3>
-                    <div class="arrow">&#9660;</div>
-                </div>
-                <div class="answer">
-                    <p>Chúng tôi luôn sẵn sàng hỗ trợ khách hàng 24/7 để giúp bạn với bất kỳ câu hỏi nào.</p>
-                </div>
-            </div>
-
-            <div class="faq">
-                <div class="question" onclick="toggleAnswer(2)">
-                    <h3>3. Bạn có cung cấp đảm bảo hoàn tiền không?</h3>
-                    <div class="arrow">&#9660;</div>
-                </div>
-                <div class="answer">
-                    <p>Có, chúng tôi cung cấp chính sách hoàn tiền trong 30 ngày cho tất cả các sản phẩm và dịch vụ của
-                        chúng tôi.</p>
-                </div>
-            </div>
-        </section>
-
-
-        <div class="customer-carousel-container">
-            <button class="carousel-button prev-button">&#10094;</button>
-            <div class="customer-carousel">
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-2.jpg') }}" alt="Customer 3">
-                    <p>Customer 1</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-3.jpg') }}" alt="Customer 3">
-                    <p>Customer 2</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-4.jpg') }}" alt="Customer 3">
-                    <p>Customer 3</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-5.jpg') }}" alt="Customer 3">
-                    <p>Customer 3</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-2.jpg') }}" alt="Customer 3">
-                    <p>Customer 3</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-2.jpg') }}" alt="Customer 3">
-                    <p>Customer 3</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-3.jpg') }}" alt="Customer 3">
-                    <p>Customer 3</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-4.jpg') }}" alt="Customer 3">
-                    <p>Customer 3</p>
-                </div>
-                <div class="customer-item">
-                    <img src="{{ url_for('static', filename='images/avatar-5.jpg') }}" alt="Customer 3">
-                    <p>Customer 3</p>
-                </div>
-                <!-- Thêm nhiều khách hàng hơn nếu cần -->
-            </div>
-            <button class="carousel-button next-button">&#10095;</button>
         </div>
 
 
@@ -238,6 +241,70 @@
 </div>
 <script src="{{ url_for('static', filename='js/nabarpage.js') }}"></script>
 <script src="{{ url_for('static', filename='js/customercare.js') }}"></script>
+<script>
+    const socket = io();
+    let buyerId = null; // Initialize buyerId as null
+    let buyerName = ''; // Variable to store the buyer's name
+
+    function selectChat(id, name) {
+        buyerId = id;
+        buyerName = name;
+        loadMessages();
+    }
+
+    document.getElementById('send-button').onclick = function() {
+        const message = document.getElementById('message-input').value;
+        if (buyerId) {  // Ensure buyerId is set before sending a message
+            fetch('/send_message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ buyer_id: buyerId, content: message })
+            });
+            document.getElementById('message-input').value = ''; // Clear the input after sending
+        } else {
+            alert("Please select a chat before sending a message.");
+        }
+    };
+
+    socket.on('new_message', function(data) {
+        const messagesDiv = document.getElementById('messages');
+        const messageClass = data.serder ? 'buyer-message' : 'seller-message'; // Classify the message
+        const name =  data.serder ? 'Bạn': buyerName || `Buyer ${data.buyer_id}`; // Use buyer's name if available
+        messagesDiv.innerHTML += `<div class="${messageClass}">${name}: ${data.content} <span class="timestamp">${data.timestamp}</span></div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+    });
+
+    function loadMessages() {
+        if (buyerId) {  // Ensure buyerId is set before loading messages
+            fetch('/get_messages/' + buyerId)
+                .then(response => response.json())
+                .then(messages => {
+                    const messagesDiv = document.getElementById('messages');
+                    messagesDiv.innerHTML = '';
+
+                    if (messages.length === 0) {
+                        // Display "Hãy liên hệ" if there are no messages
+                        messagesDiv.innerHTML = `<div class="no-messages">Hãy liên hệ</div>`;
+                    } else {
+                        // Otherwise, display the messages
+                        messages.forEach(msg => {
+                            const messageClass = msg.serder ? 'buyer-message' : 'seller-message';
+                           const name =  msg.serder ? 'Bạn': buyerName || `Buyer ${msg.buyer_id}`;
+                            messagesDiv.innerHTML += `<div class="${messageClass}">${name}: ${msg.content} <span class="timestamp">${msg.timestamp}</span></div>`;
+                        });
+                    }
+
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                });
+        }
+    }
+
+    // Load messages when the page is loaded
+    loadMessages();
+
+</script>
 
 
 </body>

@@ -180,9 +180,15 @@ class Carts(db.Model):
 class Messages(db.Model):
     __tablename__ = 'Messages'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    account_id = Column(Integer, ForeignKey('Accounts.id'), nullable=False)
-    content = Column(Text)
+    id = db.Column(db.Integer, primary_key=True)
+    buyer_id = db.Column(db.Integer, ForeignKey('Accounts.id'), nullable=False)
+    serder= Column(Boolean, default=0)
+    content = db.Column(db.String(500), nullable=False)
+    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    def __repr__(self):
+        return f'<Message {self.id} from Buyer {self.buyer_id}>'
+
 
 
 class OrderReturn(db.Model):
@@ -411,4 +417,19 @@ if __name__ == '__main__':
             OrderDetails(order_id=4, product_id=9, quantity=2, price=80000, discount=20)
         ]
         db.session.add_all(order_details_data)
+        db.session.commit()
+
+        data_mes=[
+            Messages(buyer_id=4, content="Chào bạn, tôi có thể hỏi về sản phẩm này không?"),
+            Messages(buyer_id=4, content="Sản phẩm này có sẵn màu nào vậy?", serder=True),
+            Messages(buyer_id=4, content="Giá sản phẩm này có thể thương lượng không?",serder=True),
+            Messages(buyer_id=4, content="Thời gian giao hàng mất bao lâu?"),
+            Messages(buyer_id=4, content="Sản phẩm này có bảo hành không?"),
+            Messages(buyer_id=4, content="Có thể gửi thêm hình ảnh của sản phẩm không?",serder=True),
+            Messages(buyer_id=4, content="Kích thước của sản phẩm này là gì?"),
+            Messages(buyer_id=4, content="Có thể đổi trả sản phẩm nếu không vừa không?",serder=True),
+            Messages(buyer_id=4, content="Sản phẩm này có thể sử dụng cho những mục đích nào?"),
+            Messages(buyer_id=4, content="Bạn có thể cho tôi biết thêm về chính sách giao hàng không?",serder=True)
+        ]
+        db.session.add_all(data_mes)
         db.session.commit()

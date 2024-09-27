@@ -18,7 +18,7 @@
     <style>
         #chat-container {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+             background: linear-gradient(90deg, #e7c384, #6fb5c8,#7adfb6);
             padding: 20px;
             display: flex; /* Sử dụng Flexbox để bố trí */
         }
@@ -208,14 +208,14 @@
             <div id="sidebar-chat">
                 <h3>Danh sách Chat</h3>
                 <ul class="chat-list" id="chat-list">
-    {% for account in accounts %}
-    <li onclick="selectChat({{ account.id }}, '{{ account.name }}')"> {{ account.name }}</li>
-    {% endfor %}
-</ul>
+                    {% for account in accounts %}
+                    <li onclick="selectChat({{ account.id }}, '{{ account.name }}')"> {{ account.name }}</li>
+                    {% endfor %}
+                </ul>
 
             </div>
             <div id="chat-box">
-                <h2>Chat giữa Người Mua và Người Bán</h2>
+                <h2>Chat Khách Hàng</h2>
                 <div id="messages"></div>
                 <div id="input-area">
                     <input type="text" id="message-input" placeholder="Nhập tin nhắn...">

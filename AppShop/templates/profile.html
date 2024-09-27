@@ -28,30 +28,30 @@
             </nav>
         </div>
     </div>
-    <div class="align-items-center-profile">
+    <div class="align-items-center-profile" style="margin-left:20px;">
         <div class="profile-container-profile">
             <div class="profile-profile">
                 <div class="avatar-profile">
-                    <img src="avatar.jpg" alt="Avatar">
+               <img src="{{url_for('static', filename='images/'+ user.photoPath)}}" alt="">
                 </div>
                 <div class="name-profile">
-                    <h3>John Doe</h3>
-                    <h6>Software Developer</h6>
+                    <h3 style="color:#000;">{{user.name}}</h3>
+
                 </div>
                 <div class="description-profile">
-                    <p>Passionate about coding and technology.</p>
+                    <p>Chào mừng trở lại với trang mua sắm Cosmic Store</p>
                 </div>
                 <div class="btn-just-icon-profile btn-facebook-profile"><i class="fab fa-facebook-f"></i></div>
                 <div class="btn-just-icon-profile btn-google-profile"><i class="fab fa-google"></i></div>
                 <div class="btn-just-icon-profile btn-twitter-profile"><i class="fab fa-twitter"></i></div>
             </div>
             <div class="personal-info-profile">
-                <h2>Personal Information</h2>
+                <h2>Thông tin khách hàng</h2>
                 <form id="profile-form-profile">
                     <label for="name">Name</label>
-                    <input type="text" id="name" value="John Doe" readonly>
+                    <input type="text" id="name" value="{{user.name}}" readonly>
                     <label for="email">Email</label>
-                    <input type="text" id="email" value="john.doe@example.com" readonly>
+                    <input type="text" id="email" value="{{user.email}}" readonly>
                     <button type="button">Edit Profile</button>
                 </form>
             </div>

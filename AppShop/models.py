@@ -230,7 +230,7 @@ if __name__ == '__main__':
                   photoPath="/photos/bob.jpg"),
             Users(name="Emily Davis", gender=False, birthDate=datetime(1988, 7, 19), phone="567-890-1234",
                   email="emily.davis@example.com", address="202 Birch St", photoInf="photo5",
-                  photoPath="/photos/emily.jpg"),
+                  photoPath="avatar-3.jpg"),
             Users(name="Michael Wilson", gender=True, birthDate=datetime(1995, 11, 25), phone="678-901-2345",
                   email="michael.wilson@example.com", address="303 Cedar St", photoInf="photo6",
                   photoPath="/photos/michael.jpg"),
@@ -248,6 +248,27 @@ if __name__ == '__main__':
                   photoPath="/photos/liam.jpg"),
         ]
         db.session.add_all(users_data)
+        db.session.commit()
+        #account
+        account_data = [
+            Accounts(name="Trần Văn Bình", email="tranvanb@example.com",
+                     username="admin", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=1,
+                     users_role_id=UsersRole.ADMIN, active=True),
+            Accounts(name="Lê Thu Cúc", email="lethic@example.com",
+                     username="nhanvien1", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=3,
+                     users_role_id=UsersRole.EMPLOYEE, active=True),
+            Accounts(name="Phạm Anh Dương", email="phamvand@example.com",
+                     username="nhanvien2", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=4,
+                     users_role_id=UsersRole.EMPLOYEE, active=True),
+            Accounts(name="Nguyễn Bùi An Ly", email="nguyenthie@example.com",
+                     username="kh1", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=6,
+                     users_role_id=UsersRole.CUSTOMER, active=True),
+            Accounts(name="Hoàng Văn Nam", email="hoangvanf@example.com",
+                     username="kh2", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=7,
+                     users_role_id=UsersRole.CUSTOMER, active=True)
+        ]
+
+        db.session.add_all(account_data)
         db.session.commit()
         # Emplyoee
         employees_data = [
@@ -370,26 +391,7 @@ if __name__ == '__main__':
         db.session.add_all(products_data)
         db.session.commit()
 
-        account_data = [
-            Accounts(name="Trần Văn Bình", email="tranvanb@example.com",
-                     username="admin", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=1,
-                     users_role_id=UsersRole.ADMIN, active=True),
-            Accounts(name="Lê Thu Cúc", email="lethic@example.com",
-                     username="nhanvien1", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=3,
-                     users_role_id=UsersRole.EMPLOYEE, active=True),
-            Accounts(name="Phạm Anh Dương", email="phamvand@example.com",
-                     username="nhanvien2", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=4,
-                     users_role_id=UsersRole.EMPLOYEE, active=True),
-            Accounts(name="Nguyễn Bùi An Ly", email="nguyenthie@example.com",
-                     username="kh1", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=6,
-                     users_role_id=UsersRole.CUSTOMER, active=True),
-            Accounts(name="Hoàng Văn Nam", email="hoangvanf@example.com",
-                     username="kh2", password=str(hashlib.md5('123456'.encode('utf-8')).hexdigest()), user_id=7,
-                     users_role_id=UsersRole.CUSTOMER, active=True)
-        ]
 
-        db.session.add_all(account_data)
-        db.session.commit()
         orders_data = [
             Orders(customer_id=6, employee_id=2,  billingAddress_id=1, paymentMethods="COD",
                    orderDate=datetime.now(), active=False, totalAmount=100000),

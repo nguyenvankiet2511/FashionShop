@@ -69,31 +69,28 @@
                                 </li>
                                 <li class="account">
                                     <a href="#">
-                                        My Account
-                                        <i class="fa fa-angle-down"></i>
-                                    </a>
-                                    {% if user is none %}
-                                    <ul class="account_selection">
-                                        <li><a href="{{url_for('show_login')}}"><i class="fa fa-sign-in"
-                                                                                   aria-hidden="true"></i>Sign In</a>
-                                        </li>
-                                        <li><a href="{{url_for('show_login')}}"><i class="fa fa-user-plus"
-                                                                                   aria-hidden="true"></i>Register</a>
-                                        </li>
-                                    </ul>
-                                    {% else %}
-                                    <ul class="account_selection">
-
-                                        <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
-
-
-                                                                                     aria-hidden="true"></i>Profile</a>
-                                        </li>
-                                        <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus"
-                                                                                    aria-hidden="true"></i>Logout</a>
-                                        </li>
-                                    </ul>
-                                    {% endif %}
+                                       Tài Khoản Của Tôi
+                                       <i class="fa fa-angle-down"></i>
+                                   </a>
+                                   {% if user is none %}
+                                   <ul class="account_selection">
+                                       <li><a href="{{url_for('show_login')}}"><i class="fa fa-sign-in"
+                                                                                  aria-hidden="true"></i>Đăng Nhập</a>
+                                       </li>
+                                       <li><a href="{{url_for('show_login')}}"><i class="fa fa-user-plus"
+                                                                                  aria-hidden="true"></i>Đăng Ký</a>
+                                       </li>
+                                   </ul>
+                                   {% else %}
+                                   <ul class="account_selection">
+                                       <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
+                                                                                    aria-hidden="true"></i>Hồ Sơ</a>
+                                       </li>
+                                       <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus"
+                                                                                   aria-hidden="true"></i>Đăng Xuất</a>
+                                       </li>
+                                   </ul>
+                                   {% endif %}
                                 </li>
                             </ul>
                         </div>
@@ -115,8 +112,8 @@
                             <ul class="navbar_menu">
                                 <li><a href="{{url_for('home')}}">home</a></li>
                                 <li><a href="{{url_for('view_categories')}}">shop</a></li>
-                                <li><a href="#">promotion</a></li>
-                                <li><a href="#">pages</a></li>
+                                <li><a href="{{url_for('chat_box')}}">Chat</a></li>
+                            <li><a href="{{url_for('view_history_order')}}">History</a></li>
 
                                 <li><a href="{{url_for('view_blog')}}">blog</a></li>
                                 <li><a href="{{url_for('view_contact')}}">contact</a></li>

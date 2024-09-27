@@ -274,8 +274,10 @@ def view_blog():
 def view_history_order():
     if current_user.is_authenticated:
         user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
         history_order = dao.get_orders_with_products(user_id)
-        return render_template('order-history.html', orders=history_order)
+        countCart = dao.get_count_cart(user_id)
+        return render_template('order-history.html', orders=history_order,user=user,countCart=countCart)
 
 
 # checkout--------------------------------------------

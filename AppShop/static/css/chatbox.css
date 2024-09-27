@@ -1,7 +1,16 @@
+.backgound-chatbox{
+    width:100%;
+    height:100%;
+    background: linear-gradient(90deg, #e7c384, #6fb5c8,#7adfb6);
+}
+
+
+
 #chat-container {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
+
+            padding: 50px 20px 50px 20px;
+            margin:40px 60px 0 60px;
             display: flex; /* Sử dụng Flexbox để bố trí */
         }
         #sidebar-chat {
@@ -55,23 +64,69 @@
             margin-top: 10px;
         }
         #message-input {
-            flex: 1; /* Chiếm toàn bộ không gian còn lại */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        #send-button {
-            padding: 10px 20px;
-            margin-left: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        #send-button:hover {
-            background-color: #0056b3;
-        }
+        flex: 1; /* Chiếm toàn bộ không gian còn lại */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px; /* Tăng kích thước chữ */
+        transition: all 0.3s ease; /* Hiệu ứng mượt cho mọi thay đổi */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Tạo cảm giác chiều sâu */
+        background-color: #fafafa; /* Màu nền nhẹ nhàng */
+    }
+
+    /* Hiệu ứng khi người dùng click vào ô nhập liệu */
+    #message-input:focus {
+        border-color: #4CAF50; /* Đổi màu viền khi focus */
+        box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* Tạo hiệu ứng ánh sáng */
+        background-color: #fff; /* Làm nền trắng khi focus */
+        outline: none; /* Xóa bỏ viền outline mặc định của trình duyệt */
+    }
+
+      #send-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px; /* Tăng kích thước chữ */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Hiệu ứng mượt cho mọi thay đổi */
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Đổ bóng cho chiều sâu */
+    position: relative;
+    overflow: hidden; /* Ẩn hiệu ứng bên trong nút */
+}
+
+/* Hiệu ứng hover */
+#send-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Nhấn nút hơi nổi lên khi hover */
+    box-shadow: 0 6px 8px rgba(0, 86, 179, 0.3); /* Tăng hiệu ứng đổ bóng */
+}
+
+/* Hiệu ứng nhấp vào */
+#send-button:active {
+    transform: translateY(2px); /* Nhấn nút hơi chìm xuống khi nhấn */
+    box-shadow: 0 3px 5px rgba(0, 86, 179, 0.3); /* Giảm đổ bóng khi nhấn */
+}
+
+/* Hiệu ứng ánh sáng chạy qua nút khi hover */
+#send-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+#send-button:hover::before {
+    left: 150%;
+}
+
         .chat-list {
             list-style-type: none;
             padding: 0;
@@ -87,3 +142,5 @@
         .chat-list li:hover {
             background-color: #d1e7dd;
         }
+
+

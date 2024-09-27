@@ -1,8 +1,9 @@
-from AppShop import app, dao, login, flow
-from AppShop.models import UsersRole, Accounts, Users, Products, Customers
+from AppShop import app, dao, login, flow, socketio
+from AppShop.models import UsersRole, Accounts, Users, Products, Customers, Messages
 from flask import render_template, session, flash, jsonify, redirect, request, url_for
 from flask_login import login_user, current_user, logout_user
 from AppShop.admin import *
+from flask_socketio import SocketIO, emit
 
 
 @app.route("/")
@@ -20,9 +21,6 @@ def home():
     productsSeller = dao.get_products_bestSeller(12)
     return render_template('index.html', user=user, countCart=countCart, products=allProducts, categories=allCategories,
                            productsSeller=productsSeller)
-
-
-
 
 
 @app.route("/login")
@@ -107,6 +105,8 @@ def view_cart():
         return render_template('carts.html', user=user, countCart=countCart, listProducts=listProducts)
     else:
         return redirect(url_for('show_login'))
+
+
 @app.route("/get-count-cart/<int:user_id>")
 def get_count(user_id):
     count = dao.get_count_cart(user_id)
@@ -156,6 +156,7 @@ def update_cart():
         dao.update_quantity_cart(cart_id=cart_id, new_quantity=quantity)
         return jsonify({"message": "Quantity updated successfully"}), 200
     return jsonify({"error": "Invalid input"}), 400
+
 
 @app.route("/checkout-order", methods=['GET', 'POST'])
 def payment_order():
@@ -268,12 +269,15 @@ def view_blog():
         countCart = None
     return render_template('blog.html', countCart=countCart, user=user)
 
+
 @app.route("/history-order", methods=['GET'])
 def view_history_order():
     if current_user.is_authenticated:
         user_id = int(current_user.user_id)
-        history_order= dao.get_orders_with_products(user_id)
+        history_order = dao.get_orders_with_products(user_id)
         return render_template('order-history.html', orders=history_order)
+
+
 # checkout--------------------------------------------
 @app.route('/checkout', methods=['POST', 'GET'])
 def checkout():
@@ -284,14 +288,14 @@ def checkout():
     total = request.form.get("total")
     l_cartId = request.form.getlist('cart_id')
     print(l_cartId)
-    l_address= dao.get_address_by_user_id(int(current_user.user_id))
-    return render_template('checkout.html',user=user, subtotal=subtotal, tax=tax, total=total, l_address=l_address, l_cartId=l_cartId)
+    l_address = dao.get_address_by_user_id(int(current_user.user_id))
+    return render_template('checkout.html', user=user, subtotal=subtotal, tax=tax, total=total, l_address=l_address,
+                           l_cartId=l_cartId)
 
 
 @app.route('/confirm-checkout', methods=["POST"])
 def confirm_checkout():
     try:
-
         data = request.get_json()
         customer_id = int(current_user.user_id)
         address_id = data.get('address_id')
@@ -311,18 +315,20 @@ def confirm_checkout():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"error": "An error occurred"}), 500
+
+
 @app.route("/success-order", methods=['GET'])
 def success_order():
     user_id = int(current_user.user_id)
     user = dao.get_inf_user(user_id)
     return render_template("success-checkout.html", user=user)
 
+
 @app.route("/employee", methods=['GET'])
 def view_home_employee():
     user_id = int(current_user.user_id)
     user = dao.get_inf_user(user_id)
     return render_template("employee-home.html", user=user)
-
 
 
 @app.route("/employee/profile", methods=['GET'])
@@ -336,15 +342,15 @@ def view_employee_profile():
         return redirect(url_for('show_login'))
 
 
-@app.route("/employee/help-customer", methods=['GET'])
+@app.route("/employee/help-customer", methods=['GET', 'POST'])
 def view_customercare():
     if current_user.is_authenticated:
         user_id = int(current_user.user_id)
         user = dao.get_inf_user(user_id)
-        return render_template('customer-care.html', user=user)
+        accountId = dao.get_account_customer()
+        return render_template('customer-care.html', user=user, accounts=accountId)
     else:
         return redirect(url_for('show_login'))
-
 
 
 @app.route("/employee/order-manager", methods=['GET'])
@@ -362,14 +368,17 @@ def confirm_order():
     dao.chang_active_order(order_id)
     return redirect(url_for('view_order_manager'))
 
-@app.route("/remove-order", methods=['POST','GET'])
+
+@app.route("/remove-order", methods=['POST', 'GET'])
 def remove_order():
-    order_id= request.args.get('order_id')
+    order_id = request.args.get('order_id')
     result = dao.delete_order(order_id)
     if result:
         return redirect(url_for('view_order_manager'))
     else:
         return redirect(url_for('view_order_manager'))
+
+
 @app.route("/employee/confirm-order-list", methods=['GET'])
 def confirm_order_list():
     list_id = request.args.get('list_id', '')
@@ -397,9 +406,7 @@ def view_payment():
     user_id = int(current_user.user_id)
     user = dao.get_inf_user(user_id)
     products = dao.get_all_products()
-    return render_template("payment.html", products=products,user=user)
-
-
+    return render_template("payment.html", products=products, user=user)
 
 
 @app.route("/employee/confirm-payment", methods=['POST', 'GET'])
@@ -415,25 +422,106 @@ def confirm_payment():
     else:
         employee_id = 2
 
-
     dao.create_order(name=hoten, ngaySinh=ngaySinh, diaChi=diaChi, phone=phone, l_soLuong=quantities,
                      l_productId=product_ids, employee_id=employee_id)
     return redirect(url_for('view_order_manager'))
-#Invoice-----------------------------------------------------
+
+
+# Invoice-----------------------------------------------------
 @app.route("/employee/invoice")
 def view_invoice():
     if current_user.is_authenticated:
         user_id = int(current_user.user_id)
         user = dao.get_inf_user(user_id)
-        currentDate=  datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-        order_id= request.args.get('order_id')
-        order=dao.get_order_confirm(order_id)
-        orderDetail= dao.get_order_detail(order_id)
-        return render_template('invoice.html', order= order, order_detail= orderDetail, currentDate=currentDate, user=user)
+        currentDate = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        order_id = request.args.get('order_id')
+        order = dao.get_order_confirm(order_id)
+        orderDetail = dao.get_order_detail(order_id)
+        return render_template('invoice.html', order=order, order_detail=orderDetail, currentDate=currentDate,
+                               user=user)
     else:
         return redirect(url_for('show_login'))
+
+
+# chatbox----------------------------------------------
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    data = request.get_json()
+    if current_user.users_role_id == UsersRole.CUSTOMER:
+        message = Messages(
+            buyer_id=data['buyer_id'],
+            content=data['content']
+        )
+    else:
+        message = Messages(
+            buyer_id=data['buyer_id'],
+            content=data['content'],
+            serder=True
+        )
+    db.session.add(message)
+    db.session.commit()
+    formatted_timestamp = message.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+    socketio.emit('new_message', {
+        'timestamp': formatted_timestamp,
+        'content': message.content,
+        'buyer_id': message.buyer_id,
+        'serder': message.serder
+    })
+    return jsonify({'status': 'success'}), 200
+
+
+@app.route('/get_messages/<int:buyer_id>', methods=['GET'])
+def get_messages(buyer_id):
+    messages = Messages.query.filter_by(buyer_id=buyer_id).all()
+    return jsonify([{
+        'serder': msg.serder,
+        'content': msg.content,
+        'buyer_id': msg.buyer_id,
+        'timestamp': msg.timestamp.strftime('%Y-%m-%d %H:%M:%S')  # Định dạng thời gian
+    } for msg in messages]), 200
+
+
+@app.route("/chat-box", methods=['GET', 'POST'])
+def chat_box():
+    if current_user.is_authenticated:
+        account_id = int(current_user.id)
+        user_id = int(current_user.user_id)
+        user = dao.get_inf_user(user_id)
+    return render_template('chatbox.html', account_id=account_id, user=user)
+
+
+@app.route("/add/address", methods=['POST', 'GET'])
+def create_address():
+    if current_user.is_authenticated:
+        user_id = int(current_user.user_id)
+        firstname = request.form.get('firstname')
+        lastname = request.form.get('lastname')
+        city = request.form.get('city')
+        address = request.form.get('address')
+        address_detail = request.form.get('addressDetail')
+        phone = request.form.get('phone')
+        if not firstname or not lastname or not address or not city or not phone:
+            return jsonify({'success': False, 'error': 'Please fill in all required fields.'}), 400
+        new_address = dao.create_address_customer(customer_id=user_id, name=f"{firstname} {lastname}", phone=phone,
+                                                  address=address, address_detail=address_detail)
+
+        if new_address:
+            return jsonify({
+                'success': True,
+                'new_address': {
+                    'id': new_address.id,
+                    'name': new_address.name,
+                    'phone': new_address.phone,
+                    'addressDetail': new_address.addressDetail
+                }
+            }), 201
+        else:
+            return jsonify({'success': False, 'error': 'Failed to create address.'}), 500
+    else:
+        return jsonify({'success': False, 'error': 'You need to log in first!'}), 401
+
 
 if __name__ == "__main__":
     from AppShop import admin
 
-    app.run(host='localhost', port=5001, debug=True)
+    socketio.run(app, host='localhost', port=5001, debug=True, allow_unsafe_werkzeug=True)

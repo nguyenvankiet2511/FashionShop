@@ -7,7 +7,7 @@ from flask import request, session, jsonify
 from google.oauth2 import id_token
 from AppShop import db, flow
 from AppShop.models import Categories, Products, Accounts, Users, Carts, Customers, Orders, Shippers, BillingAddress, \
-    OrderDetails
+    OrderDetails, UsersRole
 import hashlib, datetime
 
 
@@ -250,7 +250,8 @@ def get_order_details_with_info():
     )
     return results
 
-#Lấy thông tin order-invoice
+
+# Lấy thông tin order-invoice
 def get_order_confirm(order_id):
     billing_address_alias = aliased(BillingAddress)
 
@@ -272,10 +273,10 @@ def get_order_confirm(order_id):
         .outerjoin(billing_address_alias, Orders.billingAddress_id == billing_address_alias.id) \
         .filter(Orders.id == order_id) \
         .first()
-    return  order
+    return order
 
 
-#lấy orderdetail
+# lấy orderdetail
 def get_order_detail(order_id):
     order_details = db.session.query(
         OrderDetails.id,
@@ -285,8 +286,8 @@ def get_order_detail(order_id):
         OrderDetails.price,
         OrderDetails.discount
     ).join(Products, OrderDetails.product_id == Products.id) \
-     .filter(OrderDetails.order_id == order_id) \
-     .all()
+        .filter(OrderDetails.order_id == order_id) \
+        .all()
 
     if not order_details:
         return None
@@ -300,7 +301,7 @@ def chang_active_order(order_id):
 
     if order:
         order.active = not order.active
-        order.orderComfirm= datetime.now()
+        order.orderComfirm = datetime.now()
         db.session.commit()
         return f"Order {order_id} active status changed to {order.active}."
     else:
@@ -318,6 +319,7 @@ def chang_active_order_list(order_id):
         else:
             return f"Order {order_id} not found."
 
+
 def delete_order(order_id):
     db.session.query(OrderDetails).filter_by(order_id=order_id).delete()
     order = db.session.query(Orders).filter_by(id=order_id).first()
@@ -327,6 +329,7 @@ def delete_order(order_id):
         return True
     else:
         return False
+
 
 from decimal import Decimal
 from datetime import datetime
@@ -424,6 +427,8 @@ def get_orders_with_products(customer_id):
 
     # Trả về đơn hàng cùng với thông tin sản phẩm (bao gồm cả hình ảnh)
     return orders
+
+
 # Address--------------------------------------------------------------
 def get_address_by_user_id(user_id):
     return BillingAddress.query.filter(BillingAddress.customer_id == user_id).all()
@@ -440,18 +445,21 @@ def get_revenue_by_year(year):
     )
 
     return revenue or 0  # Trả về 0 nếu không có doanh thu nào
+
+
 def get_revenue_by_month_current(month, year):
     # Truy vấn để tính tổng doanh thu của các đơn hàng trong một năm cụ thể
 
     revenue = (
         db.session.query(func.sum(Orders.totalAmount).label("total_revenue"))
         .filter(extract('year', Orders.orderDate) == year)
-        .filter(extract('month', Orders.orderDate) == month)# Lọc các đơn hàng theo năm
+        .filter(extract('month', Orders.orderDate) == month)  # Lọc các đơn hàng theo năm
         .filter(Orders.active == True)  # Chỉ tính các đơn hàng đã được xác nhận
         .scalar()  # Trả về giá trị doanh thu
     )
 
     return revenue or 0  # Trả về 0 nếu không có doanh thu nào
+
 
 # số lượng mặt hàng đã bán
 def get_total_items_sold_by_year(year):
@@ -465,7 +473,8 @@ def get_total_items_sold_by_year(year):
 
     return total_quantity or 0
 
-def get_total_items_sold_by_month(month,year):
+
+def get_total_items_sold_by_month(month, year):
     total_quantity = (
         db.session.query(func.sum(OrderDetails.quantity).label("total_items_sold"))
         .join(Orders, Orders.id == OrderDetails.order_id)
@@ -476,6 +485,7 @@ def get_total_items_sold_by_month(month,year):
     )
 
     return total_quantity or 0
+
 
 # doanh thu theo quý
 def get_revenue_by_quarter(year):
@@ -499,7 +509,8 @@ def get_revenue_by_quarter(year):
         result.append(query if query else 0)
     return result
 
-#daoanh thu 4 nam
+
+# daoanh thu 4 nam
 def get_revenue_last_3_years():
     # Lấy năm hiện tại
     current_year = datetime.now().year
@@ -517,7 +528,8 @@ def get_revenue_last_3_years():
         .filter(Orders.active == True)  # Chỉ tính các đơn hàng đã xác nhận
         .filter(extract('year', Orders.orderDate).in_(years))  # Lọc theo các năm gần nhất
         .group_by(extract('year', Orders.orderDate), extract('quarter', Orders.orderDate))
-        .order_by(extract('year', Orders.orderDate).desc(), extract('quarter', Orders.orderDate))  # Sắp xếp theo năm và quý
+        .order_by(extract('year', Orders.orderDate).desc(),
+                  extract('quarter', Orders.orderDate))  # Sắp xếp theo năm và quý
         .all()
     )
 
@@ -527,6 +539,7 @@ def get_revenue_last_3_years():
         result[year][quarter] = total_revenue
 
     return result
+
 
 def get_best_selling_product_by_year(year):
     # Truy vấn để lấy tên sản phẩm và tổng số lượng đã bán trong một năm
@@ -546,8 +559,7 @@ def get_best_selling_product_by_year(year):
     return best_selling_product
 
 
-def get_best_selling_product_month(month,year):
-
+def get_best_selling_product_month(month, year):
     # Truy vấn để lấy tên sản phẩm và tổng số lượng đã bán trong một năm
     best_selling_product = (
         db.session.query(
@@ -557,20 +569,24 @@ def get_best_selling_product_month(month,year):
         .join(OrderDetails, OrderDetails.product_id == Products.id)
         .join(Orders, Orders.id == OrderDetails.order_id)  # Kết hợp với bảng Orders để lấy ngày đặt hàng
         .filter(extract('year', Orders.orderDate) == year)
-        .filter(extract('month', Orders.orderDate) == month)# Lọc theo năm
+        .filter(extract('month', Orders.orderDate) == month)  # Lọc theo năm
         .group_by(Products.name)  # Nhóm theo tên sản phẩm
         .order_by(func.sum(OrderDetails.quantity).desc())  # Sắp xếp theo tổng số lượng bán
         .first()  # Lấy sản phẩm bán chạy nhất
     )
 
     return best_selling_product
+
+
 from sqlalchemy import func
+
 
 def doanh_thu_san_pham_theo_thang_nam(thang, nam):
     doanh_thu = (
         db.session.query(
             Products.name,
-            func.sum((OrderDetails.quantity * OrderDetails.price) * (1 - OrderDetails.discount / 100)).label('doanh_thu'),
+            func.sum((OrderDetails.quantity * OrderDetails.price) * (1 - OrderDetails.discount / 100)).label(
+                'doanh_thu'),
             func.sum(OrderDetails.quantity).label('luot_mua')
         )
         .join(OrderDetails, OrderDetails.product_id == Products.id)
@@ -583,9 +599,11 @@ def doanh_thu_san_pham_theo_thang_nam(thang, nam):
 
     return doanh_thu
 
+
 def tong_ton_kho():
     tong_kho = db.session.query(func.sum(Products.unitsInStock)).scalar()  # Sử dụng scalar() để lấy giá trị đơn
     return tong_kho
+
 
 def tong_so_luong_mua_theo_danh_muc(thang, nam):
     # Truy vấn số lượng mua theo danh mục
@@ -619,6 +637,8 @@ def tong_so_luong_mua_theo_danh_muc(thang, nam):
         })
 
     return ket_qua
+
+
 def doanh_thu_theo_danh_muc(thang, nam):
     # Truy vấn doanh thu theo danh mục
     doanh_thu = (
@@ -652,3 +672,19 @@ def doanh_thu_theo_danh_muc(thang, nam):
 
     return ket_qua
 
+
+def get_account_customer():
+    return Accounts.query.filter_by(users_role_id=UsersRole.CUSTOMER).all()
+
+
+def create_address_customer(customer_id, name, phone, address, address_detail):
+    new_address = BillingAddress(
+        name=name,
+        phone=phone,
+        address=address,
+        addressDetail=address_detail,
+        customer_id=customer_id
+    )
+    db.session.add(new_address)
+    db.session.commit()
+    return  new_address

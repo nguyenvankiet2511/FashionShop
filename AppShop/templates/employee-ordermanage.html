@@ -19,7 +19,7 @@
 <div class="wrapper-container">
     <nav id="sidebar">
         <div class="sidebar-content">
-           <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
+            <a class="sidebar-brand" href="{{url_for('view_home_employee')}}">
                 <span>Nhân viên bán hàng</span>
             </a>
             <ul class="sidebar-nav">
@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                   <a class="sidebar-link" href="{{url_for('view_payment')}}">
+                    <a class="sidebar-link" href="{{url_for('view_payment')}}">
                         <i class="fa-solid fa-credit-card"></i> <span>Thanh Toán</span>
                     </a>
                 </li>
@@ -150,10 +150,10 @@
                                 </td>
                                 <td>
                                     <a href="{{url_for('remove_order', order_id= order.id)}}">
-                                    <button class="btn btn-danger btn-xs " data-id="{{order.id}}">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                        </a>
+                                        <button class="btn btn-danger btn-xs " data-id="{{order.id}}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </a>
                                 </td>
                                 <td>
                                     <button class="btn btn-warning btn-xs " data-id="{{order.id}}">
@@ -183,7 +183,7 @@
         <div class="container-order1">
             <div class="row">
                 <div class="col-md-12 customer-with">
-                  <h2>Đơn Hàng Đã Xác Nhận</h2>
+                    <h2>Đơn Hàng Đã Xác Nhận</h2>
                     <div class="search-container-order">
                         <input type="text" id="searchInput2" class="form-control" placeholder="Tìm kiếm..."
                                onkeyup="searchTable('mytable2')">
@@ -195,7 +195,7 @@
                                 <th>Mã Đơn Hàng</th>
                                 <th>Khách Hàng</th>
                                 <th>Nhân Viên</th>
-                                <th>Địa Chỉ</th>
+                                <th>Địa Chỉ Nhận Hàng</th>
                                 <th>Phương Thức Thanh Toán</th>
                                 <th>Tổng Số Tiền</th>
                                 <th>Ngày Đặt Hàng</th>
@@ -209,12 +209,19 @@
                                 <td>{{orderConfirm.id}}</td>
                                 <td>{{orderConfirm.user_name}}</td>
                                 <td>XXX</td>
-                                <td>{{orderConfirm.billing_address}}</td>
+                                <td>
+                                    {% if orderConfirm.billing_address %}
+                                    {{ orderConfirm.billing_address }}
+                                    {% else %}
+                                    Đơn hàng trực tiếp
+                                    {% endif %}
+                                </td>
 
                                 <td>{{orderConfirm.paymentMethods}}</td>
                                 <td>{{orderConfirm.totalAmount}}</td>
                                 <td>{{orderConfirm.orderDate}}</td>
-                                <td> <a href="{{url_for('view_invoice', order_id=orderConfirm.id)}}"><i class="fas fa-file-invoice icon-invoice"></i> Hóa đơn </a></td>
+                                <td><a href="{{url_for('view_invoice', order_id=orderConfirm.id)}}"><i
+                                        class="fas fa-file-invoice icon-invoice"></i> Hóa đơn </a></td>
                             </tr>
                             {% endfor %}
 
@@ -228,16 +235,16 @@
 
     </div>
     <footer class="footer">
-    <div class="container-footer">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <p>DataTables là một dữ liệu bên thứ ba được sử dụng để tạo bảng demo bên dưới. Để biết thêm thông tin về DataTables, <a href="home.html" target="_blank">Dữ liệu</a>.</p>
-                <p>Cửa Hàng Cosmic 2024</p>
+        <div class="container-footer">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>DataTables là một dữ liệu bên thứ ba được sử dụng để tạo bảng demo bên dưới. Để biết thêm thông
+                        tin về DataTables, <a href="home.html" target="_blank">Dữ liệu</a>.</p>
+                    <p>Cửa Hàng Cosmic 2024</p>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
-
+    </footer>
 
 
 </div>

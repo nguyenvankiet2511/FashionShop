@@ -1,5 +1,5 @@
 from AppShop import app, dao, login, flow, socketio
-from AppShop.models import UsersRole, Accounts, Users, Products, Customers, Messages
+from AppShop.models import UsersRole, Accounts, Users, Products, Customers, Messages, FeedbackProduct
 from flask import render_template, session, flash, jsonify, redirect, request, url_for
 from flask_login import login_user, current_user, logout_user
 from AppShop.admin import *
@@ -208,6 +208,20 @@ def view_categories():
 
 
 # Product--------------------------------------->
+
+@app.route('/search')
+def search():
+    q = request.args.get('q')
+    if q:
+        products = Products.query.filter(Products.name.ilike(f'%{q}%')).all()
+    else:
+        products = Products.query.all()
+
+    categories = Categories.query.all()
+
+    return render_template('categories.html', products=products, categories=categories)
+
+
 @app.route("/products", methods=["GET"])
 def view_product_detail():
     if current_user.is_authenticated:
@@ -219,10 +233,12 @@ def view_product_detail():
         countCart = None
     product_id = request.args.get('product_id')
     product = dao.get_product(product_id)
+    lFeedback = dao.get_product_feedback(product_id)
     category_id = product.category_id
     category = dao.get_category(category_id)
     productsNeight = dao.get_products_by_category(category_id, 8)
-    return render_template('detail-product.html', user=user, countCart=countCart, product=product, category=category,
+    return render_template('detail-product.html', lFeedback=lFeedback, user=user, countCart=countCart, product=product,
+                           category=category,
                            productsNeight=productsNeight)
 
 
@@ -235,6 +251,27 @@ def view_products_by_category(category_id):
 
     return render_template('products_list.html', products=products)
 
+
+@app.route('/submit_review', methods=['POST'])
+def submit_review():
+    if request.method == 'POST':
+        product_id = request.form.get('product_id')
+        rating = request.form.get('rating')
+        comment = request.form.get('message')
+        if current_user.is_authenticated:
+            new_feedback = FeedbackProduct(
+                product_id=product_id,
+                user_id=current_user.id,
+                rating=rating,
+                comment=comment
+            )
+            db.session.add(new_feedback)
+            db.session.commit()
+            flash('Đánh giá của bạn đã được gửi!', 'success')
+            return redirect(url_for('view_product_detail', product_id=product_id))
+        else:
+            flash('Bạn cần đăng nhập để gửi đánh giá.', 'error')
+    return redirect(url_for('view_product_detail', product_id=product_id))
 
 @app.route("/user/account/profile", methods=['GET', 'POST'])
 def view_profile():
@@ -277,7 +314,7 @@ def view_history_order():
         user = dao.get_inf_user(user_id)
         history_order = dao.get_orders_with_products(user_id)
         countCart = dao.get_count_cart(user_id)
-        return render_template('order-history.html', orders=history_order,user=user,countCart=countCart)
+        return render_template('order-history.html', orders=history_order, user=user, countCart=countCart)
 
 
 # checkout--------------------------------------------

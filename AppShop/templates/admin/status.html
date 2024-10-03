@@ -36,9 +36,9 @@
 <div class="dashboard-main-wrapper">
     <nav class="navbar">
 
-        <h1 class="navbar-title" style="color:#fff;">Quản Trị NWA</h1>
+        <h1 class="navbar-title" style="color:#fff;">Cosmic Store</h1>
         <ul class="navbar-list">
-            <li class="navbar-item"><a href="#home">Home</a></li>
+            <li class="navbar-item"><a href="{{ url_for('admin.index') }}">Home</a></li>
             <li class="navbar-item"><a href="{{ url_for('categories.index_view') }}">Danh mục</a></li>
             <li class="navbar-item"><a href="{{ url_for('products.index_view') }}">Sản phẩm</a></li>
             <li class="navbar-item"><a href="{{ url_for('statusview.index') }}">Thống kê</a></li>

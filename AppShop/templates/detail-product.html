@@ -73,28 +73,28 @@
                                 </li>
                                 <li class="account">
                                     <a href="#">
-                                       Tài Khoản Của Tôi
-                                       <i class="fa fa-angle-down"></i>
-                                   </a>
-                                   {% if user is none %}
-                                   <ul class="account_selection">
-                                       <li><a href="{{url_for('show_login')}}"><i class="fa fa-sign-in"
-                                                                                  aria-hidden="true"></i>Đăng Nhập</a>
-                                       </li>
-                                       <li><a href="{{url_for('show_login')}}"><i class="fa fa-user-plus"
-                                                                                  aria-hidden="true"></i>Đăng Ký</a>
-                                       </li>
-                                   </ul>
-                                   {% else %}
-                                   <ul class="account_selection">
-                                       <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
-                                                                                    aria-hidden="true"></i>Hồ Sơ</a>
-                                       </li>
-                                       <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus"
-                                                                                   aria-hidden="true"></i>Đăng Xuất</a>
-                                       </li>
-                                   </ul>
-                                   {% endif %}
+                                        Tài Khoản Của Tôi
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    {% if user is none %}
+                                    <ul class="account_selection">
+                                        <li><a href="{{url_for('show_login')}}"><i class="fa fa-sign-in"
+                                                                                   aria-hidden="true"></i>Đăng Nhập</a>
+                                        </li>
+                                        <li><a href="{{url_for('show_login')}}"><i class="fa fa-user-plus"
+                                                                                   aria-hidden="true"></i>Đăng Ký</a>
+                                        </li>
+                                    </ul>
+                                    {% else %}
+                                    <ul class="account_selection">
+                                        <li><a href="{{url_for('view_profile')}}"><i class="fa fa-sign-in"
+                                                                                     aria-hidden="true"></i>Hồ Sơ</a>
+                                        </li>
+                                        <li><a href="{{url_for('user_logout')}}"><i class="fa fa-user-plus"
+                                                                                    aria-hidden="true"></i>Đăng Xuất</a>
+                                        </li>
+                                    </ul>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </div>
@@ -116,8 +116,8 @@
                             <ul class="navbar_menu">
                                 <li><a href="{{url_for('home')}}">home</a></li>
                                 <li><a href="{{url_for('view_categories')}}">shop</a></li>
-                               <li><a href="{{url_for('chat_box')}}">Chat</a></li>
-                            <li><a href="{{url_for('view_history_order')}}">History</a></li>
+                                <li><a href="{{url_for('chat_box')}}">Chat</a></li>
+                                <li><a href="{{url_for('view_history_order')}}">History</a></li>
                                 <li><a href="{{url_for('view_blog')}}">blog</a></li>
                                 <li><a href="{{url_for('view_contact')}}">contact</a></li>
                             </ul>
@@ -219,8 +219,8 @@
                 </li>
                 <li class="menu_item"><a href="{{url_for('home')}}">home</a></li>
                 <li class="menu_item"><a href="{{url_for('view_categories')}}">shop</a></li>
-                 <li><a href="{{url_for('chat_box')}}">Chat</a></li>
-                            <li><a href="{{url_for('view_history_order')}}">History</a></li>
+                <li><a href="{{url_for('chat_box')}}">Chat</a></li>
+                <li><a href="{{url_for('view_history_order')}}">History</a></li>
                 <li class="menu_item"><a href="{{url_for('view_blog')}}">blog</a></li>
                 <li class="menu_item"><a href="{{url_for('view_contact')}}">contact</a></li>
             </ul>
@@ -388,221 +388,230 @@
                             <h4>Các bài đánh giá(2)</h4>
                         </div>
 
+                        {% for feedback in lFeedback %}
                         <div class="user_review_container d-flex flex-column flex-sm-row">
                             <div class="user">
-                                <div class="user_pic"></div>
+                                <div class="user_pic"  style="  background-image: url('{{ url_for('static', filename='images/'+ feedback.user_photo) }}');"></div>
+                                <!-- Hiển thị ảnh người dùng -->
                                 <div class="user_rating">
                                     <ul class="star_rating">
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                        {% for star in range(1, 6) %}
+                                        {% if star <= feedback.rating %}
+                                        <li><i class="fa fa-star" aria-hidden="true"></i></li> <!-- Hiển thị sao đầy -->
+                                        {% else %}
                                         <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                                        <!-- Hiển thị sao rỗng -->
+                                        {% endif %}
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
                             <div class="review">
-                                <div class="review_date">27 Aug 2016</div>
-                                <div class="user_name">Quang Trường</div>
-                                <p>Tốt</p>
+                                <div class="review_date">{{feedback.createDate}}</div>
+
+                                <div class="user_name">{{ feedback.user_name }}</div>
+                                <p>{{ feedback.comment }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div class="col-lg-6 add_review_col">
+                            <div class="add_review">
+                                <form id="review_form" action="{{ url_for('submit_review') }}" method="post">
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="rating" id="rating" value="0">
+                                    <div>
+                                        <h1>Đánh giá</h1>
+                                        <ul class="user_star_rating">
+                                            {% for star in range(1, 6) %}
+                                            <li data-value="{{ star }}" class="star"><i class="fa fa-star"
+                                                                                        aria-hidden="true"></i></li>
+                                            {% endfor %}
+                                        </ul>
+                                        <textarea id="review_message" class="input_review" name="message"
+                                                  placeholder="Đánh giá của bạn..." rows="4" required
+                                                  data-error="Please, leave us a review."></textarea>
+                                    </div>
+                                    <div class="text-left text-sm-right">
+                                        <button id="review_submit" type="submit"
+                                                class="red_button review_submit_btn trans_300">Submit
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
-                        <div class="user_review_container d-flex flex-column flex-sm-row">
-                            <div class="user">
-                                <div class="user_pic"></div>
-                                <div class="user_rating">
-                                    <ul class="star_rating">
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                    </ul>
+
+                        <!--Product -->
+                        <div class="row product_single">
+                            <div class="col">
+                                <div class="Product_hide">
+                                    <h1>Các sản phẩm nổi bật</h1>
                                 </div>
-                            </div>
-                            <div class="review">
-                                <div class="review_date">27 Aug 2016</div>
-                                <div class="user_name">Văn Kiệt</div>
-                                <p>Sản phẩm này khá tốt</p>
+                                <div class="product-grid">
+
+                                    <!-- Product 1 -->
+                                    {% for productNeight in productsNeight %}
+                                    <a href="{{ url_for('view_product_detail', product_id=  productNeight.id) }}">
+
+                                        <div class="product-item men">
+                                            <div class="product discount product_filter">
+                                                <div class="product_image">
+                                                    <img src="{{ url_for('static', filename='images/' + productNeight.imageProduct) }}"
+                                                         alt="">
+
+                                                </div>
+                                                <div class="favorite favorite_left"></div>
+                                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+                                                    <span>-{{productNeight.discount}} %</span></div>
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a>{{productNeight.name}}</a></h6>
+                                                    <div class="product_price">{{productNeight.price}} VND<span>{{ productNeight.price - productNeight.price * productNeight.discount / 100 }} VND</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="red_button add_to_cart_button1"><a
+                                                    onclick="addToCart({{productNeight.id}})">add to cart</a></div>
+                                        </div>
+                                    </a>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-lg-6 add_review_col">
-                        <div class="add_review">
-                            <form id="review_form" action="post">
 
-                                <div>
-                                    <h1>Đánh giá </h1>
-                                    <ul class="user_star_rating">
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-                                    </ul>
-                                    <textarea id="review_message" class="input_review" name="message"
-                                              placeholder="Đánh giá của bạn..." rows="4" required
-                                              data-error="Please, leave us a review."></textarea>
-                                </div>
-                                <div class="text-left text-sm-right">
-                                    <button id="review_submit" type="submit"
-                                            class="red_button review_submit_btn trans_300" value="Submit">submit
+            </div>
+            <!-- Newsletter -->
+            <div class="newsletter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+                                <h4>Bản Tin</h4>
+                                <p>Đăng ký nhận bản tin chúng tôi được giảm 20% lần mua đầu tiên</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="post">
+                                <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+                                    <input id="newsletter_email" type="email" placeholder="Email của bạn"
+                                           required="required"
+                                           data-error="Yêu cầu email hợp lệ.">
+                                    <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300"
+                                            value="Submit">đăng ký
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-
-
-                <!--Product -->
-                <div class="row product_single">
-                    <div class="col">
-                        <div class="Product_hide">
-                            <h1>Các sản phẩm nổi bật</h1>
+            </div>
+            <!-- Footer -->
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="footer__about">
+                                <p>Chúng tôi ưu tiên tạo ra trải nghiệm mua sắm cá nhân hóa cho từng khách hàng, đảm bảo
+                                    rằng
+                                    mỗi
+                                    lần ghé thăm đều cảm thấy độc đáo và đặc biệt.</p>
+                                <i>Địa chỉ: <a href="index.html">shoppingnow@gmail.com</a></i>
+                                <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
+                                                 alt="Phương thức thanh toán"></a>
+                            </div>
                         </div>
-                        <div class="product-grid">
-
-                            <!-- Product 1 -->
-                            {% for productNeight in productsNeight %}
-                            <a href="{{ url_for('view_product_detail', product_id=  productNeight.id) }}">
-
-                                <div class="product-item men">
-                                    <div class="product discount product_filter">
-                                        <div class="product_image">
-                                            <img src="{{ url_for('static', filename='images/' + productNeight.imageProduct) }}"
-                                                 alt="">
-
-                                        </div>
-                                        <div class="favorite favorite_left"></div>
-                                        <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-                                            <span>-{{productNeight.discount}} %</span></div>
-                                        <div class="product_info">
-                                            <h6 class="product_name"><a>{{productNeight.name}}</a></h6>
-                                            <div class="product_price">{{productNeight.price}} VND<span>{{ productNeight.price - productNeight.price * productNeight.discount / 100 }} VND</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="red_button add_to_cart_button1"><a
-                                            onclick="addToCart({{productNeight.id}})">add to cart</a></div>
+                        <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                            <div class="footer__widget">
+                                <h6>Mua sắm</h6>
+                                <ul>
+                                    <li><a href="#">Cửa hàng quần áo</a></li>
+                                    <li><a href="#">Giày dép thịnh hành</a></li>
+                                    <li><a href="#">Phụ kiện</a></li>
+                                    <li><a href="#">Khuyến mãi</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-3 col-sm-6">
+                            <div class="footer__widget">
+                                <h6>Dịch vụ khách hàng</h6>
+                                <ul>
+                                    <li><a href="#">Liên hệ chúng tôi</a></li>
+                                    <li><a href="#">Phương thức thanh toán</a></li>
+                                    <li><a href="#">Giao hàng</a></li>
+                                    <li><a href="#">Đổi trả hàng</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                            <div class="footer__widget">
+                                <h6>Bản tin</h6>
+                                <div class="footer__newslatter">
+                                    <p>Hãy là người đầu tiên biết về sản phẩm mới, bộ sưu tập, giảm giá & chương trình
+                                        khuyến
+                                        mãi!</p>
                                 </div>
-                            </a>
-                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <div class="footer__copyright__text">
+                                <p>Chào mừng bạn đến với trang mua sắm của chúng tôi
+                                    <script>
+                                        document.write(new Date().getFullYear());
+                                    </script>
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i> bởi <a href="index.html"
+                                                                                            target="_blank">Cosmic
+                                        Store</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-
-    </div>
-    <!-- Newsletter -->
-<div class="newsletter">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
-                    <h4>Bản Tin</h4>
-                    <p>Đăng ký nhận bản tin chúng tôi được giảm 20% lần mua đầu tiên</p>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <form action="post">
-                    <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
-                        <input id="newsletter_email" type="email" placeholder="Email của bạn" required="required"
-                               data-error="Yêu cầu email hợp lệ.">
-                        <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300"
-                                value="Submit">đăng ký
-                        </button>
-                    </div>
-                </form>
-            </div>
+            </footer>
         </div>
     </div>
 </div>
-<!-- Footer -->
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer__about">
-                    <p>Chúng tôi ưu tiên tạo ra trải nghiệm mua sắm cá nhân hóa cho từng khách hàng, đảm bảo rằng mỗi
-                        lần ghé thăm đều cảm thấy độc đáo và đặc biệt.</p>
-                    <i>Địa chỉ: <a href="index.html">shoppingnow@gmail.com</a></i>
-                    <a href="#"><img src="{{ url_for('static', filename='images/icons/payment.png') }}"
-                                     alt="Phương thức thanh toán"></a>
-                </div>
-            </div>
-            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
-                <div class="footer__widget">
-                    <h6>Mua sắm</h6>
-                    <ul>
-                        <li><a href="#">Cửa hàng quần áo</a></li>
-                        <li><a href="#">Giày dép thịnh hành</a></li>
-                        <li><a href="#">Phụ kiện</a></li>
-                        <li><a href="#">Khuyến mãi</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-6">
-                <div class="footer__widget">
-                    <h6>Dịch vụ khách hàng</h6>
-                    <ul>
-                        <li><a href="#">Liên hệ chúng tôi</a></li>
-                        <li><a href="#">Phương thức thanh toán</a></li>
-                        <li><a href="#">Giao hàng</a></li>
-                        <li><a href="#">Đổi trả hàng</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
-                <div class="footer__widget">
-                    <h6>Bản tin</h6>
-                    <div class="footer__newslatter">
-                        <p>Hãy là người đầu tiên biết về sản phẩm mới, bộ sưu tập, giảm giá & chương trình khuyến
-                            mãi!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="footer__copyright__text">
-                    <p>Chào mừng bạn đến với trang mua sắm của chúng tôi
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        <i class="fa fa-heart-o" aria-hidden="true"></i> bởi <a href="index.html" target="_blank">Cosmic
-                            Store</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-    <!-- Footer Section End -->
+<!-- Footer Section End -->
 
 
-    <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='css/bootstrap4/popper.js') }}"></script>
-    <script src="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/Isotope/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/easing/easing.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/products.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/categories_custom.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/single_custom.js') }}"></script>
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <df-messenger
-            intent="WELCOME"
-            chat-title="CosmicStore"
-            agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
-            language-code="vi"
-    ></df-messenger>
+<script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='css/bootstrap4/popper.js') }}"></script>
+<script src="{{ url_for('static', filename='css/bootstrap4/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/Isotope/isotope.pkgd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/easing/easing.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/products.js') }}"></script>
+<script src="{{ url_for('static', filename='js/categories_custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/single_custom.js') }}"></script>
+<script>
+    // JavaScript để cập nhật đánh giá sao
+    const stars = document.querySelectorAll('.user_star_rating .star');
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            const ratingValue = this.getAttribute('data-value');
+            document.getElementById('rating').value = ratingValue; // Cập nhật giá trị đánh giá
+            stars.forEach(s => {
+                s.classList.remove('selected');
+                if (s.getAttribute('data-value') <= ratingValue) {
+                    s.classList.add('selected'); // Thêm lớp selected cho sao đầy
+                }
+            });
+        });
+    });
+</script>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+        intent="WELCOME"
+        chat-title="CosmicStore"
+        agent-id="882ca08b-e5e4-4a0b-92cb-711591fb8ccf"
+        language-code="vi"
+></df-messenger>
 </body>
 
 </html>

@@ -7,8 +7,9 @@ from flask import request, session, jsonify
 from google.oauth2 import id_token
 from AppShop import db, flow
 from AppShop.models import Categories, Products, Accounts, Users, Carts, Customers, Orders, Shippers, BillingAddress, \
-    OrderDetails, UsersRole
+    OrderDetails, UsersRole, FeedbackProduct
 import hashlib, datetime
+from datetime import datetime, timedelta
 
 
 def get_user_oauth():
@@ -80,6 +81,23 @@ def get_price_product(product_id):
         discounted_price = product.price * (1 - product.discount / 100)
         return discounted_price
     return 0
+
+
+# FeedBackProduct---------------------------------->
+
+def get_product_feedback(product_id):
+    return db.session.query(
+        FeedbackProduct.id.label('feedback_id'),
+        FeedbackProduct.product_id.label('product_id'),
+        FeedbackProduct.rating.label('rating'),
+        FeedbackProduct.comment.label('comment'),
+        FeedbackProduct.createDate.label('createDate'),
+        Accounts.name.label('user_name'),
+        Users.photoPath.label('user_photo')
+    ).join(Accounts, FeedbackProduct.user_id == Accounts.id) \
+        .join(Users, Accounts.user_id == Users.id) \
+        .filter(FeedbackProduct.product_id == product_id) \
+    .all()
 
 
 # Carts-------------------------------------------->
@@ -230,6 +248,10 @@ def get_orders_by_id(order_id):
 
 
 def get_order_details_with_info():
+    # Lấy ngày hiện tại và 3 ngày sau
+    today = datetime.today().date()
+    three_days_later = today - timedelta(days=3)
+
     # Truy vấn để lấy các thuộc tính cần thiết từ các bảng liên quan
     results = (
         db.session.query(
@@ -246,8 +268,10 @@ def get_order_details_with_info():
         .join(Orders, Orders.id == OrderDetails.order_id)
         .join(Customers, Customers.id == Orders.customer_id)
         .join(Users, Users.id == Customers.id)
+        .filter(func.date(Orders.orderDate).between( three_days_later,today))  # Lọc các đơn hàng trong 3 ngày tới
         .all()
     )
+
     return results
 
 
@@ -687,4 +711,4 @@ def create_address_customer(customer_id, name, phone, address, address_detail):
     )
     db.session.add(new_address)
     db.session.commit()
-    return  new_address
+    return new_address

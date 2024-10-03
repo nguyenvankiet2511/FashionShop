@@ -26,14 +26,15 @@
 
                         </li>
                         <li>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control input-text" placeholder="Search products...."
-                                       aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <form action="/search" method="GET" class="input-group mb-3">
+                                <input type="text" name="q" class="form-control input-text" value=""
+                                       placeholder="Tìm sản phẩm...."
+                                       aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-warning btn-lg" type="button"><i
+                                    <button class="btn btn-outline-warning btn-lg" type="submit"><i
                                             class="fa fa-search"></i></button>
                                 </div>
-                            </div>
+                            </form>
                         </li>
                     </ul>
 

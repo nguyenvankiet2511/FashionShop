@@ -102,8 +102,6 @@ document.getElementById('search-icon').addEventListener('click', function() {
 });
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('review_form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Ngăn chặn gửi form theo cách mặc định
-
         // Lấy dữ liệu từ các trường trong form
         var name = document.getElementById('review_name').value;
         var email = document.getElementById('review_email').value;

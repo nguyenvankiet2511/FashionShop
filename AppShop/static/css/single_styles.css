@@ -1416,11 +1416,13 @@ section
 }
 
 .user_pic {
-    width: 50px;
-    height: 50px;
-    background-color: #ddd;
-    border-radius: 50%;
-    margin-right: 15px;
+    width: 50px; /* Đặt chiều rộng của khung ảnh (có thể thay đổi tùy ý) */
+    height: 50px; /* Đặt chiều cao của khung ảnh (có thể thay đổi tùy ý) */
+    background-size: cover; /* Đảm bảo hình ảnh lấp đầy khung mà vẫn giữ tỷ lệ */
+    background-position: center; /* Đặt hình ảnh ở giữa khung */
+    background-repeat: no-repeat; /* Không lặp lại hình ảnh nếu nhỏ hơn khung */
+    border-radius: 50%; /* Tạo hình tròn cho khung nếu cần (tùy chọn) */
+    overflow: hidden; /* Ẩn phần ảnh thừa nếu vượt ra ngoài khung */
 }
 
 .user_rating ul {
